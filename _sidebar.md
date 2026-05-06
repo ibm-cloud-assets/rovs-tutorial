@@ -7,6 +7,3 @@
 
 - Academy Labs
   - [:book: Handbook](handbook.md)
-
-- Appendixes
-  - [Command Lines](common/clis/clis.md)
