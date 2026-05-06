@@ -1,0 +1,832 @@
+# Contents {#contents .TOC-Heading}
+
+[Template and InstanceType Management
+[1](#template-and-instancetype-management)](#template-and-instancetype-management)
+
+[Introduction [1](#introduction)](#introduction)
+
+[Prepare for the lab [2](#prepare-for-the-lab)](#prepare-for-the-lab)
+
+[Clone and Customize a Template
+[2](#clone-and-customize-a-template)](#clone-and-customize-a-template)
+
+[Create a Windows VM Template
+[14](#create-a-windows-vm-template)](#create-a-windows-vm-template)
+
+[Introduction to Instance Types
+[33](#introduction-to-instance-types)](#introduction-to-instance-types)
+
+[Cleanup [36](#cleanup)](#cleanup)
+
+[Summary [37](#summary)](#summary)
+
+# Template and InstanceType Management
+
+Before you run through this script, the advice is to scroll through the
+deep dive presentations and recordings you can find in this github:
+
+- Introduction to ROKS-ROVE
+
+- Deeper Dive Compute
+
+- Deeper Dive Storage
+
+- Deeper Dive Networking
+
+- Deeper Dive Backup
+
+- Deeper Dive DR
+
+- Deeper Dive Observability
+
+Note: deep dives created and presented by Neil Taylor and Sami Kuronen
+
+## Introduction
+
+Pre-configured Red Hat virtual machine templates are listed
+under Virtualization on the Templates page. These templates are
+available for different versions of Red Hat Enterprise Linux, Fedora,
+CentOS, Microsoft Windows Desktop, and Microsoft Windows Server
+editions. Each Red Hat associated virtual machine template is
+preconfigured with an operating system image (boot source), the default
+settings for the operating system, the flavor (CPU and memory), and the
+workload type (server). The templates for other operating systems do not
+include OS images, but are preconfigured as recommended for their
+operating system.
+
+The Templates page displays four types of virtual machine templates:
+
+- Red Hat Supported templates are fully supported by Red Hat.
+
+- User Supported templates are Red Hat Supported templates that were
+  cloned and created by users.
+
+- Red Hat Provided templates have limited support from Red Hat.
+
+- User Provided templates are Red Hat Provided templates that were
+  cloned and created by users.
+
+## Prepare for the lab
+
+1.  The tasks that we are about to perform will require us to provision
+    a few additional VMs. In preparation we are going to ask that you
+    shut down the existing fedora01 and fedora02 virtual machines to
+    ensure that your shared environment has enough resources to complete
+    the lab.
+
+2.  Navigate to Virtualization persona in the left-side menu and then
+    click on Virtualmachines.
+
+3.  The project assigned to "vm-your-name", that is hosting VM
+    workloads, will be listed in the center column treeview.
+
+4.  If any VMs are showing a status of Running, highlight the VM in the
+    center tree column, and select the Stop button or option from
+    the Actions dropdown menu..
+
+Now all VMs should be in Stopped state.
+
+![](images/template-image1.png){width="6.268055555555556in"
+height="2.178472222222222in"}
+
+## Clone and Customize a Template
+
+By default the pre-configured templates provided by Red Hat OpenShift
+Virtualization cannot be customized. However you can clone a template
+and make adjustments to it for your particular workload in order to make
+it easier to request specific types of virtual machines for specific
+workloads. In this section of the lab we are going to do just this, by
+creating a template that will provide a preconfigured database server on
+demand for our end users.
+
+1.  To begin, click on Templates in the left-side menu, and
+    select openshift for your project. You may need to toggle the Show
+    default projects button in order for the openshift project to
+    appear.
+
+![](images/template-image2.png){width="4.199464129483815in"
+height="5.400307305336833in"}
+
+![](images/template-image3.png){width="6.268055555555556in"
+height="3.876388888888889in"}
+
+2.  In the search bar type in centos9 and press Enter. In the list of
+    templates that appear find the template
+    for centos-stream9-server-small.
+
+![](images/template-image4.png){width="6.268055555555556in"
+height="2.595138888888889in"}
+
+3.  Click on the template name for centos-stream9-server-small, you will
+    be prompted with a message that default templates cannot be edited
+    and asked if you'd like to clone. Click the Create a new custom
+    Template option.
+
+![](images/template-image5.png){width="6.268055555555556in"
+height="5.528472222222222in"}
+
+4.  A new menu called Clone template will appear, fill in the following
+    values, and when finished click on the Clone button.
+
+    - Template name: centos-stream9-server-db-small
+
+    - Project: vmexamples-"your-name
+
+    - Template display name: CentOS Stream 9 VM - Database Template
+      Small
+
+    - Template provider: Roadshow user1
+
+![](images/template-image6.png){width="5.186825240594926in"
+height="5.010627734033246in"}
+
+This will take you to the Details page for the template where we will be
+able to customize some options. Start by finding the CPU and Memory near
+the bottom of the page, and click on the pencil icon to edit it.
+
+![](images/template-image7.png){width="6.10970363079615in"
+height="5.460553368328959in"}
+
+5.  A new window will pop out where you can edit the amount of CPU and
+    Memory. For our custom template set the value of CPUs to 2, and
+    Memory to 4 GiB, and click the Save button.
+
+![](images/template-image8.png){width="4.826454505686789in"
+height="2.9427482502187225in"}
+
+Next click on the Scripts tab at the top, and in the section
+called Cloud-init click the Edit button.
+
+![](images/template-image9.png){width="6.268055555555556in"
+height="6.285416666666666in"}
+
+When the Cloud-init dialog opens, click the radio button to Configure
+via: Script then replace the YAML with the following YAML snippet.
+
+userData: \|-
+
+#cloud-config
+
+user: centos
+
+password: \${CLOUD_USER_PASSWORD}
+
+chpasswd: { expire: False }
+
+packages:
+
+\- mariadb-server
+
+runcmd:
+
+\- systemctl enable mariadb
+
+\- systemctl start mariadb
+
+![](images/template-image10.png){width="4.938188976377953in"
+height="6.459234470691164in"}
+
+6.  Click the Save button, you will see a green Saved prompt, then
+    follow that by clicking the Apply button.
+
+7.  Now click on the Catalog item on the left-side menu, select
+    the Template catalog option, followed by User templates. You should
+    see your created template available as a tile.
+
+![](images/template-image11.png){width="6.268055555555556in"
+height="8.934722222222222in"}
+
+8.  Click on the tile and you will be prompted with the VM startup
+    screen. Click the Quick create VirtualMachine button.
+
+![](images/template-image12.png){width="6.268055555555556in"
+height="9.516666666666667in"}When the virtual machine boots you can see
+on the Overview page that it was created from our template, and has the
+additional resources we defined. We just need to verify that it
+installed MariaDB for us.
+
+![](images/template-image13.png){width="6.268055555555556in"
+height="3.595138888888889in"}
+
+9.  Click on the Console tab at the top and use the Guest login
+    credentials that are provided and the Copy and Paste to
+    console buttons to log into the console of the virtual machine.
+
+![](images/template-image14.png){width="6.268055555555556in"
+height="3.1430555555555557in"}
+
+10. Once you are logged into the virtual machine, run the following
+    command to test the install of MariaDB.
+
+sudo mysql -u root
+
+![](images/template-image15.png){width="6.268055555555556in"
+height="3.9256944444444444in"}
+
+11. Hit Ctrl-D twice to log out of the VM.
+
+## Create a Windows VM Template
+
+In this segment of our lab, we will install Microsoft Windows Server
+2019 using an ISO hosted on a web server. This represents one way to
+install an operating system to a virtual machine that takes advantage of
+the ability to source disks from many locations, including a web server,
+object storage, or other persistent volumes in the cluster.
+
+  -------------------------------------------------------------------------
+     The specific process for preparing the guest operating system to be
+     used as a template will vary, be sure to follow your organization's
+     guidelines and requirements when preparing a template OS.
+  -- ----------------------------------------------------------------------
+
+  -------------------------------------------------------------------------
+
+This process can be streamlined after the initial operating system
+installation by creating a cloned root disk from a sysprepped virtual
+machine to use with other templates.
+
+1.  From the left menu, navigate to Catalog, and click on the Template
+    catalog tab near the top and select your project "vm-your-name".
+
+2.  Type the word win in the search bar, or scroll down until you find
+    the Microsoft Windows Server 2019 VM tile.
+
+![](images/template-image16.png){width="6.268055555555556in"
+height="2.6131944444444444in"}
+
+  -------------------------------------------------------------------------
+     Notice that there is intially no option to quick create this VM
+     because there is no provided boot source. We must customize the VM to
+     fit our needs.
+  -- ----------------------------------------------------------------------
+
+  -------------------------------------------------------------------------
+
+3.  A dialog will appear showing the default configuration related to
+    the template.
+
+> ![](images/template-image17.png){width="5.633333333333334in"
+> height="9.693055555555556in"}
+
+4.  In this dialog:
+
+    - Specify the name win-sysprep
+
+    - Enable the checkbox Boot from CD
+
+    - Choose URL (creates PVC) from the drop-down menu
+
+    - Specify the image URL: 
+      <https://virtualization-demo-bucket.s3.eu-de.cloud-object-storage.appdomain.cloud/Windows2019.iso?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=2132816e7b4c4d07975c9224aa369c2f%2F20260505%2Feu-de%2Fs3%2Faws4_request&X-Amz-Date=20260505T132449Z&X-Amz-Expires=31536000&X-Amz-SignedHeaders=host&X-Amz-Signature=aab468482e4ed011a86e6018b4315998994dc2b05fab29b63628f22b58048f99>\
+      **Note: This URL is valid till 5-5-2027**
+
+    - Reduce the CD disk size to 6 GiB
+
+    - Keep the Disk source as Blank and the size set to the default
+      value 60 GiB
+
+    - Ensure the Mount Windows drivers disk checkbox is enabled. This is
+      required to install Windows systems, which will provide the
+      drivers for VirtIO.
+
+5.  With the options filled out, we want to click on the Customize
+    VirtualMachine button at the bottom to continue configuring our
+    Template.
+
+6.  On the Customize and create VirtualMachine screen, click on the edit
+    pencil by the Boot mode option.
+
+![](images/template-image18.png){width="5.843055555555556in"
+height="9.693055555555556in"}
+
+7.  When the Boot mode menu pops up, select the BIOS boot mode from the
+    drop-down menu and click the Save button.
+
+![19a Boot
+BIOS](images/template-image19.png){width="6.268055555555556in"
+height="4.009027777777778in"}
+
+8.  Now click on the Scripts tab, and then scroll down to
+    the Sysprep section and click on the Edit button.
+
+![20 Customize
+Scripts](images/template-image20.png){width="6.268055555555556in"
+height="7.143055555555556in"}
+
+9.  A new window will pop up for you to create Sysprep actions for your
+    new template.
+
+![21 Sysprep](images/template-image21.png){width="6.268055555555556in"
+height="5.94375in"}
+
+10. Copy and paste the following code block, which helps to automate the
+    installation and configuration of the Windows server into
+    the autounattend.xml section:
+
+> \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
+>
+> \<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"
+> xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\"
+> xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+> xsi:schemaLocation=\"urn:schemas-microsoft-com:unattend\"\>
+>
+> \<settings pass=\"windowsPE\"\>
+>
+> \<component name=\"Microsoft-Windows-Setup\"
+> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
+> language=\"neutral\" versionScope=\"nonSxS\"\>
+>
+> \<DiskConfiguration\>
+>
+> \<Disk wcm:action=\"add\"\>
+>
+> \<CreatePartitions\>
+>
+> \<CreatePartition wcm:action=\"add\"\>
+>
+> \<Order\>1\</Order\>
+>
+> \<Extend\>true\</Extend\>
+>
+> \<Type\>Primary\</Type\>
+>
+> \</CreatePartition\>
+>
+> \</CreatePartitions\>
+>
+> \<ModifyPartitions\>
+>
+> \<ModifyPartition wcm:action=\"add\"\>
+>
+> \<Active\>true\</Active\>
+>
+> \<Format\>NTFS\</Format\>
+>
+> \<Label\>System\</Label\>
+>
+> \<Order\>1\</Order\>
+>
+> \<PartitionID\>1\</PartitionID\>
+>
+> \</ModifyPartition\>
+>
+> \</ModifyPartitions\>
+>
+> \<DiskID\>0\</DiskID\>
+>
+> \<WillWipeDisk\>true\</WillWipeDisk\>
+>
+> \</Disk\>
+>
+> \</DiskConfiguration\>
+>
+> \<ImageInstall\>
+>
+> \<OSImage\>
+>
+> \<InstallFrom\>
+>
+> \<MetaData wcm:action=\"add\"\>
+>
+> \<Key\>/IMAGE/NAME\</Key\>
+>
+> \<Value\>Windows Server 2019 SERVERSTANDARD\</Value\>
+>
+> \</MetaData\>
+>
+> \</InstallFrom\>
+>
+> \<InstallTo\>
+>
+> \<DiskID\>0\</DiskID\>
+>
+> \<PartitionID\>1\</PartitionID\>
+>
+> \</InstallTo\>
+>
+> \</OSImage\>
+>
+> \</ImageInstall\>
+>
+> \<UserData\>
+>
+> \<AcceptEula\>true\</AcceptEula\>
+>
+> \<FullName\>Administrator\</FullName\>
+>
+> \<Organization\>My Organization\</Organization\>
+>
+> \</UserData\>
+>
+> \<EnableFirewall\>false\</EnableFirewall\>
+>
+> \</component\>
+>
+> \<component name=\"Microsoft-Windows-International-Core-WinPE\"
+> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
+> language=\"neutral\" versionScope=\"nonSxS\"\>
+>
+> \<SetupUILanguage\>
+>
+> \<UILanguage\>en-US\</UILanguage\>
+>
+> \</SetupUILanguage\>
+>
+> \<InputLocale\>en-US\</InputLocale\>
+>
+> \<SystemLocale\>en-US\</SystemLocale\>
+>
+> \<UILanguage\>en-US\</UILanguage\>
+>
+> \<UserLocale\>en-US\</UserLocale\>
+>
+> \</component\>
+>
+> \</settings\>
+>
+> \<settings pass=\"offlineServicing\"\>
+>
+> \<component name=\"Microsoft-Windows-LUA-Settings\"
+> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
+> language=\"neutral\" versionScope=\"nonSxS\"\>
+>
+> \<EnableLUA\>false\</EnableLUA\>
+>
+> \</component\>
+>
+> \</settings\>
+>
+> \<settings pass=\"specialize\"\>
+>
+> \<component name=\"Microsoft-Windows-Shell-Setup\"
+> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
+> language=\"neutral\" versionScope=\"nonSxS\"\>
+>
+> \<AutoLogon\>
+>
+> \<Password\>
+>
+> \<Value\>R3dh4t1!\</Value\>
+>
+> \<PlainText\>true\</PlainText\>
+>
+> \</Password\>
+>
+> \<Enabled\>true\</Enabled\>
+>
+> \<LogonCount\>999\</LogonCount\>
+>
+> \<Username\>Administrator\</Username\>
+>
+> \</AutoLogon\>
+>
+> \<OOBE\>
+>
+> \<HideEULAPage\>true\</HideEULAPage\>
+>
+> \<HideLocalAccountScreen\>true\</HideLocalAccountScreen\>
+>
+> \<HideOnlineAccountScreens\>true\</HideOnlineAccountScreens\>
+>
+> \<HideWirelessSetupInOOBE\>true\</HideWirelessSetupInOOBE\>
+>
+> \<NetworkLocation\>Work\</NetworkLocation\>
+>
+> \<ProtectYourPC\>3\</ProtectYourPC\>
+>
+> \<SkipMachineOOBE\>true\</SkipMachineOOBE\>
+>
+> \</OOBE\>
+>
+> \<UserAccounts\>
+>
+> \<LocalAccounts\>
+>
+> \<LocalAccount wcm:action=\"add\"\>
+>
+> \<Description\>Local Administrator Account\</Description\>
+>
+> \<DisplayName\>Administrator\</DisplayName\>
+>
+> \<Group\>Administrators\</Group\>
+>
+> \<Name\>Administrator\</Name\>
+>
+> \</LocalAccount\>
+>
+> \</LocalAccounts\>
+>
+> \</UserAccounts\>
+>
+> \<TimeZone\>Eastern Standard Time\</TimeZone\>
+>
+> \</component\>
+>
+> \</settings\>
+>
+> \<settings pass=\"oobeSystem\"\>
+>
+> \<component name=\"Microsoft-Windows-International-Core\"
+> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
+> language=\"neutral\" versionScope=\"nonSxS\"\>
+>
+> \<InputLocale\>en-US\</InputLocale\>
+>
+> \<SystemLocale\>en-US\</SystemLocale\>
+>
+> \<UILanguage\>en-US\</UILanguage\>
+>
+> \<UserLocale\>en-US\</UserLocale\>
+>
+> \</component\>
+>
+> \<component name=\"Microsoft-Windows-Shell-Setup\"
+> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
+> language=\"neutral\" versionScope=\"nonSxS\"\>
+>
+> \<AutoLogon\>
+>
+> \<Password\>
+>
+> \<Value\>R3dh4t1!\</Value\>
+>
+> \<PlainText\>true\</PlainText\>
+>
+> \</Password\>
+>
+> \<Enabled\>true\</Enabled\>
+>
+> \<LogonCount\>999\</LogonCount\>
+>
+> \<Username\>Administrator\</Username\>
+>
+> \</AutoLogon\>
+>
+> \<OOBE\>
+>
+> \<HideEULAPage\>true\</HideEULAPage\>
+>
+> \<HideLocalAccountScreen\>true\</HideLocalAccountScreen\>
+>
+> \<HideOnlineAccountScreens\>true\</HideOnlineAccountScreens\>
+>
+> \<HideWirelessSetupInOOBE\>true\</HideWirelessSetupInOOBE\>
+>
+> \<NetworkLocation\>Work\</NetworkLocation\>
+>
+> \<ProtectYourPC\>3\</ProtectYourPC\>
+>
+> \<SkipMachineOOBE\>true\</SkipMachineOOBE\>
+>
+> \</OOBE\>
+>
+> \<UserAccounts\>
+>
+> \<LocalAccounts\>
+>
+> \<LocalAccount wcm:action=\"add\"\>
+>
+> \<Description\>Local Administrator Account\</Description\>
+>
+> \<DisplayName\>Administrator\</DisplayName\>
+>
+> \<Group\>Administrators\</Group\>
+>
+> \<Name\>Administrator\</Name\>
+>
+> \</LocalAccount\>
+>
+> \</LocalAccounts\>
+>
+> \</UserAccounts\>
+>
+> \<TimeZone\>Eastern Standard Time\</TimeZone\>
+>
+> \</component\>
+>
+> \</settings\>
+>
+> \</unattend\>
+
+11. Once the code is pasted, click the Save button on the dialog.
+
+![22 Windows 2k19
+Sysprep](images/template-image22.png){width="6.268055555555556in"
+height="5.925in"}
+
+12. With the Sysprep in place, click the Create VirtualMachine button at
+    the bottom of the screen.
+
+13. The Virtual Machine will start the provisioning process by
+    downloading the ISO image (this may take a while), configuring, and
+    starting the instance.
+
+![24 Windows 2k19
+Provisioning](images/template-image23.png){width="6.268055555555556in"
+height="4.205555555555556in"}
+
+14. This process may take a few minutes due to needing to download the
+    boot ISO image. You can check on the progress of the download by
+    clicking the Diagnostics tab.
+
+![](images/template-image24.png){width="6.268055555555556in"
+height="4.7444444444444445in"}
+
+15. After a few moments, the virtual machine will start, and the status
+    will change to Running. Click to the Console tab to view the
+    autoattend installation process:
+
+![26 Windows 2k19
+Console](images/template-image25.png){width="6.268055555555556in"
+height="3.923611111111111in"}
+
+16. Once the VM installation process is complete (provisioning will take
+    3-5 minutes, starting and configuring will take about 10 minutes),
+    go ahead and power it off with the stop button.
+
+![27 Stop
+Button](images/template-image26.png){width="6.268055555555556in"
+height="4.0152777777777775in"}
+
+17. With the machine powered down we want to make a clone of the root
+    volume that we can use for future Windows template-based installs,
+    without having to run through the customization process each time.
+
+18. On the left-side menu, click on Storage and
+    then PersistentVolumeClaims to see a list of PVCs available in
+    the vmexamples-user1 namespace.
+
+19. Find the win-sysprep PVC created with our installation, and using
+    the three-dot menu on the right select Clone PVC.
+
+![](images/template-image27.png){width="6.268055555555556in"
+height="2.19375in"}
+
+20. On the menu that pops up, fill in the following options, then click
+    the Clone button:
+
+    - Name: windows-2k19-sysprep-template
+
+    - Access mode: Shared access (RWX)
+
+    - StorageClass: ocs-external-storagecluster-ceph-rbd
+
+![](images/template-image28.png){width="6.268055555555556in"
+height="7.472916666666666in"}
+
+21. Once this is saved, you can use it to quickly create Windows VMs in
+    the future.
+
+22. Return to the Catalog menu item, and use this cloned PVC as a boot
+    source for quick-creating new virtual machines by selecting the
+    option for PVC (clone PVC) as the Disk source, and selecting
+    the Windows-2k19-Sysprep-Template PVC as the PVC name to clone, and
+    click the Customize VirtualMachine button to configure boot
+    mode BIOS instead UEFI.
+
+![30 Windows
+Template](images/template-image29.png){width="6.268055555555556in"
+height="3.0729166666666665in"}
+
+![](images/template-image30.png){width="6.268055555555556in"
+height="2.95625in"}
+
+23. Configure BIOS and press Create VirtualMachine
+
+![31 Windows Template
+BIOS](images/template-image31.png){width="6.268055555555556in"
+height="3.4097222222222223in"}
+
+![](images/template-image32.png){width="6.268055555555556in"
+height="3.3354166666666667in"}
+
+24. In a few moments the new Windows Server 2019 virtual machine will
+    boot up from our cloned PVC.
+
+![32 Windows Template
+Running](images/template-image33.png){width="6.268055555555556in"
+height="3.379166666666667in"}
+
+## Introduction to Instance Types
+
+In order to simplify the deployment process for virtual machines,
+starting with OpenShift 4.14 the default configuration mechanism was
+changed to emphasize the use of Instance Types. An instance type is a
+reusable object where you can define resources and characteristics to
+apply to a new VM. You can define custom instance types or use the
+variety that are included when you install OpenShift Virtualization when
+provisioning your own VM. This is much more akin to what users
+experience when using a self-service catalog in popular cloud providers.
+
+This section explores provisioning a VM using an instance type.
+
+1.  To get started click on Catalog on the left-side menu. You will see
+    the default catalog item is InstanceType.
+
+![](images/template-image34.png){width="6.268055555555556in"
+height="2.079861111111111in"}
+
+2.  The first step in using an instance type is to select a volume to
+    boot from. Similar to the templates that provide boot sources, these
+    boot sources are available to use for guests provisioned with an
+    InstanceType. You can see the included volumes by selecting
+    the openshift-virtualization-os-images project, or you can upload
+    your own with the Add volume button.Don't forget to select your
+    project "vm-your-name".
+
+![](images/template-image35.png){width="6.268055555555556in"
+height="1.4069444444444446in"}
+
+3.  Click on the rhel9 boot volume to select it as the volume type to
+    boot from. Selecting it will be denoted by a small vertical blue
+    line to the left of the image name and the name itself being changed
+    to a bold font.
+
+![](images/template-image36.png){width="6.268055555555556in"
+height="0.7194444444444444in"}
+
+4.  Next you can select the instance type you would like to use. There
+    are Red Hat provided instance types by default, or you can create
+    your own for your specific use case. If you hover over a provided
+    instance type you can see a description of its intended use.
+
+![](images/template-image37.png){width="6.268055555555556in"
+height="1.073611111111111in"}
+
+- The Red Hat provided instance types are intended for the following
+  uses:
+
+  - N series: Designed for network intensive DPDK workloads like VNFs.
+
+  - O series: Specialized general purpose instance type with memory
+    overcommit preconfigured.
+
+  - CX series: Designed for compute intensive workloads by requesting
+    additional dedicated CPUs for additional function offload.
+
+  - U series: The most general purpose or \"universal\" instance type.
+
+  - M series: Designed for memory intensive workloads.
+
+5.  Click on the U series tile to see a dropdown list of defined
+    resources for general instance types. The default option here
+    is medium: 1 CPUs, 4 GiB Memory. Select it. Again selection will be
+    indicated by a blue line, and a bolding of the font for the instance
+    type.
+
+![](images/template-image38.png){width="6.268055555555556in"
+height="1.9541666666666666in"}
+
+6.  The last section that needs to be completed when provisioning using
+    an instance type is similar to the template section. You need to
+    provide a name for the virtual machine, and select the storage class
+    to be used for a backing disk. By default, a name will be generated
+    for the VM, select the storage class
+    ocs-storagecluster-ceph-rbd-virtualization. When you are satisfied,
+    click the Create VirtualMachine button.
+
+![](images/template-image39.png){width="6.268055555555556in"
+height="2.667361111111111in"}
+
+7.  You will be directed to the virtual machine overview page, and see
+    that the VM provisioned using an instance type is now up and
+    running.
+
+![](images/template-image40.png){width="6.268055555555556in"
+height="3.5395833333333333in"}
+
+## Cleanup
+
+To save resources for the next lab, please stop any VMs that you created
+in this module.
+
+1.  Navigate to Virtualization persona in the left-side menu and then
+    click on Virtualmachines.
+
+2.  Each project that you have access to that is hosting VM workloads
+    will be listed in the center column treeview.
+
+3.  If any VMs are showing a status of Running, highlight the VM in the
+    center tree column, and select the Stop button or option from
+    the Actions dropdown menu..
+
+Now all VMs should be in Stopped state.
+
+![40 All
+Stopped](images/template-image41.png){width="6.268055555555556in"
+height="3.482638888888889in"}
+
+![](images/template-image42.png){width="6.268055555555556in"
+height="3.172222222222222in"}
+
+## Summary
+
+In this section we learned how to clone and customize an existing
+template to create one that can be used for specific workloads like
+databases. We also learned how to configure one of the existing Windows
+templates that exists without a boot source, and automate it's
+installation process, so we can create future deployments easily by
+cloning the installation PVC that was created with that VM. We also
+introduced how to make use of instance types to further customize our
+virtual machines for specific workloads for a more cloud-like
+experience.
