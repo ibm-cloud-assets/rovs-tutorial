@@ -1,7 +1,7 @@
 <!-- _sidebar.md -->
 
 - Pre-Requisites
-  - [AWS](aws/aws-prework.md)
+  - [VM Management](01-vm-management.md)
   - [Azure](azure/azure-prework.md)
   - [VMWare Onprem](vmware/vmware-prework.md)
 
