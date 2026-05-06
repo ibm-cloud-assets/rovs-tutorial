@@ -1,58 +1,19 @@
-# Contents {#contents .TOC-Heading}
-
-[Template and InstanceType Management
-[1](#template-and-instancetype-management)](#template-and-instancetype-management)
-
-[Introduction [1](#introduction)](#introduction)
-
-[Prepare for the lab [2](#prepare-for-the-lab)](#prepare-for-the-lab)
-
-[Clone and Customize a Template
-[2](#clone-and-customize-a-template)](#clone-and-customize-a-template)
-
-[Create a Windows VM Template
-[14](#create-a-windows-vm-template)](#create-a-windows-vm-template)
-
-[Introduction to Instance Types
-[33](#introduction-to-instance-types)](#introduction-to-instance-types)
-
-[Cleanup [36](#cleanup)](#cleanup)
-
-[Summary [37](#summary)](#summary)
-
 # Template and InstanceType Management
 
-Before you run through this script, the advice is to scroll through the
-deep dive presentations and recordings you can find in this github:
+# Contents
 
-- Introduction to ROKS-ROVE
-
-- Deeper Dive Compute
-
-- Deeper Dive Storage
-
-- Deeper Dive Networking
-
-- Deeper Dive Backup
-
-- Deeper Dive DR
-
-- Deeper Dive Observability
-
-Note: deep dives created and presented by Neil Taylor and Sami Kuronen
+- [Introduction](#introduction)
+- [Prepare for the lab](#prepare-for-the-lab)
+- [Clone and Customize a Template](#clone-and-customize-a-template)]
+- [Create a Windows VM Template](#create-a-windows-vm-template)
+- [Introduction to Instance Types](#introduction-to-instance-types)
+- [Cleanup](#cleanup)
+- [Summary](#summary)
 
 ## Introduction
 
-Pre-configured Red Hat virtual machine templates are listed
-under Virtualization on the Templates page. These templates are
-available for different versions of Red Hat Enterprise Linux, Fedora,
-CentOS, Microsoft Windows Desktop, and Microsoft Windows Server
-editions. Each Red Hat associated virtual machine template is
-preconfigured with an operating system image (boot source), the default
-settings for the operating system, the flavor (CPU and memory), and the
-workload type (server). The templates for other operating systems do not
-include OS images, but are preconfigured as recommended for their
-operating system.
+Pre-configured Red Hat virtual machine templates are listed under Virtualization on the Templates page. These templates are available for different versions of Red Hat Enterprise Linux, Fedora, CentOS, Microsoft Windows Desktop, and Microsoft Windows Server editions. Each Red Hat associated virtual machine template is preconfigured with an operating system image (boot source), the default settings for the operating system, the flavor (CPU and memory), and the workload type (server). The templates for other operating systems do not
+include OS images, but are preconfigured as recommended for their operating system.
 
 The Templates page displays four types of virtual machine templates:
 
@@ -68,26 +29,17 @@ The Templates page displays four types of virtual machine templates:
 
 ## Prepare for the lab
 
-1.  The tasks that we are about to perform will require us to provision
-    a few additional VMs. In preparation we are going to ask that you
-    shut down the existing fedora01 and fedora02 virtual machines to
-    ensure that your shared environment has enough resources to complete
-    the lab.
+1. The tasks that we are about to perform will require us to provision a few additional VMs. In preparation we are going to ask that you shut down the existing fedora01 and fedora02 virtual machines to ensure that your shared environment has enough resources to complete the lab.
 
-2.  Navigate to Virtualization persona in the left-side menu and then
-    click on Virtualmachines.
+1. Navigate to Virtualization persona in the left-side menu and then click on Virtualmachines.
 
-3.  The project assigned to "vm-your-name", that is hosting VM
-    workloads, will be listed in the center column treeview.
+1. The project assigned to "vm-your-name", that is hosting VM workloads, will be listed in the center column treeview.
 
-4.  If any VMs are showing a status of Running, highlight the VM in the
-    center tree column, and select the Stop button or option from
-    the Actions dropdown menu..
+1. If any VMs are showing a status of Running, highlight the VM in the center tree column, and select the Stop button or option from the Actions dropdown menu.
 
 Now all VMs should be in Stopped state.
 
-![](images/template-image1.png){width="6.268055555555556in"
-height="2.178472222222222in"}
+![](images/template-image1.png)
 
 ## Clone and Customize a Template
 
@@ -99,131 +51,95 @@ workloads. In this section of the lab we are going to do just this, by
 creating a template that will provide a preconfigured database server on
 demand for our end users.
 
-1.  To begin, click on Templates in the left-side menu, and
-    select openshift for your project. You may need to toggle the Show
-    default projects button in order for the openshift project to
-    appear.
+1. To begin, click on Templates in the left-side menu, and select openshift for your project. You may need to toggle the Show default projects button in order for the openshift project to appear.
 
-![](images/template-image2.png){width="4.199464129483815in"
-height="5.400307305336833in"}
+    ![](images/template-image2.png)
 
-![](images/template-image3.png){width="6.268055555555556in"
-height="3.876388888888889in"}
+    ![](images/template-image3.png)
 
-2.  In the search bar type in centos9 and press Enter. In the list of
-    templates that appear find the template
-    for centos-stream9-server-small.
+1. In the search bar type in centos9 and press Enter. In the list of templates that appear find the template for centos-stream9-server-small.
 
-![](images/template-image4.png){width="6.268055555555556in"
-height="2.595138888888889in"}
+    ![](images/template-image4.png)
 
-3.  Click on the template name for centos-stream9-server-small, you will
-    be prompted with a message that default templates cannot be edited
-    and asked if you'd like to clone. Click the Create a new custom
-    Template option.
+1. Click on the template name for centos-stream9-server-small, you will be prompted with a message that default templates cannot be edited and asked if you'd like to clone. Click the Create a new custom Template option.
 
-![](images/template-image5.png){width="6.268055555555556in"
-height="5.528472222222222in"}
+    ![](images/template-image5.png)
 
-4.  A new menu called Clone template will appear, fill in the following
-    values, and when finished click on the Clone button.
+1. A new menu called Clone template will appear, fill in the following values, and when finished click on the Clone button.
 
     - Template name: centos-stream9-server-db-small
-
     - Project: vmexamples-"your-name
-
-    - Template display name: CentOS Stream 9 VM - Database Template
-      Small
-
+    - Template display name: CentOS Stream 9 VM - Database Template Small
     - Template provider: Roadshow user1
 
-![](images/template-image6.png){width="5.186825240594926in"
-height="5.010627734033246in"}
+    ![](images/template-image6.png)
 
-This will take you to the Details page for the template where we will be
-able to customize some options. Start by finding the CPU and Memory near
-the bottom of the page, and click on the pencil icon to edit it.
+    This will take you to the Details page for the template where we will be able to customize some options. Start by finding the CPU and Memory near the bottom of the page, and click on the pencil icon to edit it.
 
-![](images/template-image7.png){width="6.10970363079615in"
-height="5.460553368328959in"}
+    ![](images/template-image7.png)
 
-5.  A new window will pop out where you can edit the amount of CPU and
-    Memory. For our custom template set the value of CPUs to 2, and
-    Memory to 4 GiB, and click the Save button.
+1. A new window will pop out where you can edit the amount of CPU and Memory. For our custom template set the value of CPUs to 2, and Memory to 4 GiB, and click the Save button.
 
-![](images/template-image8.png){width="4.826454505686789in"
-height="2.9427482502187225in"}
+    ![](images/template-image8.png)
 
-Next click on the Scripts tab at the top, and in the section
-called Cloud-init click the Edit button.
+    Next click on the Scripts tab at the top, and in the section called Cloud-init click the Edit button.
 
-![](images/template-image9.png){width="6.268055555555556in"
-height="6.285416666666666in"}
+    ![](images/template-image9.png)
 
-When the Cloud-init dialog opens, click the radio button to Configure
-via: Script then replace the YAML with the following YAML snippet.
+    When the Cloud-init dialog opens, click the radio button to Configure via: Script then replace the YAML with the following YAML snippet.
 
-userData: \|-
+    ```yaml
+    userData: \|-
 
-#cloud-config
+    #cloud-config
 
-user: centos
+    user: centos
 
-password: \${CLOUD_USER_PASSWORD}
+    password: \${CLOUD_USER_PASSWORD}
 
-chpasswd: { expire: False }
+    chpasswd: { expire: False }
 
-packages:
+    packages:
 
-\- mariadb-server
+    \- mariadb-server
 
-runcmd:
+    runcmd:
 
-\- systemctl enable mariadb
+    \- systemctl enable mariadb
 
-\- systemctl start mariadb
+    \- systemctl start mariadb
+    ```
 
-![](images/template-image10.png){width="4.938188976377953in"
-height="6.459234470691164in"}
+    ![](images/template-image10.png)
 
-6.  Click the Save button, you will see a green Saved prompt, then
-    follow that by clicking the Apply button.
+1. Click the Save button, you will see a green Saved prompt, then follow that by clicking the Apply button.
 
-7.  Now click on the Catalog item on the left-side menu, select
-    the Template catalog option, followed by User templates. You should
-    see your created template available as a tile.
+1. Now click on the Catalog item on the left-side menu, select the Template catalog option, followed by User templates. You should see your created template available as a tile.
 
-![](images/template-image11.png){width="6.268055555555556in"
-height="8.934722222222222in"}
+    ![](images/template-image11.png)
 
-8.  Click on the tile and you will be prompted with the VM startup
+1. Click on the tile and you will be prompted with the VM startup
     screen. Click the Quick create VirtualMachine button.
 
-![](images/template-image12.png){width="6.268055555555556in"
-height="9.516666666666667in"}When the virtual machine boots you can see
-on the Overview page that it was created from our template, and has the
-additional resources we defined. We just need to verify that it
-installed MariaDB for us.
+    ![](images/template-image12.png)
 
-![](images/template-image13.png){width="6.268055555555556in"
-height="3.595138888888889in"}
+    When the virtual machine boots you can see on the Overview page that it was created from our template, and has the additional resources we defined. We just need to verify that it installed MariaDB for us.
 
-9.  Click on the Console tab at the top and use the Guest login
-    credentials that are provided and the Copy and Paste to
-    console buttons to log into the console of the virtual machine.
+    ![](images/template-image13.png)
 
-![](images/template-image14.png){width="6.268055555555556in"
-height="3.1430555555555557in"}
+1. Click on the Console tab at the top and use the Guest login credentials that are provided and the Copy and Paste to console buttons to log into the console of the virtual machine.
 
-10. Once you are logged into the virtual machine, run the following
-    command to test the install of MariaDB.
+    ![](images/template-image14.png)
 
-sudo mysql -u root
+1. Once you are logged into the virtual machine, run the following command to test the install of MariaDB.
 
-![](images/template-image15.png){width="6.268055555555556in"
-height="3.9256944444444444in"}
+    ```sh
+    sudo mysql -u root
+    ```sh
 
-11. Hit Ctrl-D twice to log out of the VM.
+    ![](images/template-image15.png)
+
+1. Hit Ctrl-D twice to log out of the VM.
 
 ## Create a Windows VM Template
 
@@ -233,95 +149,59 @@ install an operating system to a virtual machine that takes advantage of
 the ability to source disks from many locations, including a web server,
 object storage, or other persistent volumes in the cluster.
 
-  -------------------------------------------------------------------------
-     The specific process for preparing the guest operating system to be
-     used as a template will vary, be sure to follow your organization's
-     guidelines and requirements when preparing a template OS.
-  -- ----------------------------------------------------------------------
-
-  -------------------------------------------------------------------------
+> The specific process for preparing the guest operating system to be used as a template will vary, be sure to follow your organization's guidelines and requirements when preparing a template OS.
 
 This process can be streamlined after the initial operating system
 installation by creating a cloned root disk from a sysprepped virtual
 machine to use with other templates.
 
-1.  From the left menu, navigate to Catalog, and click on the Template
-    catalog tab near the top and select your project "vm-your-name".
+1. From the left menu, navigate to Catalog, and click on the Template catalog tab near the top and select your project "vm-your-name".
 
-2.  Type the word win in the search bar, or scroll down until you find
-    the Microsoft Windows Server 2019 VM tile.
+1. Type the word win in the search bar, or scroll down until you find the Microsoft Windows Server 2019 VM tile.
 
-![](images/template-image16.png){width="6.268055555555556in"
-height="2.6131944444444444in"}
+    ![](images/template-image16.png)
 
-  -------------------------------------------------------------------------
-     Notice that there is intially no option to quick create this VM
-     because there is no provided boot source. We must customize the VM to
-     fit our needs.
-  -- ----------------------------------------------------------------------
+    > Notice that there is intially no option to quick create this VM because there is no provided boot source. We must customize the VM to fit our needs.
 
-  -------------------------------------------------------------------------
+1. A dialog will appear showing the default configuration related to the template.
 
-3.  A dialog will appear showing the default configuration related to
-    the template.
+    ![](images/template-image17.png)
 
-> ![](images/template-image17.png){width="5.633333333333334in"
-> height="9.693055555555556in"}
-
-4.  In this dialog:
+1. In this dialog:
 
     - Specify the name win-sysprep
-
     - Enable the checkbox Boot from CD
-
     - Choose URL (creates PVC) from the drop-down menu
-
     - Specify the image URL: 
       <https://virtualization-demo-bucket.s3.eu-de.cloud-object-storage.appdomain.cloud/Windows2019.iso?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=2132816e7b4c4d07975c9224aa369c2f%2F20260505%2Feu-de%2Fs3%2Faws4_request&X-Amz-Date=20260505T132449Z&X-Amz-Expires=31536000&X-Amz-SignedHeaders=host&X-Amz-Signature=aab468482e4ed011a86e6018b4315998994dc2b05fab29b63628f22b58048f99>\
       **Note: This URL is valid till 5-5-2027**
 
     - Reduce the CD disk size to 6 GiB
-
     - Keep the Disk source as Blank and the size set to the default
       value 60 GiB
-
     - Ensure the Mount Windows drivers disk checkbox is enabled. This is
       required to install Windows systems, which will provide the
       drivers for VirtIO.
 
-5.  With the options filled out, we want to click on the Customize
-    VirtualMachine button at the bottom to continue configuring our
-    Template.
+1. With the options filled out, we want to click on the Customize    VirtualMachine button at the bottom to continue configuring our Template.
 
-6.  On the Customize and create VirtualMachine screen, click on the edit
-    pencil by the Boot mode option.
+1. On the Customize and create VirtualMachine screen, click on the edit pencil by the Boot mode option.
 
-![](images/template-image18.png){width="5.843055555555556in"
-height="9.693055555555556in"}
+    ![](images/template-image18.png)
 
-7.  When the Boot mode menu pops up, select the BIOS boot mode from the
-    drop-down menu and click the Save button.
+1. When the Boot mode menu pops up, select the BIOS boot mode from the    drop-down menu and click the Save button.
 
-![19a Boot
-BIOS](images/template-image19.png){width="6.268055555555556in"
-height="4.009027777777778in"}
+    ![19a Boot BIOS](images/template-image19.png)
 
-8.  Now click on the Scripts tab, and then scroll down to
-    the Sysprep section and click on the Edit button.
+1. Now click on the Scripts tab, and then scroll down to the Sysprep section and click on the Edit button.
 
-![20 Customize
-Scripts](images/template-image20.png){width="6.268055555555556in"
-height="7.143055555555556in"}
+    ![20 Customize Scripts](images/template-image20.png)
 
-9.  A new window will pop up for you to create Sysprep actions for your
-    new template.
+1. A new window will pop up for you to create Sysprep actions for your new template.
 
-![21 Sysprep](images/template-image21.png){width="6.268055555555556in"
-height="5.94375in"}
+    ![21 Sysprep](images/template-image21.png)
 
-10. Copy and paste the following code block, which helps to automate the
-    installation and configuration of the Windows server into
-    the autounattend.xml section:
+1. Copy and paste the following code block, which helps to automate the     installation and configuration of the Windows server into the autounattend.xml section:
 
 > \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
 >
@@ -608,104 +488,61 @@ height="5.94375in"}
 >
 > \</unattend\>
 
-11. Once the code is pasted, click the Save button on the dialog.
+1. Once the code is pasted, click the Save button on the dialog.
 
-![22 Windows 2k19
-Sysprep](images/template-image22.png){width="6.268055555555556in"
-height="5.925in"}
+    ![22 Windows 2k19 Sysprep](images/template-image22.png)
 
-12. With the Sysprep in place, click the Create VirtualMachine button at
-    the bottom of the screen.
+1. With the Sysprep in place, click the Create VirtualMachine button at the bottom of the screen.
 
-13. The Virtual Machine will start the provisioning process by
-    downloading the ISO image (this may take a while), configuring, and
-    starting the instance.
+1. The Virtual Machine will start the provisioning process by downloading the ISO image (this may take a while), configuring, and starting the instance.
 
-![24 Windows 2k19
-Provisioning](images/template-image23.png){width="6.268055555555556in"
-height="4.205555555555556in"}
+    ![24 Windows 2k19 Provisioning](images/template-image23.png)
 
-14. This process may take a few minutes due to needing to download the
-    boot ISO image. You can check on the progress of the download by
-    clicking the Diagnostics tab.
+1. This process may take a few minutes due to needing to download the boot ISO image. You can check on the progress of the download by clicking  the Diagnostics tab.
 
-![](images/template-image24.png){width="6.268055555555556in"
-height="4.7444444444444445in"}
+    ![](images/template-image24.png)
 
-15. After a few moments, the virtual machine will start, and the status
-    will change to Running. Click to the Console tab to view the
-    autoattend installation process:
+1. After a few moments, the virtual machine will start, and the status will change to Running. Click to the Console tab to view the autoattend installation process:
 
-![26 Windows 2k19
-Console](images/template-image25.png){width="6.268055555555556in"
-height="3.923611111111111in"}
+    ![26 Windows 2k19 Console](images/template-image25.png)
 
-16. Once the VM installation process is complete (provisioning will take
-    3-5 minutes, starting and configuring will take about 10 minutes),
-    go ahead and power it off with the stop button.
+1. Once the VM installation process is complete (provisioning will take 3-5 minutes, starting and configuring will take about 10 minutes), go ahead and power it off with the stop button.
 
-![27 Stop
-Button](images/template-image26.png){width="6.268055555555556in"
-height="4.0152777777777775in"}
+    ![27 Stop Button](images/template-image26.png)
 
-17. With the machine powered down we want to make a clone of the root
-    volume that we can use for future Windows template-based installs,
-    without having to run through the customization process each time.
+1. With the machine powered down we want to make a clone of the root volume that we can use for future Windows template-based installs, without having to run through the customization process each time.
 
-18. On the left-side menu, click on Storage and
-    then PersistentVolumeClaims to see a list of PVCs available in
-    the vmexamples-user1 namespace.
+1. On the left-side menu, click on Storage and then PersistentVolumeClaims to see a list of PVCs available in the vmexamples-user1 namespace.
 
-19. Find the win-sysprep PVC created with our installation, and using
-    the three-dot menu on the right select Clone PVC.
+1. Find the win-sysprep PVC created with our installation, and using the three-dot menu on the right select Clone PVC.
 
-![](images/template-image27.png){width="6.268055555555556in"
-height="2.19375in"}
+    ![](images/template-image27.png)
 
-20. On the menu that pops up, fill in the following options, then click
-    the Clone button:
+1. On the menu that pops up, fill in the following options, then click the Clone button:
 
     - Name: windows-2k19-sysprep-template
-
     - Access mode: Shared access (RWX)
-
     - StorageClass: ocs-external-storagecluster-ceph-rbd
 
-![](images/template-image28.png){width="6.268055555555556in"
-height="7.472916666666666in"}
+    ![](images/template-image28.png)
 
-21. Once this is saved, you can use it to quickly create Windows VMs in
-    the future.
+1. Once this is saved, you can use it to quickly create Windows VMs in the future.
 
-22. Return to the Catalog menu item, and use this cloned PVC as a boot
-    source for quick-creating new virtual machines by selecting the
-    option for PVC (clone PVC) as the Disk source, and selecting
-    the Windows-2k19-Sysprep-Template PVC as the PVC name to clone, and
-    click the Customize VirtualMachine button to configure boot
-    mode BIOS instead UEFI.
+1. Return to the Catalog menu item, and use this cloned PVC as a boot source for quick-creating new virtual machines by selecting the option for PVC (clone PVC) as the Disk source, and selecting the Windows-2k19-Sysprep-Template PVC as the PVC name to clone, and click the Customize VirtualMachine button to configure boot mode BIOS instead UEFI.
 
-![30 Windows
-Template](images/template-image29.png){width="6.268055555555556in"
-height="3.0729166666666665in"}
+    ![30 Windows Template](images/template-image29.png)
 
-![](images/template-image30.png){width="6.268055555555556in"
-height="2.95625in"}
+    ![](images/template-image30.png)
 
-23. Configure BIOS and press Create VirtualMachine
+1. Configure BIOS and press Create VirtualMachine
 
-![31 Windows Template
-BIOS](images/template-image31.png){width="6.268055555555556in"
-height="3.4097222222222223in"}
+    ![31 Windows Template BIOS](images/template-image31.png)
 
-![](images/template-image32.png){width="6.268055555555556in"
-height="3.3354166666666667in"}
+    ![](images/template-image32.png)
 
-24. In a few moments the new Windows Server 2019 virtual machine will
-    boot up from our cloned PVC.
+1. In a few moments the new Windows Server 2019 virtual machine will boot up from our cloned PVC.
 
-![32 Windows Template
-Running](images/template-image33.png){width="6.268055555555556in"
-height="3.379166666666667in"}
+    ![32 Windows Template Running](images/template-image33.png)
 
 ## Introduction to Instance Types
 
