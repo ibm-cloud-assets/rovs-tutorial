@@ -1,6 +1,6 @@
 # Template and InstanceType Management
 
-# Contents
+## Contents
 
 - [Introduction](#introduction)
 - [Prepare for the lab](#prepare-for-the-lab)
