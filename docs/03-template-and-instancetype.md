@@ -201,7 +201,7 @@ machine to use with other templates.
 
     ![21 Sysprep](images/template-image21.png)
 
-1. Copy and paste the following code block, which helps to automate the installation and configuration of the Windows server into the autounattend.xml section:
+1. Copy and paste the following code block, which helps to automate the installation and configuration of the Windows server into the autounattend. The xml code block is available [here](./autounattend.xml).
 
 1. Once the code is pasted, click the Save button on the dialog.
 
