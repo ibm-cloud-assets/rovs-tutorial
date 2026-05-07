@@ -1,15 +1,5 @@
 # Template and InstanceType Management
 
-## Contents
-
-- [Introduction](#introduction)
-- [Prepare for the lab](#prepare-for-the-lab)
-- [Clone and Customize a Template](#clone-and-customize-a-template)]
-- [Create a Windows VM Template](#create-a-windows-vm-template)
-- [Introduction to Instance Types](#introduction-to-instance-types)
-- [Cleanup](#cleanup)
-- [Summary](#summary)
-
 ## Introduction
 
 Pre-configured Red Hat virtual machine templates are listed under Virtualization on the Templates page. These templates are available for different versions of Red Hat Enterprise Linux, Fedora, CentOS, Microsoft Windows Desktop, and Microsoft Windows Server editions. Each Red Hat associated virtual machine template is preconfigured with an operating system image (boot source), the default settings for the operating system, the flavor (CPU and memory), and the workload type (server). The templates for other operating systems do not

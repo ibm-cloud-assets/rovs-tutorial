@@ -1,14 +1,5 @@
 # Virtual Machine Management
 
-## Contents
-
-- [Introduction](#introduction)
-- [Exploring OpenShift Virtualization](#exploring-openshift-virtualization)
-- [Create a Linux Virtual Machine](#create-a-linux-virtual-machine)
-- [Administering Virtual Machines](#administering-virtual-machines)
-- [Controlling Virtual Machine State](#controlling-virtual-machine-state)
-- [Live Migrate a Virtual Machine](#live-migrate-a-virtual-machine)
-
 ## Introduction
 
 The beginning section of this lab will introduce you to the basics of creating and managing VMs in OpenShift Virtualization. Starting with OpenShift 4.18 there is a new Virtualization persona and a tree view for virtual machines that make it easier to visualize and manage your virtualization-based assets. After exploring the UI changes, you will see how the web console guides you through the whole process of creating a virtual machine from a pre-defined template. We will then review the properties of that VM, do some basic customizations, and perform actions like live migration, that are often expected of virtual machine administrators.

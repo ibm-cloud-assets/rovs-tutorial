@@ -2,14 +2,6 @@
 
 OpenShift Virtualization on IBM Cloud at this time does not support all types of storage. The script is written in the general context of Red Hat OpenShift Virtualization and will not discuss the specifics of what is supported in IBM Cloud.
 
-## Contents
-
-- [Script Start](#script-start)
-- [Examine the PVC for a VM](#examine-the-pvc-for-a-vm)
-- [Managing Snapshots](#managing-snapshots)
-- [Clone a Virtual Machine](#clone-a-virtual-machine)
-- [Summary](#summary)
-
 ## Script Start
 
 Red Hat OpenShift supports multiple types of storage, both for on-premises and cloud providers. OpenShift Virtualization can use any supported container storage interface (CSI) provisioner in the environment where your workload is running.
