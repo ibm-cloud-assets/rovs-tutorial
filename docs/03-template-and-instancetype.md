@@ -201,292 +201,7 @@ machine to use with other templates.
 
     ![21 Sysprep](images/template-image21.png)
 
-1. Copy and paste the following code block, which helps to automate the     installation and configuration of the Windows server into the autounattend.xml section:
-
-> \<?xml version=\"1.0\" encoding=\"utf-8\"?\>
->
-> \<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"
-> xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\"
-> xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
-> xsi:schemaLocation=\"urn:schemas-microsoft-com:unattend\"\>
->
-> \<settings pass=\"windowsPE\"\>
->
-> \<component name=\"Microsoft-Windows-Setup\"
-> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
-> language=\"neutral\" versionScope=\"nonSxS\"\>
->
-> \<DiskConfiguration\>
->
-> \<Disk wcm:action=\"add\"\>
->
-> \<CreatePartitions\>
->
-> \<CreatePartition wcm:action=\"add\"\>
->
-> \<Order\>1\</Order\>
->
-> \<Extend\>true\</Extend\>
->
-> \<Type\>Primary\</Type\>
->
-> \</CreatePartition\>
->
-> \</CreatePartitions\>
->
-> \<ModifyPartitions\>
->
-> \<ModifyPartition wcm:action=\"add\"\>
->
-> \<Active\>true\</Active\>
->
-> \<Format\>NTFS\</Format\>
->
-> \<Label\>System\</Label\>
->
-> \<Order\>1\</Order\>
->
-> \<PartitionID\>1\</PartitionID\>
->
-> \</ModifyPartition\>
->
-> \</ModifyPartitions\>
->
-> \<DiskID\>0\</DiskID\>
->
-> \<WillWipeDisk\>true\</WillWipeDisk\>
->
-> \</Disk\>
->
-> \</DiskConfiguration\>
->
-> \<ImageInstall\>
->
-> \<OSImage\>
->
-> \<InstallFrom\>
->
-> \<MetaData wcm:action=\"add\"\>
->
-> \<Key\>/IMAGE/NAME\</Key\>
->
-> \<Value\>Windows Server 2019 SERVERSTANDARD\</Value\>
->
-> \</MetaData\>
->
-> \</InstallFrom\>
->
-> \<InstallTo\>
->
-> \<DiskID\>0\</DiskID\>
->
-> \<PartitionID\>1\</PartitionID\>
->
-> \</InstallTo\>
->
-> \</OSImage\>
->
-> \</ImageInstall\>
->
-> \<UserData\>
->
-> \<AcceptEula\>true\</AcceptEula\>
->
-> \<FullName\>Administrator\</FullName\>
->
-> \<Organization\>My Organization\</Organization\>
->
-> \</UserData\>
->
-> \<EnableFirewall\>false\</EnableFirewall\>
->
-> \</component\>
->
-> \<component name=\"Microsoft-Windows-International-Core-WinPE\"
-> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
-> language=\"neutral\" versionScope=\"nonSxS\"\>
->
-> \<SetupUILanguage\>
->
-> \<UILanguage\>en-US\</UILanguage\>
->
-> \</SetupUILanguage\>
->
-> \<InputLocale\>en-US\</InputLocale\>
->
-> \<SystemLocale\>en-US\</SystemLocale\>
->
-> \<UILanguage\>en-US\</UILanguage\>
->
-> \<UserLocale\>en-US\</UserLocale\>
->
-> \</component\>
->
-> \</settings\>
->
-> \<settings pass=\"offlineServicing\"\>
->
-> \<component name=\"Microsoft-Windows-LUA-Settings\"
-> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
-> language=\"neutral\" versionScope=\"nonSxS\"\>
->
-> \<EnableLUA\>false\</EnableLUA\>
->
-> \</component\>
->
-> \</settings\>
->
-> \<settings pass=\"specialize\"\>
->
-> \<component name=\"Microsoft-Windows-Shell-Setup\"
-> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
-> language=\"neutral\" versionScope=\"nonSxS\"\>
->
-> \<AutoLogon\>
->
-> \<Password\>
->
-> \<Value\>R3dh4t1!\</Value\>
->
-> \<PlainText\>true\</PlainText\>
->
-> \</Password\>
->
-> \<Enabled\>true\</Enabled\>
->
-> \<LogonCount\>999\</LogonCount\>
->
-> \<Username\>Administrator\</Username\>
->
-> \</AutoLogon\>
->
-> \<OOBE\>
->
-> \<HideEULAPage\>true\</HideEULAPage\>
->
-> \<HideLocalAccountScreen\>true\</HideLocalAccountScreen\>
->
-> \<HideOnlineAccountScreens\>true\</HideOnlineAccountScreens\>
->
-> \<HideWirelessSetupInOOBE\>true\</HideWirelessSetupInOOBE\>
->
-> \<NetworkLocation\>Work\</NetworkLocation\>
->
-> \<ProtectYourPC\>3\</ProtectYourPC\>
->
-> \<SkipMachineOOBE\>true\</SkipMachineOOBE\>
->
-> \</OOBE\>
->
-> \<UserAccounts\>
->
-> \<LocalAccounts\>
->
-> \<LocalAccount wcm:action=\"add\"\>
->
-> \<Description\>Local Administrator Account\</Description\>
->
-> \<DisplayName\>Administrator\</DisplayName\>
->
-> \<Group\>Administrators\</Group\>
->
-> \<Name\>Administrator\</Name\>
->
-> \</LocalAccount\>
->
-> \</LocalAccounts\>
->
-> \</UserAccounts\>
->
-> \<TimeZone\>Eastern Standard Time\</TimeZone\>
->
-> \</component\>
->
-> \</settings\>
->
-> \<settings pass=\"oobeSystem\"\>
->
-> \<component name=\"Microsoft-Windows-International-Core\"
-> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
-> language=\"neutral\" versionScope=\"nonSxS\"\>
->
-> \<InputLocale\>en-US\</InputLocale\>
->
-> \<SystemLocale\>en-US\</SystemLocale\>
->
-> \<UILanguage\>en-US\</UILanguage\>
->
-> \<UserLocale\>en-US\</UserLocale\>
->
-> \</component\>
->
-> \<component name=\"Microsoft-Windows-Shell-Setup\"
-> processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\"
-> language=\"neutral\" versionScope=\"nonSxS\"\>
->
-> \<AutoLogon\>
->
-> \<Password\>
->
-> \<Value\>R3dh4t1!\</Value\>
->
-> \<PlainText\>true\</PlainText\>
->
-> \</Password\>
->
-> \<Enabled\>true\</Enabled\>
->
-> \<LogonCount\>999\</LogonCount\>
->
-> \<Username\>Administrator\</Username\>
->
-> \</AutoLogon\>
->
-> \<OOBE\>
->
-> \<HideEULAPage\>true\</HideEULAPage\>
->
-> \<HideLocalAccountScreen\>true\</HideLocalAccountScreen\>
->
-> \<HideOnlineAccountScreens\>true\</HideOnlineAccountScreens\>
->
-> \<HideWirelessSetupInOOBE\>true\</HideWirelessSetupInOOBE\>
->
-> \<NetworkLocation\>Work\</NetworkLocation\>
->
-> \<ProtectYourPC\>3\</ProtectYourPC\>
->
-> \<SkipMachineOOBE\>true\</SkipMachineOOBE\>
->
-> \</OOBE\>
->
-> \<UserAccounts\>
->
-> \<LocalAccounts\>
->
-> \<LocalAccount wcm:action=\"add\"\>
->
-> \<Description\>Local Administrator Account\</Description\>
->
-> \<DisplayName\>Administrator\</DisplayName\>
->
-> \<Group\>Administrators\</Group\>
->
-> \<Name\>Administrator\</Name\>
->
-> \</LocalAccount\>
->
-> \</LocalAccounts\>
->
-> \</UserAccounts\>
->
-> \<TimeZone\>Eastern Standard Time\</TimeZone\>
->
-> \</component\>
->
-> \</settings\>
->
-> \</unattend\>
+1. Copy and paste the following code block, which helps to automate the installation and configuration of the Windows server into the autounattend.xml section:
 
 1. Once the code is pasted, click the Save button on the dialog.
 
@@ -546,124 +261,76 @@ machine to use with other templates.
 
 ## Introduction to Instance Types
 
-In order to simplify the deployment process for virtual machines,
-starting with OpenShift 4.14 the default configuration mechanism was
-changed to emphasize the use of Instance Types. An instance type is a
-reusable object where you can define resources and characteristics to
-apply to a new VM. You can define custom instance types or use the
-variety that are included when you install OpenShift Virtualization when
-provisioning your own VM. This is much more akin to what users
-experience when using a self-service catalog in popular cloud providers.
+In order to simplify the deployment process for virtual machines, starting with OpenShift 4.14 the default configuration mechanism was
+changed to emphasize the use of Instance Types. An instance type is a reusable object where you can define resources and characteristics to apply to a new VM. You can define custom instance types or use the variety that are included when you install OpenShift Virtualization when provisioning your own VM. This is much more akin to what users experience when using a self-service catalog in popular cloud providers.
 
 This section explores provisioning a VM using an instance type.
 
-1.  To get started click on Catalog on the left-side menu. You will see
-    the default catalog item is InstanceType.
+1. To get started click on Catalog on the left-side menu. You will see the default catalog item is InstanceType.
 
-![](images/template-image34.png){width="6.268055555555556in"
-height="2.079861111111111in"}
+    ![](images/template-image34.png)
 
-2.  The first step in using an instance type is to select a volume to
-    boot from. Similar to the templates that provide boot sources, these
-    boot sources are available to use for guests provisioned with an
-    InstanceType. You can see the included volumes by selecting
-    the openshift-virtualization-os-images project, or you can upload
-    your own with the Add volume button.Don't forget to select your
+1. The first step in using an instance type is to select a volume to boot from. Similar to the templates that provide boot sources, these
+    boot sources are available to use for guests provisioned with an InstanceType. You can see the included volumes by selecting the openshift-virtualization-os-images project, or you can upload your own with the Add volume button.Don't forget to select your
     project "vm-your-name".
 
-![](images/template-image35.png){width="6.268055555555556in"
-height="1.4069444444444446in"}
+    ![](images/template-image35.png)
 
-3.  Click on the rhel9 boot volume to select it as the volume type to
-    boot from. Selecting it will be denoted by a small vertical blue
-    line to the left of the image name and the name itself being changed
-    to a bold font.
+1. Click on the rhel9 boot volume to select it as the volume type to boot from. Selecting it will be denoted by a small vertical blue line to the left of the image name and the name itself being changed to a bold font.
 
-![](images/template-image36.png){width="6.268055555555556in"
-height="0.7194444444444444in"}
+    ![](images/template-image36.png)
 
-4.  Next you can select the instance type you would like to use. There
-    are Red Hat provided instance types by default, or you can create
-    your own for your specific use case. If you hover over a provided
-    instance type you can see a description of its intended use.
+1. Next you can select the instance type you would like to use. There are Red Hat provided instance types by default, or you can create
+    your own for your specific use case. If you hover over a provided instance type you can see a description of its intended use.
 
-![](images/template-image37.png){width="6.268055555555556in"
-height="1.073611111111111in"}
+    ![](images/template-image37.png)
 
-- The Red Hat provided instance types are intended for the following
-  uses:
+    The Red Hat provided instance types are intended for the following uses:
 
-  - N series: Designed for network intensive DPDK workloads like VNFs.
+     - N series: Designed for network intensive DPDK workloads like VNFs.
+     - O series: Specialized general purpose instance type with memory
+       overcommit preconfigured.
+     - CX series: Designed for compute intensive workloads by requesting
+       additional dedicated CPUs for additional function offload.
+     - U series: The most general purpose or \"universal\" instance type.
+     - M series: Designed for memory intensive workloads.
 
-  - O series: Specialized general purpose instance type with memory
-    overcommit preconfigured.
+1. Click on the U series tile to see a dropdown list of defined resources for general instance types. The default option here is medium: 1 CPUs, 4 GiB Memory. Select it. Again selection will be indicated by a blue line, and a bolding of the font for the instance type.
 
-  - CX series: Designed for compute intensive workloads by requesting
-    additional dedicated CPUs for additional function offload.
+    ![](images/template-image38.png)
 
-  - U series: The most general purpose or \"universal\" instance type.
-
-  - M series: Designed for memory intensive workloads.
-
-5.  Click on the U series tile to see a dropdown list of defined
-    resources for general instance types. The default option here
-    is medium: 1 CPUs, 4 GiB Memory. Select it. Again selection will be
-    indicated by a blue line, and a bolding of the font for the instance
-    type.
-
-![](images/template-image38.png){width="6.268055555555556in"
-height="1.9541666666666666in"}
-
-6.  The last section that needs to be completed when provisioning using
-    an instance type is similar to the template section. You need to
-    provide a name for the virtual machine, and select the storage class
-    to be used for a backing disk. By default, a name will be generated
-    for the VM, select the storage class
-    ocs-storagecluster-ceph-rbd-virtualization. When you are satisfied,
+1. The last section that needs to be completed when provisioning using an instance type is similar to the template section. You need to
+    provide a name for the virtual machine, and select the storage class to be used for a backing disk. By default, a name will be generated for the VM, select the storage class ocs-storagecluster-ceph-rbd-virtualization. When you are satisfied,
     click the Create VirtualMachine button.
 
-![](images/template-image39.png){width="6.268055555555556in"
-height="2.667361111111111in"}
+    ![](images/template-image39.png)
 
-7.  You will be directed to the virtual machine overview page, and see
-    that the VM provisioned using an instance type is now up and
+1. You will be directed to the virtual machine overview page, and see that the VM provisioned using an instance type is now up and
     running.
 
-![](images/template-image40.png){width="6.268055555555556in"
-height="3.5395833333333333in"}
+    ![](images/template-image40.png)
 
 ## Cleanup
 
-To save resources for the next lab, please stop any VMs that you created
-in this module.
+To save resources for the next lab, please stop any VMs that you created in this module.
 
-1.  Navigate to Virtualization persona in the left-side menu and then
-    click on Virtualmachines.
+1. Navigate to Virtualization persona in the left-side menu and then click on Virtual machines.
 
-2.  Each project that you have access to that is hosting VM workloads
-    will be listed in the center column treeview.
+1. Each project that you have access to that is hosting VM workloads will be listed in the center column tree view.
 
-3.  If any VMs are showing a status of Running, highlight the VM in the
-    center tree column, and select the Stop button or option from
+1. If any VMs are showing a status of Running, highlight the VM in the center tree column, and select the Stop button or option from
     the Actions dropdown menu..
 
-Now all VMs should be in Stopped state.
+    Now all VMs should be in Stopped state.
 
-![40 All
-Stopped](images/template-image41.png){width="6.268055555555556in"
-height="3.482638888888889in"}
+    ![40 All Stopped](images/template-image41.png)
 
-![](images/template-image42.png){width="6.268055555555556in"
-height="3.172222222222222in"}
+    ![](images/template-image42.png)
 
 ## Summary
 
-In this section we learned how to clone and customize an existing
-template to create one that can be used for specific workloads like
-databases. We also learned how to configure one of the existing Windows
-templates that exists without a boot source, and automate it's
-installation process, so we can create future deployments easily by
-cloning the installation PVC that was created with that VM. We also
-introduced how to make use of instance types to further customize our
-virtual machines for specific workloads for a more cloud-like
+In this section we learned how to clone and customize an existing template to create one that can be used for specific workloads like
+databases. We also learned how to configure one of the existing Windows templates that exists without a boot source, and automate it's
+installation process, so we can create future deployments easily by cloning the installation PVC that was created with that VM. We also
+introduced how to make use of instance types to further customize our virtual machines for specific workloads for a more cloud-like
 experience.

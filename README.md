@@ -1,20 +1,5 @@
-# rove-tutorial
+# ROVE Tutorial
 
-Before you run through this script, the advice is to scroll through the
-deep dive presentations and recordings you can find in this github:
+In order to run this tutorial, you need to be invited to a ROKS cluster or provision one using the provided terraform scripts.
 
-- Introduction to ROKS-ROVE
-
-- Deeper Dive Compute
-
-- Deeper Dive Storage
-
-- Deeper Dive Networking
-
-- Deeper Dive Backup
-
-- Deeper Dive DR
-
-- Deeper Dive Observability
-
-Note: deep dives created and presented by Neil Taylor and Sami Kuronen
+Note: Provining this infrastructure may incur cost.
