@@ -12,7 +12,7 @@ The beginning section of this lab will introduce you to the basics of creating a
 - Live migrate a VM between two hosts
 
 As a reminder, here are your credentials for the OpenShift Console:
-The link to the OpenShift cluster console can be found in the invite or be opening the "virt-roks" cluster  details in the container section of the cloud account.
+The link to the OpenShift cluster console can be found in the invite or in the details of the "virt-roks" cluster in the container section of the IBM itz-cp-emea cloud account.
 
 If things are correct you came here since you were invited as a member of the shared ITZ account “2765292 – itz-cp-emea” to be able to demo the “Virtualization on OpenShift Sales Play”
 Your login is available through SSO using your IBM id: name@xx.ibm.com
