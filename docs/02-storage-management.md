@@ -26,7 +26,7 @@ Please observe the following graphic for a demonstration of the CSI workflow for
 In this lab, we are going to take a closer look at the storage behind
 the virtual machine we just created fedora01.
 
-1. Start by clicking on the left menu for Storage → Persistent Volume Claims. Make sure you are in the vm-“your-familiyname namespace, you should see the fedora01 PVC that was created when you created the fedora01 VM in the previous section.
+1. Start by clicking on the left menu for Storage → Persistent Volume Claims. Make sure you are in the vm-“your-familyname' namespace, you should see the fedora01 PVC that was created when you created the fedora01 VM in the previous section.
 
     ![](images/storage-image2.png)
 
@@ -64,7 +64,7 @@ developers can:
 
 1. Navigate back to Virtualization persona dropdown, and then click
     on VirtualMachines in the left-side menu. Expand the
-    project vm-“your-familiyname in the center column and highlight
+    project vm-“your-familyname" in the center column and highlight
     the fedora01 virtual machine.
 
     ![](images/storage-image4.png)
