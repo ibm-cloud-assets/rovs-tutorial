@@ -147,7 +147,7 @@ Administering and using virtual machines is more than simply creating and custom
 
     ![](./images/vm-image20.png)
 
-In this environment, the default StorageClass, which defines the source and type of storage used for the disk, is called ocs-storagecluster-ceph-rbd. This storage is the default type provided by OpenShift Data Foundation (ODF) for running virtual machines. Each storage provider has different storage classes that define the characteristics of the storage backing the VM disk.
+In this environment, the default StorageClass, which defines the source and type of storage used for the disk, is called ocs-storagecluster-ceph-rbd-virtualization. This storage is the default type provided by OpenShift Data Foundation (ODF) for running virtual machines. Each storage provider has different storage classes that define the characteristics of the storage backing the VM disk.
 
 > @@@@@ add a link here to the demo script “Storage management” #LMA
 
