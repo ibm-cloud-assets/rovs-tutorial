@@ -58,7 +58,7 @@ demand for our end users.
 1. A new menu called Clone template will appear, fill in the following values, and when finished click on the Clone button.
 
     - Template name: centos-stream9-server-db-small
-    - Project: vmexamples-"your-name
+    - Project: vm-"your-family-name"
     - Template display name: CentOS Stream 9 VM - Database Template Small
     - Template provider: Roadshow user1
 
