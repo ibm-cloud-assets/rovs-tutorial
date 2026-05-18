@@ -8,7 +8,7 @@ Red Hat OpenShift supports multiple types of storage, both for on-premises and c
 
 Some physical storage system examples include: Dell/EMC, Fujitsu, Hitachi, NetApp, and Pure Storage.
 
-Some software-defined storage examples include: IBM Fusion Data Foundation, OpenShift Data Foundation (ODF), and Portworx.
+Some software-defined storage  include: IBM Fusion Data Foundation, OpenShift Data Foundation (ODF), and Portworx.
 
 > This list is not exhaustive, please see the [Red Hat EcoSystem Catalog](https://catalog.redhat.com/platform/red-hat-openshift/virtualization#virtualization-infrastructure) for information on all of the supported storage solutions.
 
@@ -26,7 +26,7 @@ Please observe the following graphic for a demonstration of the CSI workflow for
 In this lab, we are going to take a closer look at the storage behind
 the virtual machine we just created fedora01.
 
-1. Start by clicking on the left menu for Storage → Persistent Volume Claims. Make sure you are in the vmexamples-user1 namespace, you should see the fedora01 PVC that was created when you created the fedora01 VM in the previous section.
+1. Start by clicking on the left menu for Storage → Persistent Volume Claims. Make sure you are in the vm-“your-familiyname namespace, you should see the fedora01 PVC that was created when you created the fedora01 VM in the previous section.
 
     ![](images/storage-image2.png)
 
@@ -64,7 +64,7 @@ developers can:
 
 1. Navigate back to Virtualization persona dropdown, and then click
     on VirtualMachines in the left-side menu. Expand the
-    project vmexamples-user1 in the center column and highlight
+    project vm-“your-familiyname in the center column and highlight
     the fedora01 virtual machine.
 
     ![](images/storage-image4.png)
