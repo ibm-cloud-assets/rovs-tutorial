@@ -157,7 +157,7 @@ In this environment, the default StorageClass, which defines the source and type
 
 When a VM is created, an interface on the Pod Networking network of type masquerade is created by default. This connects the VM to the SDN and provides access from the VM to outside the OpenShift cluster. Other VMs, and Pods, in the cluster can access the virtual machine using this interface.
 Furthermore, a VM connected to the SDN can be accessed externally using a Route, or Service with type load balancer, or even have a Network Attachment Definition configured to allow direct access to external networks, a concept we will explore in more depth later.
-> @@@@@ add a link here to the demo script “Networking management” #LMA
+Learn more about Openshift Virtualization Networking run through the Netwroking tutorial in this github
 
 ## Controlling Virtual Machine State
 
