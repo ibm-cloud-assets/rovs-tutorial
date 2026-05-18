@@ -55,7 +55,7 @@ Your login is available through SSO using your IBM id: name@xx.ibm.com
 
     ![](./images/vm-image6.png)
 
-1. From the center column click on the project vmimported-user1 to see the virtual machines that are currently deployed and available to your specific user account.
+1. From the center column click on the project “vm-imageyour-family-name” to see the virtual machines that are currently deployed and available to your specific user account.
 
     ![](./images/vm-image7.png)
 
