@@ -100,7 +100,7 @@ If you were deploying in your own environment where you can customize the option
 
     ![](./images/vm-image14.png)
 
-1. We will return to our tree view and see information about our new VM in the virtual machine overview column. Notice also that we now see our vmexamples-user1 project listed in the center column as it contains a VM, and that it is highlighted within the project.
+1. We will return to our tree view and see information about our new VM in the virtual machine overview column. Notice also that we now see our “vm-imageyour-family-name” project listed in the center column as it contains a VM, and that it is highlighted within the project.
 If we watch closely we can see the VM Status switch from Provisioning to Starting and finally Running in the virtual machine overview column when it is ready.
 During this time, the storage provider has cloned the template disk so that it can be used by the newly created virtual machine. The amount of time this takes can vary based on the storage provider being used to create the boot disk, and the current load on the system.
 
