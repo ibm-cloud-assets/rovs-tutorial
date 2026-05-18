@@ -60,7 +60,7 @@ demand for our end users.
     - Template name: centos-stream9-server-db-small
     - Project: vm-"your-family-name"
     - Template display name: CentOS Stream 9 VM - Database Template Small
-    - Template provider: Roadshow user1
+    - Template provider: Demo
 
     ![](images/template-image6.png)
 
