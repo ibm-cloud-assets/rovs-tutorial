@@ -91,6 +91,9 @@ demand for our end users.
 10  - systemctl start mariadb
 11
 
+
+
+
 1. Click the Save button, you will see a green Saved prompt, then follow that by clicking the Apply button.
 
 1. Now click on the Catalog item on the left-side menu, select the Template catalog option, followed by User templates. You should see your created template available as a tile.
