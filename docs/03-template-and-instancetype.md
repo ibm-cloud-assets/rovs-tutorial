@@ -79,17 +79,16 @@ demand for our end users.
     When the Cloud-init dialog opens, click the radio button to Configure via: Script then replace the YAML with the following YAML snippet.
 
 ```yaml
-1 userData: |-
-2 #cloud-config
-3 user: centos
-4 password: ${CLOUD_USER_PASSWORD}
-5 chpasswd: { expire: False }
-6 packages:
-7  - mariadb-server
-8  runcmd:
-9  - systemctl enable mariadb
-10  - systemctl start mariadb
-11
+userData: |-#cloud-config
+user: centos
+password: ${CLOUD_USER_PASSWORD}
+chpasswd: { expire: False }
+packages:
+ - mariadb-server
+runcmd:
+ - systemctl enable mariadb
+ - systemctl start mariadb
+
 ```
 
 
