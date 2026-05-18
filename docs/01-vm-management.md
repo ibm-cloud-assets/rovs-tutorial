@@ -149,7 +149,7 @@ Administering and using virtual machines is more than simply creating and custom
 
 In this environment, the default StorageClass, which defines the source and type of storage used for the disk, is called ocs-storagecluster-ceph-rbd-virtualization. This storage is the default type provided by OpenShift Data Foundation (ODF) for running virtual machines. Each storage provider has different storage classes that define the characteristics of the storage backing the VM disk.
 
-> @@@@@ add a link here to the demo script “Storage management” #LMA
+To learn more about Openshift Virtualization Storage Management run through the Storage tutorial in this github
 
 1. Examine the network interfaces attached to the VM by clicking on the Network subtab:
 
@@ -159,7 +159,7 @@ When a VM is created, an interface on the Pod Networking network of type masquer
 Furthermore, a VM connected to the SDN can be accessed externally using a Route, or Service with type load balancer, or even have a Network Attachment Definition configured to allow direct access to external networks, a concept we will explore in more depth later.
 
 
-Learn more about Openshift Virtualization Networking run through the Networking tutorial in this github
+To learn more about Openshift Virtualization Networking run through the Networking tutorial in this github
 
 ## Controlling Virtual Machine State
 
