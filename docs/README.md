@@ -2,6 +2,8 @@
 
 Red Hat OpenShift Virtualization Service (ROVS) on IBM Cloud enables organizations to run virtual machines and containers on a single, unified platform. These tutorials provide step-by-step guidance to help you deploy, migrate, and network virtual workloads while leveraging the scalability, security, and operational consistency of OpenShift.
 
+![](./images/rovs-provisioning.png)
+
 You will find three tutorials:
 
 ## Tutorial 1 – Deploy a Virtual Machine on OpenShift Virtualization
@@ -15,3 +17,5 @@ Discover how to migrate virtual machines from VMware or other virtualization pla
 ## Tutorial 3 – Connect Virtual Machines to External Networks
 
 Explore advanced networking capabilities for virtual machines on OpenShift Virtualization. This tutorial demonstrates how to attach additional network interfaces, configure VLAN connectivity, and enable seamless integration between VMs, containerized applications, and external infrastructure.
+
+> In order to run this tutorial, you need to be invited to a ROVS cluster or provision one using the provided terraform scripts. Provisioning this infrastructure may incur cost.
