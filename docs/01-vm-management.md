@@ -74,7 +74,7 @@ This is only to demo the creation of a project!! Do not create a project but aft
 
     ![](./images/vm-image9.png)
 
-1. In the Name field, type vmexamples-user1 to name the project, then (DO NOT) click Create.
+1. In the Name field, type vm-"your-name"to name the project, then (DO NOT) click Create.
 
     ![](./images/vm-image10.png)
 
