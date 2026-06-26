@@ -6,7 +6,7 @@ Red Hat OpenShift Virtualization Service (ROVS) on IBM Cloud enables organizatio
 
 You will find three tutorials:
 
-## Tutorial 1 – Deploy a Virtual Machine on OpenShift Virtualization
+## Tutorial 1 – Deploy a VM on OpenShift Virtualization
 
 Learn how to provision and manage a virtual machine on OpenShift Virtualization running on IBM Cloud. This tutorial walks you through VM creation, networking, storage configuration, and day-2 operations, providing a hands-on introduction to running traditional workloads alongside containers on OpenShift.
 
