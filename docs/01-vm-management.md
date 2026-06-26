@@ -11,23 +11,19 @@ The beginning section of this lab will introduce you to the basics of creating a
 - Understand how VM power states are managed using the OpenShift console
 - Live migrate a VM between two hosts
 
-As a reminder, here are your credentials for the OpenShift Console:
-The link to the OpenShift cluster console can be found in the invite or in the details of the "virt-roks" cluster in the container section of the IBM itz-cp-emea cloud account.
-
-If things are correct you came here since you were invited as a member of the shared ITZ account “2765292 – itz-cp-emea” to be able to demo the “Virtualization on OpenShift Sales Play”
-Your login is available through SSO using your IBM id: name@xx.ibm.com
+> You must be invited to the ROVS cluster to be able to open the Console. You may have been invited to the shared ITZ account “2765292 – itz-cp-emea” to be able to demo the “Virtualization on OpenShift Sales Play”. Your login is available through SSO using your IBM id: name@xx.ibm.com
 
 ### Switch to the Virtualization Persona
 
-- When you first log in, you will be placed in the Administrator persona.
+1. When you first log in, you will be placed in the Core Platform persona.
 
     ![](./images/vm-image1.png)
 
-- Now, click on Administrator in the upper left corner and switch to the Virtualization persona.
+1. Now, click on Core Platform in the upper left corner and switch to the Virtualization persona.
 
-> The Virtualization persona is available only when Red Hat OpenShift Virtualization is installed and properly configured. In this lab environment the installation and configuration has already been performed for us.
+> The Virtualization persona is available only when Red Hat OpenShift Virtualization operator is installed and properly configured. ROVS comes with this operator pre-installed for you.
 
-- In a fresh environment you will be greeted by an introductory prompt welcoming you to OpenShift Virtualization. Since this environment has been prepped already you will not see this greeting.
+1. In a fresh environment you will be greeted by an introductory prompt welcoming you to OpenShift Virtualization.
 
 ## Exploring OpenShift Virtualization
 
@@ -45,7 +41,7 @@ Your login is available through SSO using your IBM id: name@xx.ibm.com
 
     ![](./images/vm-image4.png)
 
-1. The central column as mentioned is a project view. Like other objects in OpenShift, Projects (which are an abstraction for Kubernetes namespaces), are the boundaries for which permissions and other aspects of using and managing the resources are available to a user. By default there is a slider here that only shows projects with existing VMs. This environment has been prepped for demo purposes. When you request access after invitation to the environment, a project “vm-image*your-family-name*” was created as part of the process. Make sure to select your newly created OpenShift Project “vm-image*your-family-name*” when creating VM’s.
+1. The central column as mentioned is a project view. Like other objects in OpenShift, Projects (which are an abstraction for Kubernetes namespaces), are the boundaries for which permissions and other aspects of using and managing the resources are available to a user. By default there is a slider here that only shows projects with existing VMs. This environment has been prepped for demo purposes. When you request access after invitation to the environment, two projects with the prefix “vm-*your-last-name*” have been created as part of the invite process. Make sure to select one of your assigned OpenShift Project “vm-*your-last-name*” when creating VM’s.
 
 1. Find the created projects in the project view.
 
@@ -55,7 +51,7 @@ Your login is available through SSO using your IBM id: name@xx.ibm.com
 
     ![](./images/vm-image6.png)
 
-1. From the center column click on the project “vm-imageyour-family-name” to see the virtual machines that are currently deployed and available to your specific user account.
+1. From the center column click on the project “vm-your-last-name” to see the virtual machines that are currently deployed and available to your specific user account.
 
     ![](./images/vm-image7.png)
 
@@ -63,20 +59,6 @@ Your login is available through SSO using your IBM id: name@xx.ibm.com
 - The virtual machine overview column will update to only show the virtual machines in the “vm-*your-family-name*” project. You should see no VMs listed.
 
     ![](./images/vm-image8.png)
-
-### How to Create a New Project
-
-This is only to demo the creation of a project!! Do not create a project but after this use the project created for you.
-
-1. Before creating a VM we need to create a new project. Virtual machines are deployed to a specific project, or namespace, where by default, users without permission to the namespace cannot access, manage, or control them. Administrators can access all projects, and therefore view all virtual machines, however regular users must be given access to projects as needed.
-
-1. Click Create Project at the top right of the center tree view column.
-
-    ![](./images/vm-image9.png)
-
-1. In the Name field, type vm-"your-name"to name the project, then (DO NOT) click Create.
-
-    ![](./images/vm-image10.png)
 
 ## Create a Linux Virtual Machine
 
