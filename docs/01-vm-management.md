@@ -64,7 +64,7 @@ The beginning section of this lab will introduce you to the basics of creating a
 
 1. From the virtual machine overview column, click on the Create VirtualMachine button and select From template from the drop-down menu.
 
-    ![](./images/vm-image11.png)
+    ![](./images/vm-image33.png)
 
 VMs can also be created from an InstanceType wizard as well as created by entering a custom YAML definition, but for this current lab scenario we are going to stick with creating VMs based on existing templates.
 
