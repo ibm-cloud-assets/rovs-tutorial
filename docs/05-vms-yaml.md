@@ -1,139 +1,78 @@
-# Run Virtual Machine via YAML
+# Manage VMs via YAML
 
 > Estimated duration: 2 hours
 
-In this tutorial you will learn to manage VMs using YAML files. You will deploy two types of VMs:
+In this tutorial you will learn how to manage VMs using YAML files and the command line `virtctl`. You will deploy two types of VMs:
 
 * a stateless VM with a ContainerDisk, which is ephemeral storage. The basic steps here would be to create a container image and use it as the root disk for the Virtual Machine. The OpenShift's internal registry is used to store the container image.
 * a stateful the VM with Persistent Volumes (PVs).
 
-![Operator OSV welcome](./images/operator-osv-welcome.png)
+> This tutorial assumes you have access to an existing [ROVS cluster](https://cloud.ibm.com/infrastructure/openshift-virtualization).
 
 ## Agenda
 
 * [Pre-Requisites](#pre-requisites)
-* [Provision the cluster via Terraform](#provision-the-cluster-via-terraform)
-* [Install the OpenShift Virtualization Operator](#install-the-openshift-virtualization-operator)
-* [Import Image to the OpenShift Registry](#import-image-to-the-openshift-registry)
+* [Explore the existing golden images](#explore-the-existing-golden-images)
 * [Provision a stateless VM](#provision-a-stateless-vm)
 * [Provision a stateful VM](#provision-a-stateful-vm)
 * [Access the VM via SSH](#access-the-vm-via-ssh)
 * [Deploy NGinx on the VM and expose it as a route](#deploy-nginx-on-the-vm-and-expose-it-as-a-route)
+* [Import Image to the OpenShift Registry](#import-image-to-the-openshift-registry)
 
 ## Pre-Requisites
 
-    * terraform
-    * docker or podman
-    * virtctl
-    * OC command line
+Make sure you have the command line tools below and you are connected to the cluster as described in the section [Connect to cluster](./00-connect-to-cluster.md).
 
-## Provision the cluster via Terraform
+* docker or podman
+* virtctl
+* OC (OpenShift) command line
 
-> Estimated duration: 1 hour
+## Explore the existing golden images
 
-The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal worker nodes in the region Toronto.
+OpenShift Virtualization stores its automatically managed **golden images** in the `openshift-virtualization-os-images` namespace. Here is the list of [Certified Guest OS Operating Systems in OpenShift Virtualization](https://access.redhat.com/articles/4234591).
 
-1. Set the region, the prefix, the OpenShift version in the file `testing.auto.tfvars`
-
-    > Some MZR (MZR) may have insufficient infrastructure capacity. Should it happen, modify the variable *excluded_zones*.
-
-1. Provision the required infrastructure using the Terraform scripts locally or in Schematics within the IBM Cloud Console.
+1. List all available operating-system boot sources:
 
     ```sh
-    cd terraform
-    terraform init
-    terraform apply
+    oc get datasource -n openshift-virtualization-os-images
     ```
 
-## Install the OpenShift Virtualization Operator
-
-1. Install the operator from the OperatorHub
-
-    ![Operator OSV](./images/operator-osv.png)
-
-    ![Operator OSV install](./images/operator-osv-install.png)
-
-    ![Operator OSV welcome](./images/operator-osv-welcome.png)
-
-## Connect to the cluster
-
-1. Connect to the cluster
+1. Check the Fedora DataSource
 
     ```sh
-    oc login --token=<ton_token> --server=https://<url_de_ton_cluster>
+    oc get datasource fedora \
+      -n openshift-virtualization-os-images \
+      -o yaml
     ```
 
-1. Create a new project
-
-    ```sh
-    export DEPLOY_NAMESPACE=vm-project
-
-    oc new-project $DEPLOY_NAMESPACE
-    oc project $DEPLOY_NAMESPACE
-    ```
-
-1. Expose the Openshift Internal Image Registry
-
-    ```sh
-    oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
-    oc get routes -n openshift-image-registry
-    OPENSHIFT_REGISTRY=$(oc get routes -n openshift-image-registry | grep default-route-openshift-image-registry | awk '{print $2}')
-    ```
-
-1. Login to the OpenShift Registry
-
-    ```sh
-    podman login -u kubeadmin -p `oc whoami -t` $OPENSHIFT_REGISTRY
-    ````
-
-## Import Image to the OpenShift Registry
-
-1. Download image
-
-    ```sh
-    curl -LO https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2
-    ```
-
-1. Create Dockerfile
-
-    ```sh
-    cat << END > Dockerfile
-    FROM kubevirt/container-disk-v1alpha
-    ADD Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2 /disk
-    END
-    ```
-
-1. Build the image
-
-    ```sh
-    podman build -t $OPENSHIFT_REGISTRY/$DEPLOY_NAMESPACE/virt-fedora:32 .
-    ```
-
-1. Push the image
-
-    ```sh
-    podman push $OPENSHIFT_REGISTRY/$DEPLOY_NAMESPACE/virt-fedora:32
-    ```
-
-1. Verify the image is uploaded to the registry under the namespace
-
-    ```sh
-    oc get is
-    oc describe is virt-fedora
-    ```
-
-1. Delete the local image
-
-    ```sh
-    rm Fedora-Cloud-Base-32-1.6.x86_64.qcow2
-    ```
+    > The DataSource provides a stable name, while its underlying PVC can be updated when a newer Fedora boot image is imported.
 
 ## Provision a stateless VM
 
-1. Provision a VM
+Let's provision a Fedora VM with a YAML file.
+
+1. Let's set the environment variable for the OpenShift project
 
     ```sh
-    cat <<EOF | oc apply -n $DEPLOY_NAMESPACE -f -
+    export OC_PROJECT = <your-openshift-project>
+    ```
+
+    For example:
+
+    ```sh
+    export OC_PROJECT=vm-mace-1
+    ```
+
+1. Let's use this project
+
+    ```sh
+    oc project $OC_PROJECT
+    ```
+
+1. Provision a stateless Fedora VM
+
+    ```sh
+    cat <<EOF | oc apply -n $OC_PROJECT -f -
     apiVersion: kubevirt.io/v1
     kind: VirtualMachine
     metadata:
@@ -166,8 +105,6 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
                   name: nic0
               networkInterfaceMultiqueue: true
               rng: {}
-            machine:
-              type: pc-q35-rhel8.1.0
             resources:
               requests:
                 memory: 2Gi
@@ -178,42 +115,84 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
               pod: {}
           terminationGracePeriodSeconds: 0
           volumes:
-            - containerDisk:
-                image: 'image-registry.openshift-image-registry.svc.cluster.local:5000/$DEPLOY_NAMESPACE/virt-fedora:32'
+            - name: rootdisk
+              containerDisk:
+                image: quay.io/containerdisks/fedora:latest
                 imagePullPolicy: Always
-              name: rootdisk
-            - cloudInitNoCloud:
+
+            - name: cloudinitdisk
+              cloudInitNoCloud:
                 userData: |
                   #cloud-config
-                  ssh_pwauth: True
+                  user: fedora
+                  password: password
                   chpasswd:
-                    list: |
-                      root:password
-                    expire: False
+                    expire: false
+                  ssh_pwauth: true
                   hostname: fedora-stateless
-              name: cloudinitdisk
     EOF
+    ```
+
+    > The VM should start within a minute.
+
+1. List of VM in this project
+
+    ```sh
+    oc get vmi -n $OC_PROJECT
+    ```
+
+    > You should see
+
+    ```sh
+    NAME                      AGE     PHASE     IP             NODENAME                                                READY
+    fedora-stateless          2m12s   Running   172.17.1.221   kube-d8ufsksf04cd0s5gpp90-sharedrovs-default-00000693   True
+    ```
+
+1. List of events on a specific VM. This command is useful should you have any issues on the VM
+
+    ```sh
+    oc describe vmi fedora-stateless -n $OC_PROJECT
+    ```
+
+    > You should see
+
+    ```sh
+    Events:
+    Type    Reason            Age   From                       Message
+    ----    ------            ----  ----                       -------
+    Normal  SuccessfulCreate  60s   virtualmachine-controller  Created virtual machine pod virt-launcher-fedora-stateless-v78m7
+    Normal  Created           48s   virt-handler               VirtualMachineInstance defined.
+    Normal  Started           48s   virt-handler               VirtualMachineInstance started.
+    ```
+
+1. Connect to VM via virctl console. Login with credentials as **Login:** `fedora` **Password:** `password`
+
+    ```sh
+    virtctl console fedora-stateless -n $OC_PROJECT
     ```
 
 1. Navigate to Openshift Console → Virtualization → VirtualMachines.
 
 1. Notice the new Virtual Machine been created and in Running state.
 
-    ![Fedora VM](./images/osv-vm-fedora-running.png)
+    ![Fedora VM](./images/05-openshift-fedora-vm.png)
 
-1. Click on fedora-stateless → VNC Console. Login with credentials as: Username: root Password: password
+1. You can also open the VNC console.
 
 ## Provision a stateful VM
+
+Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed in the ROVS cluster and it is recommend to use the storage class provided by ODF.
 
 1. Retrieve and store the StorageClass name in a variable
 
     ```sh
     oc get sc
+    ```
 
-1. Let's use the default storage class
+1. Let's use the storage class optimized for OpenShift Virtualization
 
     ```sh
-    STORAGE_CLASS_NAME=ibmc-vpc-block-10iops-tier
+    STORAGE_CLASS_NAME=ocs-storagecluster-ceph-rbd-virtualization
     ```
 
 1. Create an Image Pull Secret so that the Containerized Data Importer (CDI) can authenticate itself against the internal registry and pull the image to create a DataVolume out of it. The secret is essentially the default service account image pull secret token which is meant for registry authentication.
@@ -249,7 +228,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
               storageClassName: $STORAGE_CLASS_NAME
             source:
               registry:
-                url: "docker://image-registry.openshift-image-registry.svc:5000/$DEPLOY_NAMESPACE/virt-fedora:32"
+                url: "docker://image-registry.openshift-image-registry.svc:5000/$OC_PROJECT/virt-fedora:32"
                 secretRef: "internal-reg-pull-secret"
       template:
         metadata:
@@ -313,12 +292,12 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
 
 1. Click on fedora-stateless → VNC Console. Login with credentials as: Username: root Password: password
 
-## Access the Virtual Machine via the cli (oc and virtctl)
+## Access the Virtual Machine via the CLI OC and virtctl
 
 1. Switch the context to the deployed namespace
 
     ```sh
-    oc project -n $DEPLOY_NAMESPACE
+    oc project -n $OC_PROJECT
     ```
 
 1. List the Virtual Machines
@@ -380,7 +359,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
     kind: Secret
     metadata:
       name: fedora-cloudinit-secret
-      namespace: $DEPLOY_NAMESPACE
+      namespace: $OC_PROJECT
     type: Opaque
     stringData:
       userData: |
@@ -401,7 +380,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
 1. Provision a Stateless VM with a SSH key in a Secret
 
     ```sh
-    cat <<EOF | oc apply -n $DEPLOY_NAMESPACE -f -
+    cat <<EOF | oc apply -n $OC_PROJECT -f -
     apiVersion: kubevirt.io/v1
     kind: VirtualMachine
     metadata:
@@ -447,7 +426,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
           terminationGracePeriodSeconds: 0
           volumes:
             - containerDisk:
-                image: 'image-registry.openshift-image-registry.svc.cluster.local:5000/$DEPLOY_NAMESPACE/virt-fedora:32'
+                image: 'image-registry.openshift-image-registry.svc.cluster.local:5000/$OC_PROJECT/virt-fedora:32'
                 imagePullPolicy: Always
               name: rootdisk
             - cloudInitNoCloud:
@@ -461,7 +440,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
 
     ```sh
     virtctl ssh \
-      --namespace vm-project \
+      --namespace $OC_PROJECT \
       --username fedora \
       --local-ssh-opts="-o StrictHostKeyChecking=accept-new" \
       vmi/fedora-stateless-ssh
@@ -522,7 +501,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
     kind: Service
     metadata:
       name: fedora-web
-      namespace: $DEPLOY_NAMESPACE
+      namespace: $OC_PROJECT
     spec:
       selector:
         vm.kubevirt.io/name: fedora-stateless-ssh
@@ -541,7 +520,7 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
     kind: Route
     metadata:
       name: fedora-web-route
-      namespace: $DEPLOY_NAMESPACE
+      namespace: $OC_PROJECT
       labels:
         app: hello
         tier: frontend
@@ -591,24 +570,127 @@ The Terraform scripts will provision a 4.19 ROKS clusters with two Bare metal wo
     terraform destroy
     ```
 
-## Useful VM commands
+## Expose the Openshift Internal Image Registry
 
-1. Connect to VM via virctl console
+1. Expose the Openshift Internal Image Registry
 
     ```sh
-    virtctl console fedora-stateless -n vm-project
+    oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
+    oc get routes -n openshift-image-registry
+    OPENSHIFT_REGISTRY=$(oc get routes -n openshift-image-registry | grep default-route-openshift-image-registry | awk '{print $2}')
     ```
 
-1. List of VM in a Project
+1. Login to the OpenShift Registry
 
     ```sh
-    oc get vmi -n "$DEPLOY_NAMESPACE"
+    podman login -u kubeadmin -p `oc whoami -t` $OPENSHIFT_REGISTRY
     ````
 
-1. List of events on a specific VM
+## Import Image to the OpenShift Registry
+
+1. Download image
 
     ```sh
-    oc describe vmi rhel-10-violet-tick-73 -n "$DEPLOY_NAMESPACE"
+    curl -LO https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2
+    ```
+
+1. Create Dockerfile
+
+    ```sh
+    cat << END > Dockerfile
+    FROM kubevirt/container-disk-v1alpha
+    ADD Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2 /disk
+    END
+    ```
+
+1. Build the image
+
+    ```sh
+    podman build -t $OPENSHIFT_REGISTRY/$OC_PROJECT/virt-fedora:32 .
+    ```
+
+1. Push the image
+
+    ```sh
+    podman push $OPENSHIFT_REGISTRY/$OC_PROJECT/virt-fedora:32
+    ```
+
+1. Let's provision this imported image Fedora VM
+
+    ```sh
+    cat <<EOF | oc apply -n $OC_PROJECT -f -
+    apiVersion: kubevirt.io/v1
+    kind: VirtualMachine
+    metadata:
+      name: fedora-stateless
+      labels:
+        app: fedora-stateless
+    spec:
+      runStrategy: Always # VM starts automatically and restarts if stopped
+      template:
+        spec:
+          domain:
+            cpu:
+              cores: 1
+              sockets: 1
+              threads: 1
+            devices:
+              disks:
+                - bootOrder: 1
+                  disk:
+                    bus: virtio
+                  name: rootdisk
+                - bootOrder: 4
+                  disk:
+                    bus: virtio
+                  name: cloudinitdisk
+              interfaces:
+                - bootOrder: 2
+                  masquerade: {}
+                  model: virtio
+                  name: nic0
+              networkInterfaceMultiqueue: true
+              rng: {}
+            machine:
+              type: pc-q35-rhel8.1.0
+            resources:
+              requests:
+                memory: 2Gi
+          evictionStrategy: LiveMigrate
+          hostname: fedora-stateless
+          networks:
+            - name: nic0
+              pod: {}
+          terminationGracePeriodSeconds: 0
+          volumes:
+            - containerDisk:
+                image: 'image-registry.openshift-image-registry.svc.cluster.local:5000/$OC_PROJECT/virt-fedora:32'
+                imagePullPolicy: Always
+              name: rootdisk
+            - cloudInitNoCloud:
+                userData: |
+                  #cloud-config
+                  ssh_pwauth: True
+                  chpasswd:
+                    list: |
+                      root:password
+                    expire: False
+                  hostname: fedora-stateless
+              name: cloudinitdisk
+    EOF
+    ```
+
+1. Verify the image is uploaded to the registry under the namespace
+
+    ```sh
+    oc get is
+    oc describe is virt-fedora
+    ```
+
+1. Delete the local image
+
+    ```sh
+    rm Fedora-Cloud-Base-32-1.6.x86_64.qcow2
     ```
 
 ## Resources
