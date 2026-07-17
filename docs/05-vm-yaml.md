@@ -4,8 +4,8 @@
 
 In this tutorial you will learn how to manage VMs using YAML files and the command lines `virtctl` and `oc`. You will deploy two types of VMs:
 
-* a stateless VM with a ContainerDisk, which is ephemeral storage. The basic steps here would be to create a container image and use it as the root disk for the Virtual Machine. The OpenShift's internal registry is used to store the container image.
-* a stateful the VM with Persistent Volumes (PVs).
+* a stateless VM with a ContainerDisk, which is ephemeral storage.
+* a stateful VM with Persistent Volumes (PVs) and OpenShift Data Foundation storage class.
 
 You will deploy and expose the nginx server installed in the VM.
 
