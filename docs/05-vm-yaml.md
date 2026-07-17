@@ -594,7 +594,7 @@ Let's deploy an NGINX reverse proxy on the VM and expose it to be able to consum
     </html>
     ```
 
-Congratulations! You now have a NGINX server running on OpenShift Virtualizaation exposed via a native public OpenShift Route.
+Congratulations! You now have a NGINX server running on OpenShift Virtualization exposed via a native public OpenShift Route.
 
 ## Clean up the VM
 
