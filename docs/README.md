@@ -24,6 +24,6 @@ Templates and InstanceTypes provide a standardized and efficient way to deploy v
 
 Upcoming....
 
-## Tutorial 5 – Template and InstanceType Management
+## Tutorial 5 – Create and Manage VMs with YAML
 
 This tutorial demonstrates how to deploy and manage a virtual machine on Red Hat OpenShift Virtualization using a YAML manifest. You'll learn how to define the VM's compute, storage, networking, and cloud-init configuration, then create and manage it directly with the oc and virtctl CLIs. Using YAML provides a repeatable, GitOps-friendly approach that is ideal for automation and Infrastructure as Code workflows.

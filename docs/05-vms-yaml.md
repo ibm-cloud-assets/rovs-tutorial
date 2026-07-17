@@ -1,4 +1,4 @@
-# Manage VMs via YAML
+# Create and Manage VMs with YAML
 
 > Estimated duration: 90 minutes
 
