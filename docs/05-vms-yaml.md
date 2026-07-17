@@ -1,6 +1,6 @@
 # Manage VMs via YAML
 
-> Estimated duration: 2 hours
+> Estimated duration: 90 minutes
 
 In this tutorial you will learn how to manage VMs using YAML files and the command line `virtctl`. You will deploy two types of VMs:
 
@@ -16,7 +16,7 @@ In this tutorial you will learn how to manage VMs using YAML files and the comma
 * [Provision a stateless VM](#provision-a-stateless-vm)
 * [Provision a stateful VM](#provision-a-stateful-vm)
 * [Access the VM via SSH](#access-the-vm-via-ssh)
-* [Deploy NGinx on the VM and expose it as a route](#deploy-nginx-on-the-vm-and-expose-it-as-a-route)
+* [Deploy NGinx on the VM and expose it as a public route](#deploy-nginx-on-the-vm-and-expose-it-as-a-public-route)
 * [Import Image to the OpenShift Registry](#import-image-to-the-openshift-registry)
 
 ## Pre-Requisites
@@ -189,47 +189,43 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
     oc get sc
     ```
 
-1. Let's use the storage class optimized for OpenShift Virtualization
+1. You will see several storage classes returned by the command above. Let's use the storage class optimized for OpenShift Virtualization provided by ODF. Ceph RBD supports ReadWriteMany when used as a raw block device.
 
     ```sh
-    STORAGE_CLASS_NAME=ocs-storagecluster-ceph-rbd-virtualization
+    export STORAGE_CLASS_NAME=ocs-storagecluster-ceph-rbd-virtualization
     ```
 
-1. Create an Image Pull Secret so that the Containerized Data Importer (CDI) can authenticate itself against the internal registry and pull the image to create a DataVolume out of it. The secret is essentially the default service account image pull secret token which is meant for registry authentication.
+1. Apply the VirtualMachine manifest.
 
     ```sh
-    ./scripts/generate_image_pull_secret.sh
-    ```
-
-1. Apply the VirtualMachine manifest
-
-    ```sh
-    cat <<EOF | oc apply -f -
+    cat <<EOF | oc apply -n "$OC_PROJECT" -f -
     apiVersion: kubevirt.io/v1
     kind: VirtualMachine
     metadata:
-      name: fedora-dv
+      name: fedora-stateful
       labels:
-        app: fedora-dv
+        app: fedora-stateful
     spec:
       runStrategy: Always # VM starts automatically and restarts if stopped
+      
       dataVolumeTemplates:
         - apiVersion: cdi.kubevirt.io/v1
           kind: DataVolume
           metadata:
-            name: fedora-dv-disk-0
+            name: fedora-stateful-disk-0
           spec:
-            pvc:
+            storage:
               accessModes:
-                - ReadWriteOnce
+                - ReadWriteMany
+              volumeMode: Block
               resources:
                 requests:
-                  storage: 50G
+                  storage: 50Gi
               storageClassName: $STORAGE_CLASS_NAME
             source:
               registry:
-                url: "docker://image-registry.openshift-image-registry.svc:5000/$OC_PROJECT/virt-fedora:32"
-                secretRef: "internal-reg-pull-secret"
+                url: docker://quay.io/containerdisks/fedora:latest
+      
       template:
         metadata:
           labels:
@@ -256,48 +252,61 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
                   name: nic0
               networkInterfaceMultiqueue: true
               rng: {}
-            machine:
-              type: pc-q35-rhel8.2.0
             resources:
               requests:
-                memory: 4Gi
+                memory: 2Gi
+          
           evictionStrategy: LiveMigrate
-          hostname: fedora-pvc
+          hostname: fedora-stateful
+          
           networks:
             - name: nic0
               pod: {}
+          
           terminationGracePeriodSeconds: 0
+          
           volumes:
-            - dataVolume:
-                name: fedora-dv-disk-0
-              name: disk-0
-            - cloudInitNoCloud:
+            - name: disk-0
+              dataVolume:
+                name: fedora-stateful-disk-0
+
+            - name: cloudinitdisk
+              cloudInitNoCloud:
                 userData: |
                   #cloud-config
-                  ssh_pwauth: True
+                  user: fedora
+                  password: password
                   chpasswd:
-                    list: |
-                      root:password
-                    expire: False
-                  hostname: fedora-dv
-              name: cloudinitdisk
+                    expire: false
+                  ssh_pwauth: true
+                  hostname: fedora-stateful
     EOF
     ```
 
-1. Navigate to Openshift Console → Virtualization → VirtualMachines.
-
-1. Notice the new Virtual Machine been created and in **Provisioning** state.
-
-    ![Fedora VM](./images/osv-vm-fedora-running.png)
-
-1. Click on fedora-stateless → VNC Console. Login with credentials as: Username: root Password: password
-
-## Access the Virtual Machine via the CLI OC and virtctl
-
-1. Switch the context to the deployed namespace
+1. The DataVolume imports the disk into a PVC, so changes made inside the VM persist after the VMI is recreated. Let's check the bound pvc
 
     ```sh
-    oc project -n $OC_PROJECT
+    oc get pvc -n "$OC_PROJECT" -w
+    ```
+
+    Output:
+
+    ```sh
+    NAME                     STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS                                 VOLUMEATTRIBUTESCLASS   AGE
+    fedora-stateful-disk-0   Bound    pvc-2e5c1498-e8a1-4bea-a171-5134675bc45d   50Gi       RWO            ocs-storagecluster-ceph-rbd-virtualization   <unset>                 99s
+    ```
+
+1. List the VM instance in this project. You will notice that the VM goes from the step `Scheduling` to `Running`.
+
+    ```sh
+    oc get vmi -n $OC_PROJECT
+    ```
+
+    > You should see
+
+    ```sh
+    NAME              AGE   PHASE     IP             NODENAME                                                READY
+    fedora-stateful   13s   Running   172.17.1.232   kube-d8ufsksf04cd0s5gpp90-sharedrovs-default-00000693   True
     ```
 
 1. List the Virtual Machines
@@ -310,40 +319,14 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
 
     ```sh
     NAME            AGE     VOLUME
-    fedora-stateless   9m23s
+    fedora-stateful   9m23s
     ```
 
-1. List the Virtual Machine Instances
-
-    ```sh
-    oc get vmis
-    ```
-
-    Output
-
-    ```sh
-    NAME            AGE   PHASE     IP              NODENAME                                             READY
-    fedora-stateless   12m   Running   172.17.57.108   kube-d0criacr0g0gtjirqeb0-osvroks-default-0000024f   True
-    ```
-
-1. Access the virtual machine instance via the virtctl cli. Use the credentials as root / password
-
-    ```sh
-    virtctl console fedora-stateless
-    ```
-
-    Output
-
-    ```sh
-    Successfully connected to fedora-stateless console. The escape sequence is ^]
-
-    fedora-stateless login: root
-    Password:
-    Last login: Tue May 06 16:11:23 on tty1
-    [root@fedora-stateless ~]#
-    ```
+Congratulations! You now have a running stateful VM.
 
 ## Access the VM via SSH
+
+Let's access the VM via SSH. To do so, we will create a Kubernetes Secret containing the cloud-init configuration that will be applied when the VM boots for the first time. The Secret creates the `fedora` user, configures SSH key-based authentication, grants passwordless `sudo` access, and sets the VM hostname. Referencing a Secret from the VM manifest keeps credentials and initialization data separate from the VM definition.
 
 1. Store the SSH Key in an environment variable.
 
@@ -373,23 +356,45 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
             shell: /bin/bash
             ssh_authorized_keys:
               - $SSH_KEY
-        hostname: fedora-dv
+        hostname: fedora-stateful
     EOF
     ```
 
-1. Provision a Stateless VM with a SSH key in a Secret
+1. Provision a Stateful VM with a SSH key in a Secret
 
     ```sh
-    cat <<EOF | oc apply -n $OC_PROJECT -f -
+    cat <<EOF | oc apply -n "$OC_PROJECT" -f -
     apiVersion: kubevirt.io/v1
     kind: VirtualMachine
     metadata:
-      name: fedora-stateless-ssh
+      name: fedora-stateful
       labels:
-        app: fedora-stateless-ssh
+        app: fedora-stateful
     spec:
       runStrategy: Always # VM starts automatically and restarts if stopped
+
+      dataVolumeTemplates:
+        - apiVersion: cdi.kubevirt.io/v1
+          kind: DataVolume
+          metadata:
+            name: fedora-stateful-disk-0
+          spec:
+            storage:
+              accessModes:
+                - ReadWriteMany
+              volumeMode: Block
+              resources:
+                requests:
+                  storage: 50Gi
+              storageClassName: ${STORAGE_CLASS_NAME}
+            source:
+              registry:
+                url: docker://quay.io/containerdisks/fedora:latest
+
       template:
+        metadata:
+          labels:
+            kubevirt.io/vm: fedora-stateful
         spec:
           domain:
             cpu:
@@ -398,57 +403,67 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
               threads: 1
             devices:
               disks:
-                - bootOrder: 1
+                - name: disk-0
+                  bootOrder: 1
                   disk:
                     bus: virtio
-                  name: rootdisk
-                - bootOrder: 4
+                - name: cloudinitdisk
                   disk:
                     bus: virtio
-                  name: cloudinitdisk
               interfaces:
-                - bootOrder: 2
+                - name: nic0
+                  bootOrder: 2
                   masquerade: {}
                   model: virtio
-                  name: nic0
               networkInterfaceMultiqueue: true
               rng: {}
-            machine:
-              type: pc-q35-rhel8.1.0
             resources:
               requests:
                 memory: 2Gi
+
           evictionStrategy: LiveMigrate
-          hostname: fedora-stateless-ssh
+          hostname: fedora-stateful
+
           networks:
             - name: nic0
               pod: {}
+
           terminationGracePeriodSeconds: 0
+
           volumes:
-            - containerDisk:
-                image: 'image-registry.openshift-image-registry.svc.cluster.local:5000/$OC_PROJECT/virt-fedora:32'
-                imagePullPolicy: Always
-              name: rootdisk
-            - cloudInitNoCloud:
+            - name: disk-0
+              dataVolume:
+                name: fedora-stateful-disk-0
+
+            - name: cloudinitdisk
+              cloudInitNoCloud:
                 secretRef:
                   name: fedora-cloudinit-secret
-              name: cloudinitdisk
     EOF
     ```
 
-1. Connect to the VM with virtctl
+    > Note: as we kept the same VM name, doing an apply will modify the existing stateful VM if you haven't deleted in the previous step
+    virtualmachine.kubevirt.io/fedora-stateful configured
+
+1. Connect to the VM with virtctl and the password
 
     ```sh
     virtctl ssh \
       --namespace $OC_PROJECT \
       --username fedora \
       --local-ssh-opts="-o StrictHostKeyChecking=accept-new" \
-      vmi/fedora-stateless-ssh
+      vmi/fedora-stateful
     ```
 
-## Deploy NGINX on the VM and expose it as a Route
+Congratulations! You have been able to connect to your VM via SSH.
 
-1. Install nginx in Fedora. Inside the VM, become root
+## Deploy NGINX on the VM and expose it as a public Route
+
+Let's deploy an NGINX reverse proxy on the VM and expose it to be able to consume from the Internet.
+
+1. Let's reconnect via SSH into the VM unless you're still connected.
+
+1. Inside the VM, become root
 
     ```sh
     sudo -i
@@ -491,7 +506,13 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
       </body>
     </html>
     EOF
-    ````
+    ```
+
+1. Exit from the VM.
+
+    ```sh
+    exit
+    ```
 
 1. Deploy a Service
 
@@ -504,13 +525,26 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
       namespace: $OC_PROJECT
     spec:
       selector:
-        vm.kubevirt.io/name: fedora-stateless-ssh
+        vm.kubevirt.io/name: fedora-stateful
       ports:
         - name: http
           port: 80        # Service port
           targetPort: 80  # nginx port in the VM
     EOF
     ```
+
+1. Retrieve and store the ingress domain of the cluster
+
+    ```sh
+    export CLUSTER_NAME=shared-rovs
+    export INGRESS_URL=$(ibmcloud ks cluster get --cluster $CLUSTER_NAME --json | jq -r .ingress.hostname)
+    export INGRESS_SECRET=$(ibmcloud ks cluster get --cluster $CLUSTER_NAME --json | jq -r .ingress.secretName)
+    echo $INGRESS_URL
+    echo $INGRESS_SECRET
+    ```
+
+    > You should look something like this
+    shared-rovs-5348c99e82c5c6b8edeec6aa250d032f-0000.eu-de.containers.appdomain.cloud
 
 1. Create a Route
 
@@ -525,8 +559,8 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
         app: hello
         tier: frontend
     spec:
-      host: shared-virt-roks-5348c99e82c5c6b8edeec6aa250d032f-0000.eu-de.containers.appdomain.cloud
-      secretName: shared-virt-roks-5348c99e82c5c6b8edeec6aa250d032f-0000
+      host: $INGRESS_URL
+      secretName: $INGRESS_SECRET
       to:
         kind: Service
         name: fedora-web
@@ -542,7 +576,7 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
 1. Test the route
 
     ```sh
-    curl https://shared-virt-roks-5348c99e82c5c6b8edeec6aa250d032f-0000.eu-de.containers.appdomain.cloud
+    curl https://$INGRESS_URL
     ```
 
 1. You should see the following output
@@ -556,141 +590,15 @@ Let's now provision a stateful VM. OpenShift Data Foundation (ODF) is installed 
     </html>
     ```
 
-## Clean up the VM and the infrastructure
+Congratulations! You now have a NGINX server running on OpenShift Virtualizaation exposed via a native public OpenShift Route.
 
-1. Delete the Virtual Machine
+## Clean up the VM
+
+1. Delete the Virtual Machines
 
     ```sh
     oc delete vm/fedora-stateless
-    ```
-
-1. Delete the infrastructure
-
-    ```sh
-    terraform destroy
-    ```
-
-## Expose the Openshift Internal Image Registry
-
-1. Expose the Openshift Internal Image Registry
-
-    ```sh
-    oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
-    oc get routes -n openshift-image-registry
-    OPENSHIFT_REGISTRY=$(oc get routes -n openshift-image-registry | grep default-route-openshift-image-registry | awk '{print $2}')
-    ```
-
-1. Login to the OpenShift Registry
-
-    ```sh
-    podman login -u kubeadmin -p `oc whoami -t` $OPENSHIFT_REGISTRY
-    ````
-
-## Import Image to the OpenShift Registry
-
-1. Download image
-
-    ```sh
-    curl -LO https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2
-    ```
-
-1. Create Dockerfile
-
-    ```sh
-    cat << END > Dockerfile
-    FROM kubevirt/container-disk-v1alpha
-    ADD Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2 /disk
-    END
-    ```
-
-1. Build the image
-
-    ```sh
-    podman build -t $OPENSHIFT_REGISTRY/$OC_PROJECT/virt-fedora:32 .
-    ```
-
-1. Push the image
-
-    ```sh
-    podman push $OPENSHIFT_REGISTRY/$OC_PROJECT/virt-fedora:32
-    ```
-
-1. Let's provision this imported image Fedora VM
-
-    ```sh
-    cat <<EOF | oc apply -n $OC_PROJECT -f -
-    apiVersion: kubevirt.io/v1
-    kind: VirtualMachine
-    metadata:
-      name: fedora-stateless
-      labels:
-        app: fedora-stateless
-    spec:
-      runStrategy: Always # VM starts automatically and restarts if stopped
-      template:
-        spec:
-          domain:
-            cpu:
-              cores: 1
-              sockets: 1
-              threads: 1
-            devices:
-              disks:
-                - bootOrder: 1
-                  disk:
-                    bus: virtio
-                  name: rootdisk
-                - bootOrder: 4
-                  disk:
-                    bus: virtio
-                  name: cloudinitdisk
-              interfaces:
-                - bootOrder: 2
-                  masquerade: {}
-                  model: virtio
-                  name: nic0
-              networkInterfaceMultiqueue: true
-              rng: {}
-            machine:
-              type: pc-q35-rhel8.1.0
-            resources:
-              requests:
-                memory: 2Gi
-          evictionStrategy: LiveMigrate
-          hostname: fedora-stateless
-          networks:
-            - name: nic0
-              pod: {}
-          terminationGracePeriodSeconds: 0
-          volumes:
-            - containerDisk:
-                image: 'image-registry.openshift-image-registry.svc.cluster.local:5000/$OC_PROJECT/virt-fedora:32'
-                imagePullPolicy: Always
-              name: rootdisk
-            - cloudInitNoCloud:
-                userData: |
-                  #cloud-config
-                  ssh_pwauth: True
-                  chpasswd:
-                    list: |
-                      root:password
-                    expire: False
-                  hostname: fedora-stateless
-              name: cloudinitdisk
-    EOF
-    ```
-
-1. Verify the image is uploaded to the registry under the namespace
-
-    ```sh
-    oc get is
-    oc describe is virt-fedora
-    ```
-
-1. Delete the local image
-
-    ```sh
-    rm Fedora-Cloud-Base-32-1.6.x86_64.qcow2
+    oc delete vm/fedora-stateful
     ```
 
 ## Resources
