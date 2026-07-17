@@ -146,3 +146,7 @@
               name: cloudinitdisk
     EOF
     ```
+
+## Resources
+
+* [Deploy Linux sysdig agent](https://cloud.ibm.com/docs/monitoring?topic=monitoring-agent_linux)
