@@ -21,7 +21,7 @@ You will deploy and expose the nginx server installed in the VM.
 * [Provision a stateful VM](#provision-a-stateful-vm)
 * [Access the VM via SSH](#access-the-vm-via-ssh)
 * [Deploy NGinx on the VM and expose it as a public route](#deploy-nginx-on-the-vm-and-expose-it-as-a-public-route)
-* [Import Image to the OpenShift Registry](#import-image-to-the-openshift-registry)
+* [Clean up the VMs](#clean-up-the-vms)
 
 ## Pre-Requisites
 
@@ -596,7 +596,7 @@ Let's deploy an NGINX reverse proxy on the VM and expose it to be able to consum
 
 Congratulations! You now have a NGINX server running on OpenShift Virtualization exposed via a native public OpenShift Route.
 
-## Clean up the VM
+## Clean up the VMs
 
 1. Delete the Virtual Machines
 
