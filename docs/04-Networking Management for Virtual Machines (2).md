@@ -121,7 +121,9 @@ OpenShift through built-in VPC layer 3 routing
 <span id="_VNI_(Virtual_Network" class="anchor"></span>
 
 <img src="images/network5.png"
-style="width:6.26806in;height:4.49861in" />OVN
+style="width:6.26806in;height:4.49861in" />
+
+## OVN
 
 OVN-Kubernetes is required for OpenShift Virtualization. Features such
 as VM live migration and VPC-connected virtual machines depend on
