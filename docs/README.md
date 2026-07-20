@@ -23,7 +23,7 @@ Templates and InstanceTypes provide a standardized and efficient way to deploy v
 ## Tutorial 4 - Networking Management for VMs
 
 This tutorial demonstrates how to deploy and manage a virtual machine on Red Hat OpenShift Virtualization using a localnet. In this lab, you will become familiar with the OpenShift Virtualization management interface and learn how to configure networking for the Virtual Machine.
-[<span id="_Toc235193492" class="anchor"></span>(https://github.com/ibm-cloud-assets/rovs-tutorial/blob/main/docs/04-Networking%20Management%20for%20Virtual%20Machines%20(2).md)
+[Networking management tutorial](https://github.com/ibm-cloud-assets/rovs-tutorial/blob/main/docs/04-Networking%20Management%20for%20Virtual%20Machines%20(2).md)
 
 ## Tutorial 5 – Create and Manage VMs with YAML
 
