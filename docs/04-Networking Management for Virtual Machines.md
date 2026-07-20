@@ -8,7 +8,7 @@ scripts to learn the specifics of OpenShift Virtualization on IBM Cloud
 
 <https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview>
 
-[<span id="_Toc235193492" class="anchor"></span>Jump to the demo script from here](#review-environment)\
+[<span id="_Toc235193492" class="anchor"></span>Jump to the demo script from here](#review-environment)
 
 
 # OpenShift Virtualization in the IBM Cloud VPC network
