@@ -4,7 +4,9 @@ Red Hat OpenShift Virtualization Service (ROVS) on IBM Cloud enables organizatio
 
 ![](./images/rovs-provisioning.png)
 
-You will find three tutorials:
+> In order to run this tutorial, you need to be invited to a ROVS cluster or provision one using the provided terraform scripts. Provisioning this infrastructure may incur cost.
+
+You will find the below tutorials:
 
 ## Tutorial 1 – Virtual Machine Management
 
@@ -17,8 +19,6 @@ Storage is a fundamental component of virtual machine management. In this lab, y
 ## Tutorial 3 – Template and InstanceType Management
 
 Templates and InstanceTypes provide a standardized and efficient way to deploy virtual machines in OpenShift Virtualization. In this lab, you will learn how to customize VM templates for specific workloads, automate operating system deployments, and use InstanceTypes to define reusable compute configurations, enabling faster, more consistent, and cloud-like VM provisioning.
-
-> In order to run this tutorial, you need to be invited to a ROVS cluster or provision one using the provided terraform scripts. Provisioning this infrastructure may incur cost.
 
 ## Tutorial 4 - Networking Management for VMs
 
