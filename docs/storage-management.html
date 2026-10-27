@@ -1,0 +1,181 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-storage-management" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Storage Management | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/storage-management /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Storage Management | ROVS Tutorials"/><meta data-rh=true name=description content="OpenShift Virtualization on IBM Cloud at this time does not support all types of storage. The script is written in the general context of Red Hat OpenShift Virtualization and will not discuss the specifics of what is supported in IBM Cloud."/><meta data-rh=true property=og:description content="OpenShift Virtualization on IBM Cloud at this time does not support all types of storage. The script is written in the general context of Red Hat OpenShift Virtualization and will not discuss the specifics of what is supported in IBM Cloud."/><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/storage-management /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/storage-management hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/storage-management hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ibm-cloud-assets.github.io/rovs-tutorial/docs/storage-management","name":"2. Storage Management","position":1}]}</script><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.0a07ee4f.js defer></script><script src=/rovs-tutorial/assets/js/main.522f6c65.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t;document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/rovs-tutorial/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/rovs-tutorial/><div class=navbar__logo><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--light_NVdE" height=28 width=28 /><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--dark_xIcU" height=28 width=28 /></div><b class="navbar__title text--truncate">ROVS Tutorials</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/rovs-tutorial/docs/intro>Tutorials</a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>IBM Cloud Docs</a><ul class=dropdown__menu><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class=dropdown__link>ROVS Overview<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-about-openshift-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>OpenShift Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>VNI for Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ibm-cloud-assets/rovs-tutorial target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/rovs-tutorial/docs/intro><span class=linkLabel_WmDU>Introduction</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--active"><span class=categoryLinkLabel_W154>Tutorials</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-management><span class=linkLabel_WmDU>1. VM Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/rovs-tutorial/docs/storage-management><span class=linkLabel_WmDU>2. Storage Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/template-instancetype><span class=linkLabel_WmDU>3. Templates & InstanceTypes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/networking><span class=linkLabel_WmDU>4. Networking</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-yaml><span class=linkLabel_WmDU>5. VMs with YAML</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1"><hr style="margin: 0.75rem 0.75rem; border-color: #dde5ee;"/><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false><span class=categoryLinkLabel_W154>IBM Cloud Docs</span></a></div></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/rovs-tutorial/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Tutorials</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>2. Storage Management</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Storage Management</h1></header>
+<p>OpenShift Virtualization on IBM Cloud at this time does not support all types of storage. The script is written in the general context of Red Hat OpenShift Virtualization and will not discuss the specifics of what is supported in IBM Cloud.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=script-start>Script Start<a href=#script-start class=hash-link aria-label="Direct link to Script Start" title="Direct link to Script Start" translate=no>​</a></h2>
+<p>Red Hat OpenShift supports multiple types of storage, both for on-premises and cloud providers. OpenShift Virtualization can use any supported container storage interface (CSI) provisioner in the environment where your workload is running.</p>
+<p>Some physical storage system examples include: Dell/EMC, Fujitsu, Hitachi, NetApp, and Pure Storage.</p>
+<p>Some software-defined storage  include: IBM Fusion Data Foundation, OpenShift Data Foundation (ODF), and Portworx.</p>
+<blockquote>
+<p>This list is not exhaustive, please see the <a href=https://catalog.redhat.com/platform/red-hat-openshift/virtualization#virtualization-infrastructure target=_blank rel="noopener noreferrer" class="">Red Hat EcoSystem Catalog</a> for information on all of the supported storage solutions.</p>
+</blockquote>
+<p>This workshop segment will explore Persistent Volume Claims (PVCs), which are used to request storage from the provider and store a VM disk.
+Many storage providers also support snapshots and clones of their devices, be sure to check with your vendor to verify the features supported by the CSI driver and storage device.</p>
+<p>Notably, there are no restrictions on storage protocol (e.g. NFS, iSCSI, FC, etc.) specific to OpenShift Virtualization. The only request is that the RWX access mode is available, as it is required to support live migration of VMs within the cluster. Otherwise, the right choice for storage is that which best meets the needs of your organization's VMs and Applications.</p>
+<p>Please observe the following graphic for a demonstration of the CSI workflow for provisioning storage in Red Hat OpenShift.</p>
+<p><img decoding=async loading=lazy alt="00 Disk Concepts" src=/rovs-tutorial/assets/images/storage-image1-dc7c2d90a4f926c67a0cf36417f77be3.png width=1382 height=717 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: 00 Disk Concepts" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=examine-the-pvc-for-a-vm>Examine the PVC for a VM<a href=#examine-the-pvc-for-a-vm class=hash-link aria-label="Direct link to Examine the PVC for a VM" title="Direct link to Examine the PVC for a VM" translate=no>​</a></h2>
+<p>In this lab, we are going to take a closer look at the storage behind
+the virtual machine we just created fedora01.</p>
+<ol>
+<li class="">
+<p>Start by clicking on the left menu for Storage → Persistent Volume Claims. Make sure you are in the vm-“your-familyname' namespace, you should see the fedora01 PVC that was created when you created the fedora01 VM in the previous section.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image2-fd3ef6d8bc80b0676105063d747a1f8e.png width=2516 height=979 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Click on the fedora01 PVC and you will be presented with a screen that shows additional details about the storage volume backing the VM.</p>
+</li>
+<li class="">
+<p>Notice the following information about the persistent volume claim:</p>
+<p>a.  The PVC is currently bound successfully
+b.  The PVC has a requested capacity and size of 30GiB
+c.  The Access mode of the PVC is ReadWriteMany (RWX)
+d.  The Volume mode of the PVC is Block
+e.  The volume is using
+the ocs-external-storagecluster-ceph-rbd storage class.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image3-f460ca6dee33976dae49e0886891ceb7.png width=1437 height=974 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=managing-snapshots>Managing Snapshots<a href=#managing-snapshots class=hash-link aria-label="Direct link to Managing Snapshots" title="Direct link to Managing Snapshots" translate=no>​</a></h2>
+<p>OpenShift Virtualization relies on the CSI storage provider's snapshot capability to create disk snapshots for the virtual machine, which can be taken "online" while the VM is running, or "offline" while the VM is powered off. If the KVM integrations package (qemu-tools) is installed on the VM, you will also have the option of automatically quiescing the guest operating system (quiescing ensures that the snapshot of the disk represents a consistent state of the guest file
+systems, e.g., buffers are flushed and the journal is consistent).</p>
+<p>Since disk snapshots are dependent on the storage implementation, abstracted by the CSI, both the performance impact and capacity used will depend on the storage provider. Work with your storage vendor to determine how the system will manage PVC snapshots and the impact they may or may not have on your expected performance.</p>
+<blockquote>
+<p>Snapshots, by themselves, do not provide a backup or disaster recovery      capability as they are usually stored locally on the same storage system as the original physical volume. To survive a true disaster, the data would still need to be protected in other ways, such as having one or more copies stored in a different location, or mirrored to a storage system at a remote location to overcome the storage system itself failing.</p>
+</blockquote>
+<p>With the VM snapshots feature, cluster administrators and application
+developers can:</p>
+<ul>
+<li class="">Create a new snapshot</li>
+<li class="">List all snapshots attached to a specific VM</li>
+<li class="">Revert a VM to a snapshot</li>
+<li class="">Delete an existing VM snapshot</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=creating-and-using-snapshots>Creating and Using Snapshots<a href=#creating-and-using-snapshots class=hash-link aria-label="Direct link to Creating and Using Snapshots" title="Direct link to Creating and Using Snapshots" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>Navigate back to Virtualization persona dropdown, and then click
+on VirtualMachines in the left-side menu. Expand the
+project vm-“your-familyname" in the center column and highlight
+the fedora01 virtual machine.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image4-f927e4e699148904ff3bd99c45230db8.png width=1043 height=516 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Notice there are currently no snapshots of this VM listed on the
+overview page.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image5-0c635c2ff1378a5df7c37b76efecd79f.png width=1047 height=594 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Navigate to the Snapshots tab at the top of the page.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image6-625288fb640fc7dd6d3ee643322db744.png width=1060 height=220 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Press Take snapshot and a dialog will open.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image7-42e511f4fa51be30120985a717a04dcd.png width=604 height=828 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<blockquote>
+<p>There is a warning about the cloudinitdisk not being included in the
+snapshot. This is expected and happens because it is an ephemeral disk
+used for inital boot.</p>
+</blockquote>
+</li>
+<li class="">
+<p>A name will be auto-generated for the Snapshot. Press Save and wait until the status shows as Operation complete.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image8-201c72aca7f733888f2d0863daad39bf.png width=749 height=150 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Press the three-dot menu, and see that the Restore option is greyed out because the VM is currently running.</p>
+<p><img decoding=async loading=lazy alt="08 VM Restore Disabled" src=/rovs-tutorial/assets/images/storage-image9-ab4d872eaafdd9c9b691512fdaedd565.png width=415 height=495 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: 08 VM Restore Disabled" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Next, switch to the Console tab. We are going to login and perform a     modification that prevents the VM from being able to boot.</p>
+<p><img decoding=async loading=lazy alt="09 Console Login" src=/rovs-tutorial/assets/images/storage-image10-f3ed1f91dbb2336d97cb8e0df1af38d1.png width=1394 height=902 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: 09 Console Login" aria-haspopup=dialog /></p>
+<blockquote>
+<p>There are copy icons next both the User name and Password and a Paste to console button available all available here, which makes the login process much easier.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Once you are logged in, execute the following command:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>rm</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-rf</span><span class="token plain"> /boot/grub2</span><span class="token punctuation" style=color:#393A34>;</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>shutdown</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-r</span><span class="token plain"> now</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Once executed, the virtual machine will automatically restart, but it will no longer be able to boot successfully.</p>
+<p><img decoding=async loading=lazy alt="10 Bootloader Broken" src=/rovs-tutorial/assets/images/storage-image11-4c59ec64650bcf1e40abfd43596c5160.png width=1395 height=883 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: 10 Bootloader Broken" aria-haspopup=dialog /></p>
+<blockquote>
+<p>In the previous step, the operating system was shutdown from within the guest. However, OpenShift Virtualization will restart it automatically by default based on policy as the pod hosting the VM is still running. This behavior can be changed globally or on a per-VM basis.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Using the Actions dropdown menu or the shortcut button in the top right corner, Stop the VM. This process can take a long time since it attempts a graceful shutdown and the machine is in an unstable state. If you click on the Actions dropdown menu again you will have the option to Force stop. Please make use of this option in order to continue with the lab.</p>
+</li>
+<li class="">
+<p>You can click on the Overview tab to confirm that the VM has stopped. You can also see the snapshot we recently took is now listed in the Snapshots tile.</p>
+</li>
+<li class="">
+<p>On the Snapshots tile, click the three-dot menu next to our snapshot, and with the VM</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image12-14a0e7af2b137dacf7572f4d481344b9.png width=760 height=290 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>stopped, you will find Restore is no longer greyed out. Click it.</p>
+<p><img decoding=async loading=lazy alt="12 VM Restore" src=/rovs-tutorial/assets/images/storage-image13-96d791090db8614af16607d2bb3cda93.png width=464 height=184 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: 12 VM Restore" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>In the dialog shown, press Restore.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image14-b61854745b9757179ff5dad48761f7d9.png width=479 height=202 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Wait until the VM is restored, the process should be fairly quick. If you click on the Snapshots tab at the top you can see details of the last restore operation.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image15-83ffc35f425e30a1d4088fd94b8b2c0e.png width=756 height=148 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Return to Overview tab, and start the VM.</p>
+<p><img decoding=async loading=lazy alt="15 VM Start" src=/rovs-tutorial/assets/images/storage-image16-520d03f00f14659d91813107b26c76f4.png width=1382 height=755 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: 15 VM Start" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Click on the Console tab to confirm that the VM has now restarted and booted back up to the OS successfully.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image17-cd706b60ac03ed1a0feb5b38b65a6660.png width=1897 height=418 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=clone-a-virtual-machine>Clone a Virtual Machine<a href=#clone-a-virtual-machine class=hash-link aria-label="Direct link to Clone a Virtual Machine" title="Direct link to Clone a Virtual Machine" translate=no>​</a></h2>
+<p>Cloning creates a new VM that uses it's own disk image for storage, but
+most of the clone's configuration and stored data is identical to the
+source VM.</p>
+<ol>
+<li class="">
+<p>Return to the Overview screen, and click the Actions dropdown menu to see the option to clone the VM.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image18-00f39c9c2b6d2eeb15dcc6206d7ac194.png width=742 height=423 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Press Clone from the Actions menu, and a dialog will open. Name the cloned VM fedora02, and ensure that the checkbox to Start VirtualMachine on clone remains unchecked, then click Clone.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image19-2ffe1e2fb3908ba2363a45e0f1445da3.png width=734 height=312 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>A new VM is created, the disks are cloned and automatically the portal will redirect you to the new VM, and you can see the Created time as very recently.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image20-8dba916cdeb27bf38c938dd3d82cde6e.png width=1050 height=458 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<blockquote>
+<p>The cloned VM will have the same identity as the source VM, which may cause conflicts with applications and other clients interacting with the VM. Use caution when cloning a VM connected to an external network or in the same project.</p>
+</blockquote>
+<ol>
+<li class="">
+<p>Click on the YAML menu at the top of the screen, you will see that the name of the VM is fedora02, however there are some labels that remain from  the fedora01 source VM that will need to be manually updated.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image21-d88c9abfb6898eaa3e5aad1c6d92b590.png width=730 height=878 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<hr/>
+<ol>
+<li class="">
+<p>Modify the the app and kubevirt.io/domain values in the YAML so that they are set to fedora02 then click the Save button at the bottom, you will prompted that fedora02 has been updated to a new version. Doing this now will allow us to avoid issues working with this VM in later modules.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image22-ca9a5721aa5d571d81f992c6fe6c9655.png width=869 height=942 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>When you have completed the modifications to the virtual machine's YAML go ahead and start it up so that you have both fedora01 and fedora02 running.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/storage-image23-571530d63f08bd7410662d544ec60ab9.png width=1882 height=1078 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=summary>Summary<a href=#summary class=hash-link aria-label="Direct link to Summary" title="Direct link to Summary" translate=no>​</a></h2>
+<p>In this section of our lab we explored the storage options that are
+available when managing virtual machines. We also performed several VM
+management functions that are dependant on the storage provisioned for
+the virtual machine, including taking snapshots of VMs to peform basic
+restores, and cloning of VMs to be used in other projects or to help
+streamline future development.</div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/rovs-tutorial/docs/vm-management><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>1. VM Management</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/rovs-tutorial/docs/template-instancetype><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>3. Templates & InstanceTypes</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#script-start class="table-of-contents__link toc-highlight">Script Start</a><li><a href=#examine-the-pvc-for-a-vm class="table-of-contents__link toc-highlight">Examine the PVC for a VM</a><li><a href=#managing-snapshots class="table-of-contents__link toc-highlight">Managing Snapshots</a><li><a href=#creating-and-using-snapshots class="table-of-contents__link toc-highlight">Creating and Using Snapshots</a><li><a href=#clone-a-virtual-machine class="table-of-contents__link toc-highlight">Clone a Virtual Machine</a><li><a href=#summary class="table-of-contents__link toc-highlight">Summary</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Tutorials</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/intro>Introduction</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-management>1. VM Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/storage-management>2. Storage Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/template-instancetype>3. Templates & InstanceTypes</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/networking>4. Networking</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-yaml>5. VMs with YAML</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>IBM Resources</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://cloud.ibm.com/infrastructure/openshift-virtualization target=_blank rel="noopener noreferrer" class=footer__link-item>ROVS on IBM Cloud<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li class=footer__item><a href=https://docs.openshift.com/container-platform/latest/virt/about_virt/about-virt.html target=_blank rel="noopener noreferrer" class=footer__link-item>Red Hat OpenShift Docs<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 IBM Corporation. Built with Docusaurus.</div></div></div></footer></div></body>

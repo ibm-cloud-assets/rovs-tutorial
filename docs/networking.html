@@ -1,0 +1,1139 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-networking" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Network Management for Virtual Machines | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Network Management for Virtual Machines | ROVS Tutorials"/><meta data-rh=true name=description content="While the aim is to write this demo script in the general context of Red"/><meta data-rh=true property=og:description content="While the aim is to write this demo script in the general context of Red"/><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking","name":"4. Networking","position":1}]}</script><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.0a07ee4f.js defer></script><script src=/rovs-tutorial/assets/js/main.522f6c65.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t;document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/rovs-tutorial/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/rovs-tutorial/><div class=navbar__logo><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--light_NVdE" height=28 width=28 /><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--dark_xIcU" height=28 width=28 /></div><b class="navbar__title text--truncate">ROVS Tutorials</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/rovs-tutorial/docs/intro>Tutorials</a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>IBM Cloud Docs</a><ul class=dropdown__menu><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class=dropdown__link>ROVS Overview<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-about-openshift-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>OpenShift Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>VNI for Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ibm-cloud-assets/rovs-tutorial target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/rovs-tutorial/docs/intro><span class=linkLabel_WmDU>Introduction</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--active"><span class=categoryLinkLabel_W154>Tutorials</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-management><span class=linkLabel_WmDU>1. VM Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/storage-management><span class=linkLabel_WmDU>2. Storage Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/template-instancetype><span class=linkLabel_WmDU>3. Templates & InstanceTypes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/rovs-tutorial/docs/networking><span class=linkLabel_WmDU>4. Networking</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-yaml><span class=linkLabel_WmDU>5. VMs with YAML</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1"><hr style="margin: 0.75rem 0.75rem; border-color: #dde5ee;"/><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false><span class=categoryLinkLabel_W154>IBM Cloud Docs</span></a></div></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/rovs-tutorial/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Tutorials</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>4. Networking</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Network Management for Virtual Machines</h1></header>
+<p>While the aim is to write this demo script in the general context of Red
+Hat OpenShift Virtualization Network concepts, the specifics of IBM
+Cloud VPC must be discussed as part of the script. We strongly advise
+you to watch the network deep dives mentioned in the invitation to the
+scripts to learn the specifics of OpenShift Virtualization on IBM Cloud</p>
+<p><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class="">https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview</a></p>
+<p><a href=#review-environment class=""><span id=_Toc235193492 class=anchor></span>Jump to the demo script from here</a></p>
+<h1>OpenShift Virtualization in the IBM Cloud VPC network</h1>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=introduction>Introduction<a href=#introduction class=hash-link aria-label="Direct link to Introduction" title="Direct link to Introduction" translate=no>​</a></h2>
+<p>In the below chapters we will take you through and explain the layers of
+the Red Hat OpenShift Virtualization Service (ROVS) architecture on IBM
+Cloud VPC in this tutorial.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=rovs>ROVS<a href=#rovs class=hash-link aria-label="Direct link to ROVS" title="Direct link to ROVS" translate=no>​</a></h2>
+<p>Red Hat OpenShift Virtualization Service (ROVS) on IBM Cloud is a
+managed enterprise virtualization platform. It allows organizations to
+host, manage, and modernize virtual machine (VM) workloads while easing
+the transition to containers, Kubernetes, and AI-ready architectures</p>
+<p>IBM Cloud ROVS runs exclusively on Bare Metal worker nodes. ROVS uses
+nested virtualization to run Virtual Machines (VMs) inside an OpenShift
+cluster, it requires direct, low-latency access to physical hardware
+acceleration. Running it on standard virtualized cloud instances is not
+supported due to performance penalties.</p>
+<p>When you deploy a cluster through the IBM Cloud OpenShift Virtualization
+Service, the system automatically locks in the following infrastructure
+parameters to ensure bare metal compliance:</p>
+<ul>
+<li class="">
+<p>Machine Type - Bare Metal Servers for VPC.</p>
+</li>
+<li class="">
+<p>Operating System - Red Hat Enterprise Linux CoreOS.</p>
+</li>
+<li class="">
+<p>Network Plugin - Open Virtual Network (OVN-Kubernetes) for advanced VM
+networking.</p>
+</li>
+<li class="">
+<p>Orchestrator Version: OpenShift 4.21 or later.</p>
+</li>
+</ul>
+<p>The following options can be chosen by the client:</p>
+<ul>
+<li class="">
+<p>Multi Zone Region (MZR) location and <a href=#vpc-subnet-concepts class="">VPC</a>
+(select or create)<br/>
+<strong>NOTE: A multi-zone ROKS/ROVS deployment distributes worker nodes
+across multiple availability zones within the same IBM Cloud region to
+improve infrastructure-level availability. Network latency between
+zones is higher and less predictable than within a single zone. The
+architecture is optimized for compute availability. Currently
+(July 26) only single zone deployments have been validated</strong><br/>
+<img decoding=async loading=lazy src=images/network1.png style=width:5.58878in;height:3.68974in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Worker pool – create</p>
+</li>
+<li class="">
+<p>Bare Metal profile -<br/>
+<img decoding=async loading=lazy src=images/network2.png style=width:5.88785in;height:1.65755in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<!-- -->
+<ul>
+<li class="">
+<p>Network settings – Private only or public and private network</p>
+</li>
+<li class="">
+<p>Security features: traffic protection, encryption, …</p>
+</li>
+<li class="">
+<p>(Virtualization) Integrations: ACM, ODF, File storage, logging,
+monitoring, ……</p>
+</li>
+</ul>
+<p>IBM Cloud Bare Metal Servers for VPC are deployed with 2nd Gen Intel®
+Xeon® Platinum 8260 processors and 4th Gen Intel® Xeon® Gold 6426Y and
+Xeon® Platinum 8474C processors. Worker nodes are based on predefined
+VPC BMS profiles and they are called flavours in ROKS/ROVS. Pay special
+focus on sizing and especially optimizing existing VMware sizing.
+Enhanced networking is enabled through <a href=#_SmartNIC class="">SmartNIC</a> technology
+providing throughput up to 200Gbps (initially only fixed 100Gbps
+available for ROVS).</p>
+<p>ROVS hosted VMs are attached to a <a href=#vpc-subnet-concepts class="">VPC subnet</a>
+like VPC VSIs or BMs. Each network interface attached to a VPC subnet
+requires a [VNI and a VNI VLAN](#<em>VNI</em>(Virtual_Network) attachment to
+the cluster. Inside OpenShift and OVN, this option creates a VLAN in an
+<strong>Open vSwitch</strong> (OVS).</p>
+<p><img decoding=async loading=lazy src=images/network3.png style=width:4.9486in;height:7.14976in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=vpc--subnet-concepts>VPC + Subnet Concepts<a href=#vpc--subnet-concepts class=hash-link aria-label="Direct link to VPC + Subnet Concepts" title="Direct link to VPC + Subnet Concepts" translate=no>​</a></h2>
+<p>In Red Hat OpenShift Virtualization Service (ROVS) on IBM Cloud the
+underlying network is the IBM Cloud VPC network. VPC deployed bare metal
+Worker nodes in a ROVS cluster are attached to VPC subnets and uses
+private IP addresses. Customer can decide what prefixes to use for the
+subnets. Unlike Classic infrastructure, VPC clusters utilize subnets
+instead of VLANs. VPC routing and network security is used. As part of
+the cluster creation, you can select or create a VPC and a VPC subnet in
+each zone intended for worker node deployment.</p>
+<p><img decoding=async loading=lazy src=images/network4.png style=width:6.17757in;height:4.20713in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>All worker nodes can communicate with each other through VPC subnets.
+IBM Cloud VPC is designed as a <strong>software-defined infrastructure</strong> with:</p>
+<ul>
+<li class="">
+<p>Virtual networking</p>
+</li>
+<li class="">
+<p>Isolated tenant environments</p>
+</li>
+<li class="">
+<p>High-performance traffic routing</p>
+</li>
+</ul>
+<p>Worker nodes have a SmartNIC with PCI and VLAN interfaces, which are
+used for all communications. Any system connected to the private subnets
+within the same VPC can communicate with the workers, VSI’s and VMs in
+OpenShift through built-in VPC layer 3 routing</p>
+<p><span id=_VNI_(Virtual_Network class=anchor></span></p>
+<p><img decoding=async loading=lazy src=images/network5.png style=width:6.26806in;height:4.49861in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=ovn>OVN<a href=#ovn class=hash-link aria-label="Direct link to OVN" title="Direct link to OVN" translate=no>​</a></h2>
+<p>OVN-Kubernetes is required for OpenShift Virtualization. Features such
+as VM live migration and VPC-connected virtual machines depend on
+capabilities that are available only in OVN-Kubernetes.</p>
+<p>OVN-Kubernetes (the default networking solution since OpenShift 4.12)
+provides a modern and flexible network architecture. It uses a
+distributed networking system that allows for better scalability,
+isolation, and advanced networking features.</p>
+<p>Many customers want more than overlay networking. With OVN it is also
+possible for virtual machines to connect directly to one or more
+physical networks, such as untagged network, VLANs or VPC subnets, when
+needed. This is in addition to the Software Define Network (SDN), which
+means that, for example, the administrator can connect to the VM from an
+external IP address and VMs can connect directly using a Layer2 network.</p>
+<p>At a high level, this is done by configuring the host networking, such
+as an Open vSwitch (OVS). This workshop segment will walk through and
+explain the steps in that process, creating a network attachment
+definition to allow VMs to connect to that bridge and, therefore,
+directly to the physical network.</p>
+<p><img decoding=async loading=lazy src=images/network6.png style=width:6.26806in;height:0.52708in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=vni-virtual-network-interface>VNI (Virtual Network Interface)<a href=#vni-virtual-network-interface class=hash-link aria-label="Direct link to VNI (Virtual Network Interface)" title="Direct link to VNI (Virtual Network Interface)" translate=no>​</a></h2>
+<p><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization&interface=ui" target=_blank rel="noopener noreferrer" class="">https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization&interface=ui</a></p>
+<p>A VNI is the entry point into a VPC and a VPC subnet. When you attach a
+VNI to the ROVS worker node or cluster as a VLAN attachment, it allows
+you to use VNIs on OpenShift hosted VMs.</p>
+<ul>
+<li class="">
+<p>A VNI is attached to worker nodes</p>
+</li>
+<li class="">
+<p>It provides IP connectivity into the VPC subnet</p>
+</li>
+<li class="">
+<p>It is the bridge between cloud networking and the cluster</p>
+</li>
+</ul>
+<p>A virtual network interface (VNI) is a logical abstraction of a network
+interface in a VPC subnet. It can be attached to a target resource,
+providing that resource with network connectivity. It the script later
+in this tutorial a VNI is attached to the OpenShift cluster, you will
+logically attach a VM to a VPC subnet, configuring the VM network
+configuration using the VNI's MAC (or a custom MAC) and its IP
+addresses.</p>
+<p>A VNI has the following properties that define networking policies:</p>
+<ul>
+<li class="">
+<p>Primary IP and secondary IPs</p>
+</li>
+<li class="">
+<p>Security groups</p>
+</li>
+<li class="">
+<p>IP spoofing</p>
+</li>
+<li class="">
+<p>Infrastructure NAT</p>
+</li>
+<li class="">
+<p>Protocol state filtering</p>
+</li>
+</ul>
+<p>These policies are preserved when the VNI is detached from a target, in
+our case a VM within the OpenShift localnet, and attached to a different
+target. Permissions to change the properties are set on the VNI, and not
+on the VNI's target.</p>
+<p>Floating IPs and flow log collectors (note: not yet supported on bare
+metal servers / ROVS) are resources that you can attach to a VNI. These
+attached resources remain attached to the VNI when the VNI switches
+attachment from one target to another. In addition:</p>
+<ul>
+<li class="">References to the floating IPs attached to a VNI are retrievable as a
+child collection of the VNI.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=open-vswitch-node-level-networking>Open vSwitch (node-level networking)<a href=#open-vswitch-node-level-networking class=hash-link aria-label="Direct link to Open vSwitch (node-level networking)" title="Direct link to Open vSwitch (node-level networking)" translate=no>​</a></h2>
+<p><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization&interface=ui#vni-create-bridge" target=_blank rel="noopener noreferrer" class="">https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization&interface=ui#vni-create-bridge</a></p>
+<p>OpenShift uses OVN-Kubernetes which is based on OVN + Open vSwitch (OVS,
+below in the red square) and it supports multi-tenancy, NetworkPolicies,
+and hybrid VM/pod networking.</p>
+<p><img decoding=async loading=lazy src=images/network7.png style=width:6.26806in;height:2.15139in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>The VNI is attached to an OVS on the worker node</p>
+<p>This bridge allows:</p>
+<ul>
+<li class="">
+<p>Pods / VMs to connect to the external subnet</p>
+</li>
+<li class="">
+<p>It is the actual dataplane implementation</p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=multus>Multus<a href=#multus class=hash-link aria-label="Direct link to Multus" title="Direct link to Multus" translate=no>​</a></h2>
+<p>Multus provides the functionality to enhance pod and VM connectivity
+through secondary networks and multiple CNI-plugins. Multus is commonly
+used when you want a Direct attachment to VPC networking. Pods can get
+additional interfaces tied to VPC subnets</p>
+<p>In a standard Kubernetes setup:</p>
+<ul>
+<li class="">Each pod gets <strong>one network interface</strong> (via the default CNI)</li>
+</ul>
+<p>With <strong>Multus</strong>:</p>
+<ul>
+<li class="">
+<p>A pod can have:</p>
+<ul>
+<li class="">
+<p>a <strong>primary interface</strong> (cluster network)</p>
+</li>
+<li class="">
+<p>plus <strong>additional interfaces</strong> (extra networks)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href=https://www.redhat.com/en/blog/using-the-multus-cni-in-openshift target=_blank rel="noopener noreferrer" class="">https://www.redhat.com/en/blog/using-the-multus-cni-in-openshift</a></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=localnet>Localnet<a href=#localnet class=hash-link aria-label="Direct link to Localnet" title="Direct link to Localnet" translate=no>​</a></h2>
+<p><img decoding=async loading=lazy src=images/network8.png style=width:5.94872in;height:4.19231in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>OVN provides the base IBM Cloud compatible topologies for VMs, which
+consist of (1) Localnet and (2) Layer 2 options. In this demo script we
+will focus on the localnet setup and configuration</p>
+<p>Localnet’s provide direct access to VPC subnets. Localnet is a
+Multus/secondary network type that connects pods directly to a local
+Layer‑2 network (bridge or physical network), bypassing the default
+Kubernetes overlay.</p>
+<p>With IBM Cloud VPC bare metal:</p>
+<ul>
+<li class="">
+<p>Your SmartNIC already connects your server to the VPC fabric</p>
+</li>
+<li class="">
+<p>The default pod network is usually overlay-based
+(VXLAN/OVN-Kubernetes)</p>
+</li>
+</ul>
+<p>When you use localnet via Multus, Pods get an interface that is:</p>
+<ul>
+<li class="">
+<p>directly connected to a local bridge or VLAN</p>
+</li>
+<li class="">
+<p>not encapsulated (no VXLAN)</p>
+</li>
+<li class="">
+<p>closer to the SmartNIC / hardware path</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network9.png style=width:3.76635in;height:7.16114in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=networkattachmentdefinition-nad>NetworkAttachmentDefinition (NAD)<a href=#networkattachmentdefinition-nad class=hash-link aria-label="Direct link to NetworkAttachmentDefinition (NAD)" title="Direct link to NetworkAttachmentDefinition (NAD)" translate=no>​</a></h2>
+<p>The NetworkAttachmentDefinition(NAD) is a Kubernetes abstraction. A NAD
+defines additional networks using Multus. A NetworkAttachmentDefinition
+(NAD) is <strong>a way to configure a VM or pod to have an extra network
+connection</strong>.</p>
+<p>In order to use the Linux Bridge with your VM you need to create
+a Network Attachment Definition. This is what tells OpenShift about the
+network and allows the virtual machines to connect to it. Network
+Attachment Definitions are project scoped, to the project that they are
+created in, and are only accessible to the virtual machines that are
+deployed in that project. If a Network Attachment Definition is created
+in the default project, then it becomes available globally. This gives
+an administrator, the ability to control which networks are and aren’t
+available to specific users who have access to manage their own VMs.</p>
+<p>NAD (NetworkAttachmentDefinition)</p>
+<ul>
+<li class="">
+<p>Lives in a namespace/project</p>
+</li>
+<li class="">
+<p>Describes how a pod or VM attaches to a network</p>
+</li>
+<li class="">
+<p>Used directly by workloads</p>
+</li>
+</ul>
+<p>As explained you are not an administrator in this shared demo account.
+The network attachments required for the demo have been pre-configured
+by the invitation script. Let’s run through the configuration to
+understand what has been configured for you.</p>
+<p><span id=_UDN_(User_Defined class=anchor></span></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=udn-user-defined-network>UDN (User Defined Network)<a href=#udn-user-defined-network class=hash-link aria-label="Direct link to UDN (User Defined Network)" title="Direct link to UDN (User Defined Network)" translate=no>​</a></h2>
+<p>Before the implementation of user-defined networks (UDN), the
+OVN-Kubernetes CNI plugin for OpenShift Container Platform only
+supported a Layer 3 topology on the primary or main network. Due to
+Kubernetes design principles: all pods are attached to the main network,
+all pods communicate with each other by their IP addresses, and
+inter-pod traffic is restricted according to network policy. Learning a
+new network architecture is often an expressed point of concern from
+many traditional virtualization admins.</p>
+<p>The introduction of UDN improves the flexibility and segmentation
+capabilities of the default Layer 3 topology for a Kubernetes pod
+network by enabling custom Layer 2, Layer 3, and localnet network
+segments, where all these segments are isolated by default. These
+segments act as either primary or secondary networks for container pods
+and virtual machines that use the default OVN-Kubernetes CNI plugin.
+UDNs enable a wide range of network architectures and topologies,
+enhancing network flexibility, security, and performance.</p>
+<p>A cluster administrator can use a UDN to create and define additional
+networks that span multiple namespaces at the cluster level by
+leveraging the ClusterUserDefinedNetwork (CUDN) custom resource (CR).
+Additionally, a cluster administrator or a cluster user can use a UDN to
+define additional networks at the namespace level with the
+UserDefinedNetwork (UDN) CR.</p>
+<p><strong>UDN (User Defined Network)</strong></p>
+<ul>
+<li class="">
+<p>Scoped to a single namespace</p>
+</li>
+<li class="">
+<p>Defines a custom network</p>
+</li>
+<li class="">
+<p>Only workloads in that namespace can use it</p>
+</li>
+</ul>
+<p>“A private network just for this project”</p>
+<p><strong>CUDN (Cluster User Defined Network)</strong></p>
+<ul>
+<li class="">
+<p>Scoped to the entire cluster</p>
+</li>
+<li class="">
+<p>Defines a reusable network</p>
+</li>
+<li class="">
+<p>Can be used across multiple namespaces</p>
+</li>
+</ul>
+<p>“A shared network available anywhere in the cluster”</p>
+<p>*<em>*</em></p>
+<blockquote>
+<p><strong>CUDN vs UDN</strong></p>
+</blockquote>
+<p><img decoding=async loading=lazy src=images/network10.png style=width:6.26806in;height:2.78403in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><strong>User-defined networks provide the following benefits:</strong></p>
+<ul>
+<li class="">
+<p>Enhanced network isolation for security - Namespaces can have their
+own isolated primary network, similar to how tenants are isolated in
+Red Hat OpenStack Platform (RHOSP). This improves security by reducing
+the risk of cross-tenant traffic.</p>
+</li>
+<li class="">
+<p>Network flexibility - Cluster administrators can configure primary
+networks as layer 2 or layer 3 network types. This provides the
+flexibility of a secondary network to the primary network.</p>
+</li>
+<li class="">
+<p>Simplified network management - With user-defined networks, the need
+for complex network policies are eliminated because isolation can be
+achieved by grouping workloads in different networks.</p>
+</li>
+<li class="">
+<p>Advanced capabilities - The user-defined networking feature allows
+administrators to connect multiple namespaces to a single network, or
+to create distinct networks for different sets of namespaces. Users
+can also specify and reuse IP subnets across different namespaces and
+clusters, providing a consistent networking environment.</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network11.png style=width:6.26806in;height:2.57639in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=summary>Summary<a href=#summary class=hash-link aria-label="Direct link to Summary" title="Direct link to Summary" translate=no>​</a></h2>
+<p><strong>Forget:</strong></p>
+<ul>
+<li class="">
+<p>Default networking – NAT and no native ingress is restrictive for VMs</p>
+</li>
+<li class="">
+<p>L3 — per-node subnets are a pod scaling pattern, not a VM pattern as
+VM IP will change on live-migration</p>
+</li>
+<li class="">
+<p>Primary - VMs don't need cluster services, VMs cannot use static IPs
+as you cannot disable IP Address Management (IPAM) on primary networks</p>
+</li>
+</ul>
+<p><strong>Use:</strong></p>
+<ul>
+<li class="">
+<p>Secondary – VMs can use static IPs and only get MAC address from
+VPC/Localnet or OVN-K/Layer2. DHCP can be used but needs a DHCP
+server. Use MultiNetworkPolicy on secondary networks. Turn off IPAM as
+it is not needed on Localnet/VPC</p>
+</li>
+<li class="">
+<p>Localnet CUDN — when VMs need direct connectivity to physical
+infrastructure/VPC (localnet requires CUDN, no choice)</p>
+</li>
+<li class="">
+<p>L2 CUDN — use when production VMs only need VM-to-VM connectivity
+across the cluster and cluster admins control networking</p>
+</li>
+<li class="">
+<p>L2 UDN — use when test/dev VMs only need VM-to-VM connectivity across
+the cluster and enables namespace owner's self-service</p>
+</li>
+</ul>
+<p><strong>Remember:</strong></p>
+<p>Localnet topology is CUDN-only, Localnet topology is secondary-only, and
+UDN only supports Layer2 and Layer3.</p>
+<p><strong>Networking and OpenShift projects</strong></p>
+<p>It is possible to mix and match the discussed topologies in the same
+ROVS cluster? Using these topologies do not exclude each other.</p>
+<p><img decoding=async loading=lazy src=images/network12.png style=width:6.35047in;height:4.55917in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h1>Demo script</h1>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=review-environment>Review environment<a href=#review-environment class=hash-link aria-label="Direct link to Review environment" title="Direct link to Review environment" translate=no>​</a></h2>
+<p>The demo environment is within the IBM Cloud tech zone and is a shared
+demo account. Your user account does not have administrative privileges.
+Some network configurations are pre-configured for the demo. Where able
+the administrators have given you view privileges and this script will
+run you through the preconfigured settings. Some configurations do not
+have a “view only” option and will be shown in pictures.</p>
+<p><strong>Note: Some of the below steps and pictures are recorded as an
+administrator. Your privileges prevent access to the
+“CustomResourceDefinitions” and you are not able to replay those
+steps.</strong></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=the-rovs-cluster>The ROVS Cluster<a href=#the-rovs-cluster class=hash-link aria-label="Direct link to The ROVS Cluster" title="Direct link to The ROVS Cluster" translate=no>​</a></h2>
+<p>Log in to your account, click on the hamburger menu in the left top and
+browse to the Virtualization page</p>
+<ol>
+<li class="">Select the “shared-rovs” cluster</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network13.png style=width:6.12617in;height:2.58662in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=2>
+<li class="">Browse through the “Overview” , “Worker nodes”, “Worker pools”,
+“Networking”, “ VNI attachments” and “Ingress” in the left of you
+window. Come back to this</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network14.png style=width:5.76168in;height:2.63891in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+<strong>On the overview</strong>: Check status of nodes, add-ons, master and
+Ingress, find the cluster details<br/>
+At the right find and click the link to the VPC the cluster is
+deployed in. A new tab will open with the VPC details. Scroll down and
+find the subnets created for the VNIs and the localnet we are going to
+connect to later on.<br/>
+Move back to the “shared-rovs” tab in your browser<br/>
+<strong>On the Worker nodes</strong>: All the VNIs are spread across the nodes. The
+VNIs are configured to be able to float between nodes. When you later
+attach the VNI to a VM, the VM will be able to migrate between nodes.
+VNI is assigned to virt-subnet-01-vni-vlan100 with VLAN100 and it has
+an IP address assigned.<br/>
+<img decoding=async loading=lazy src=images/network15.png style=width:6.26806in;height:2.08472in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><strong>On the Worker pool</strong>: We
+have only 1 worker pool deployed<br/>
+<strong>On the VNI attachments</strong>: See all the VNIs created for all the users
+in the shared account</p>
+</blockquote>
+<ol start=3>
+<li class="">On the right upper corner click the OpenShift web console button,
+this will open console in a new browser tab. We will come back to
+the OpenShift portal later in this demo</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network16.png style=width:6.26806in;height:0.79097in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=vni-attachment>VNI attachment<a href=#vni-attachment class=hash-link aria-label="Direct link to VNI attachment" title="Direct link to VNI attachment" translate=no>​</a></h2>
+<p>As described in the introduction in chapter <a href=#vni-virtual-network-interface class="">VNI (Virtual Network
+Interface)</a> the VNI can be attached to a
+target resource, providing that resource with network connectivity. For
+our demo this means we need to attach the VNI to the OpenShift cluster.
+This will enable you to attach a VM to a VPC subnet, configuring the VM
+network configuration using the VNI's MAC and its IP addresses, later in
+this tutorial.</p>
+<p>Since IBM Cloud VPC does not have a granular privilege only for “attach
+VNI” you do not have the ability to attach a VNI to the cluster with
+your IBM Cloud user. You can however do all the steps. Attachment will
+however fail.</p>
+<ol>
+<li class="">In your browser go to the IBM Cloud Portal go to the ROVS cluster.</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network17.png style=width:5.40654in;height:7.89375in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=2>
+<li class="">Select the “shared-rovs” cluster</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network18.png style=width:6.26806in;height:1.5in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=3>
+<li class="">Select VNI attachments and “attach VNIs”</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network19.png style=width:6.26806in;height:0.77361in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=4>
+<li class="">
+<p>Configure the attachment to the cluster.</p>
+<ul>
+<li class="">
+<p>Select the VPC subnet “virt-subnet-01-vni-vlan100 (eu-de-1)” your
+administrator created for use with VLAN ID 100.</p>
+</li>
+<li class="">
+<p>Fill in the VLAN ID 100 and select any of the VNI’s available for
+this.</p>
+</li>
+<li class="">
+<p><strong>Click cancel.</strong> As explained you do not have the right
+privileges to actually attach the VNI.<br/>
+<br/>
+<br/>
+<img decoding=async loading=lazy src=images/network20.png style=width:6.26806in;height:6.60972in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=nmstate-operator>NMstate Operator<a href=#nmstate-operator class=hash-link aria-label="Direct link to NMstate Operator" title="Direct link to NMstate Operator" translate=no>​</a></h2>
+<p>To be able to perform some network activities the account administrator
+pre-installed the Kubernetes NMState operator. The Kubernetes NMState
+Operator provides a Kubernetes API for performing state-driven network
+configuration across the OpenShift Container Platform cluster’s nodes
+with NMState. The Kubernetes NMState Operator provides users with
+functionality to configure various network interface types, DNS, and
+routing on cluster nodes. Additionally, the daemons on the cluster nodes
+periodically report on the state of each node’s network interfaces to
+the API server.</p>
+<p><img decoding=async loading=lazy src=images/network21.png style=width:6.26806in;height:2.37986in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol>
+<li class="">In the left-side menu, select Core Platform – Administration –
+CustomResourceDefinitions click. In the “Filter by Name” type
+“nmstate” and click NodeNetworkState.</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network22.png style=width:4.54993in;height:5.71186in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=2>
+<li class="">Select “Instances” and expand one of the nodes. As stated, you will
+notice that the worker nodes have a bridge already configured to be
+used for this module as part of the ROVS deployment.<br/>
+Click on the bridge br-eth1 to gather more information about it.
+Find the Yaml code with the configuration details</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network23.png style=width:6.26806in;height:3.79722in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=3>
+<li class="">Close the bridge details by clicking on the X in the corner. This
+bridge named br-eth1 was created during ROVS provisioning. Move to
+the Virtualization context and select Network /
+NodeNetworkConfigurationPolicy in the left-side menu to explore
+more.</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network24.png style=width:6.26806in;height:3.76806in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=4>
+<li class="">Select br-eth1 to get information. The right screenshot is the admin
+user view</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network25.png style=width:6.26806in;height:0.60625in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+<img decoding=async loading=lazy src=images/network26.png style=width:6.26806in;height:5.19444in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol>
+<li class="">To see how this bridge was created, you can switch to YAML to see
+the definition. As an administrator, you could create you a similar
+bridge with the yaml snippet below.:</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network27.png style=width:6.26806in;height:2.85139in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=user-defined-networks>User Defined Networks<a href=#user-defined-networks class=hash-link aria-label="Direct link to User Defined Networks" title="Direct link to User Defined Networks" translate=no>​</a></h2>
+<p>Lets take a look at the UDNs created by the administrator. As described
+in the [UDN introduction chapter](#<em>UDN</em>(User_Defined) a cluster
+administrator can use a UDN to create and define additional networks
+that span multiple namespaces at the cluster level by leveraging the
+ClusterUserDefinedNetwork (CUDN) custom resource (CR). Additionally, a
+cluster administrator can define additional networks at the namespace
+level with the UserDefinedNetwork (UDN) CR. Those additional networks
+were created for you when you started the invitation script.</p>
+<ol>
+<li class="">Move to the Virtualization context and select “UserDefineNetworks”.
+Notice all the CUDNs, and specific the 2 CUDNs created for you.
+Notice that you miss the “Create” button at the top right.</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network28.png style=width:6.26806in;height:2.16458in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=images/network29.png style=width:6.26806in;height:2.57083in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=network-attachment-definition>Network Attachment Definition<a href=#network-attachment-definition class=hash-link aria-label="Direct link to Network Attachment Definition" title="Direct link to Network Attachment Definition" translate=no>​</a></h2>
+<p><img decoding=async loading=lazy src=images/network30.png style=width:6.26806in;height:0.96667in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol>
+<li class="">From the left-side menu, select “Networking” followed
+by “NetworkAttachmentDefinitions” and click
+the “NetworkAttachmentDefinition” in your project “vm—your-name-1”.
+Notice again that you do not have the create option at the right top
+level.</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network31.png style=width:6.26806in;height:0.43889in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><img decoding=async loading=lazy src=images/network32.png style=width:6.26806in;height:2.20069in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=2>
+<li class="">Examine the details of the network attachment definition
+“your-name-localnet-vlan100”. This was created in
+the ”vm-your-name-x” projects, it will not be available in other
+projects.</li>
+</ol>
+<ul>
+<li class="">
+<p>Name: “your-name”-localnet-vlan100”</p>
+</li>
+<li class="">
+<p>Namespace: “vm-your-name”</p>
+</li>
+<li class="">
+<p>Cluster User Defined Network: “your-name-localnet-vlan100”<br/>
+This is where the network attachment is made</p>
+</li>
+<li class="">
+<p>Add the right you see this is a secondary localnet network</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network33.png style=width:5.95794in;height:2.98359in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=images/network34.png style=width:6.26806in;height:0.90347in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-and-attach-a-virtual-machinevm-to-the-localnet-network>Create and attach a Virtual Machine(VM) to the localnet network<a href=#create-and-attach-a-virtual-machinevm-to-the-localnet-network class=hash-link aria-label="Direct link to Create and attach a Virtual Machine(VM) to the localnet network" title="Direct link to Create and attach a Virtual Machine(VM) to the localnet network" translate=no>​</a></h2>
+<blockquote>
+<p>If required learn how to create a VM in “Create a Linux Virtual
+Machine” from the
+<a href=https://github.com/ibm-cloud-assets/rovs-tutorial/blob/main/docs/01-vm-management.md target=_blank rel="noopener noreferrer" class="">https://github.com/ibm-cloud-assets/rovs-tutorial/blob/main/docs/01-vm-management.md</a>
+tutorial</p>
+</blockquote>
+<p>In the Multus and UDN introduction we explained the default primary
+network as the POD network and the use of secondary networks for VM’s.
+In the next steps we are going to configure the VM to use the secondary
+network to connect to the localnet. <strong>Remember:</strong> The primary network is
+an isolated POD only network.<br/>
+<br/>
+We explained the VNI as a top-level resource with a Cloud Resource Name
+(CRN), with its own set of IAM permissions. We explained the creation of
+the VNI for use by a VM in the OVN and some steps before we looked at
+how to attach the VPC VNI to the cluster.<br/>
+<br/>
+You want the VM you are going to create, to use 1 of the VNI interfaces
+for your VM. Normally you make this connection using terraform or YAML
+but in this script we are using the GUI. To be able to attach the VM to
+the VNI of our choice we need to look up the MAC address of the VNI to
+use while creating the VM in the next step.<br/>
+In a separate browser tab open the IBM Cloud portal and go to the VNI
+attachments and select vni-“your-name”-1</p>
+<ol>
+<li class="">Copy the Mac address and store for later use</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network35.png style=width:6.26806in;height:1.04861in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+<br/>
+<img decoding=async loading=lazy src=images/network36.png style=width:6.26806in;height:1.99028in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=2>
+<li class="">Go back to previous tab with the Virtualization context on the
+Openshift Console, select “Catalog”:</li>
+</ol>
+<ul>
+<li class="">
+<p>Template Catalog</p>
+</li>
+<li class="">
+<p>Fedora VM</p>
+</li>
+<li class="">
+<p>Name = fedora05-“your-name”-Select “Customize VirtualMachine” to
+configure the Network Interface (NIC) to make certain we connect the
+VM to the right network.<br/>
+<strong>Do not forget to select the right (vm-“your name”) name space</strong></p>
+</li>
+</ul>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network37.png style=width:5.08939in;height:2.59375in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+<img decoding=async loading=lazy src=images/network38.png style=width:3.65802in;height:4.64324in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=3>
+<li class="">Select “network Interfaces (1)”</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network39.png style=width:5.77617in;height:3.53572in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=4>
+<li class="">Notice there is already a default interface, this is the deafult POD
+network. Select “Add network interface”</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network40.png style=width:6.26806in;height:1.18125in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=5>
+<li class="">Fill in the Name =fedora05-your-name</li>
+</ol>
+<ul>
+<li class="">
+<p>Select “your-name-vlan100”</p>
+</li>
+<li class="">
+<p>Now paste the MAC address of the VNI that you stored before and save</p>
+</li>
+</ul>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network41.png style=width:2.84324in;height:3.46486in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=6>
+<li class="">Delete the primary network interface.<br/>
+<strong>Warning:</strong> If you forget to do this the primary interface will
+remain the default NIC and that will have the default route. The VM
+will not be able to reach the localnet with out you adding manual
+routing. Since you don’t need the primary / POD network delete it.<br/>
+Create the VM and accept the boot disk warning.</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network42.png style=width:6.26806in;height:0.99375in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+<img decoding=async loading=lazy src=images/network43.png style=width:6.26806in;height:1.12222in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=images/network44.png style=width:6.26806in;height:0.67431in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=7>
+<li class="">Create the VM. It should take less than a minute to provision and
+start the VM.</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network45.png style=width:6.26806in;height:3.79028in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=8>
+<li class="">Open the console of the VM</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network46.png style=width:3.73832in;height:3.32837in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=9>
+<li class="">Login with the user name “fedora” given at the top of your screen
+and paste the password using the “paste to Console” and press enter
+to login</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network47.png style=width:6.26806in;height:0.72986in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=10>
+<li class="">Check if an interface is using DHCP<br/>
+List connections and devices:</li>
+</ol>
+<ul>
+<li class="">
+<p>- nmcli device status Show<br/>
+Then check the IPv4 method for a connection</p>
+</li>
+<li class="">
+<p>- nmcli connection show<br/>
+Get the connection name and inspect it</p>
+</li>
+<li class="">
+<p>- nmcli connection show "&lt;connection-name>" | grep ipv4.method<br/>
+Output should be: ipv4.method: auto<br/>
+auto = DHCP enabled</p>
+</li>
+<li class="">
+<p>- IP a<br/>
+You should see that interface “enp1s0”has received the IP address that
+is assigned to the VNI attached to the cluster.</p>
+</li>
+</ul>
+<img decoding=async loading=lazy src=images/network48.png style=width:6.2899in;height:3in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-and-attach-a-windows-server-vlan-200>Create and attach a Windows server VLAN 200<a href=#create-and-attach-a-windows-server-vlan-200 class=hash-link aria-label="Direct link to Create and attach a Windows server VLAN 200" title="Direct link to Create and attach a Windows server VLAN 200" translate=no>​</a></h2>
+<ol>
+<li class="">Lookup the Mac address of vni-“ÿour-name”-2 and store for later use</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network36.png style=width:6.26806in;height:1.99028in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=2>
+<li class="">Return to the OpenShift console. Create another a Windows 2K17 VM
+from the template you created in the “Template and InstanceType
+management” tutorial you ran before. Use the cloned PVC as a boot
+source for quick-creating a new virtual machine by selecting the
+option for PVC (clone PVC) as the Disk source and selecting
+the Windows-2k19-Sysprep-Template PVC as the PVC name to clone, and
+click the Customize VirtualMachine button to configure the VM.</li>
+</ol>
+<ul>
+<li class="">
+<p>Project = vm-“your-name”-2</p>
+</li>
+<li class="">
+<p>PVC Project = vm-“your-name”-2</p>
+</li>
+<li class="">
+<p>PVC name = windows-sysprep-2k19-bert-template</p>
+</li>
+<li class="">
+<p>Name = windows 2k19-“your-name”</p>
+</li>
+<li class="">
+<p>Windows 2k17</p>
+</li>
+<li class="">
+<p>Name = windows06-“your-name”</p>
+</li>
+<li class="">
+<p>Change CPU and Memory: 2CPU | 8GB</p>
+</li>
+<li class="">
+<p>Select “Customize VirtualMachine”</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network49.png style=width:6.26806in;height:3.46042in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=3>
+<li class="">Configure BIOS and press Create VirtualMachine</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network50.png style=width:6.26806in;height:3.33542in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=4>
+<li class="">Configure the Network interface<br/>
+Add network interface:</li>
+</ol>
+<ul>
+<li class="">
+<p>Name = windows06-2k19-“your-name”-nic</p>
+</li>
+<li class="">
+<p>bert-localnet-vlan200</p>
+</li>
+<li class="">
+<p>advanced settings 🡺 paste the MAC address you stored before<br/>
+Save</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network51.png style=width:4.74766in;height:5.93857in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ul>
+<li class="">Remove the default network interface</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network52.png style=width:6.23832in;height:1.58619in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ul>
+<li class="">Create VirtualMachine and the VM will start</li>
+</ul>
+<ol start=5>
+<li class="">Open the web console</li>
+</ol>
+<ul>
+<li class="">At the righ bottom you see there is no network</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network53.png style=width:6.26806in;height:4.58472in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ul>
+<li class="">
+<p>Go to the VM configuration on the OpenShift portal and check the model
+on the network interface. You will find this is “virtio” model.
+Windows does not install that automated.</p>
+</li>
+<li class="">
+<p>Change the “virtio” to “e1000e” and save.</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network54.png style=width:5.1729in;height:4.84898in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+This will require a restart. The model will change after a restart.
+After restart windows will install the NIC.<br/>
+<strong>Note:</strong> when doing a Vmware to ROVS migration situations with drives
+like here may happen!<br/>
+<br/>
+<img decoding=async loading=lazy src=images/network55.png style=width:6.26806in;height:2in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ul>
+<li class="">
+<p>Restart the VM</p>
+</li>
+<li class="">
+<p>After reboot start go to the web console of the VM.</p>
+</li>
+<li class="">
+<p>At the right bottom notice that the red X for the Network icon is gone</p>
+</li>
+<li class="">
+<p>Click the windows startup menu and typ “cmd” and press enter</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network56.png style=width:4.87895in;height:3.74219in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+A command prompt will open</p>
+<ul>
+<li class="">
+<p>type ipconfig. Notice the IP address of the VNI you used to configure
+the MAC address for the VM. That has connected the VM DHCP request to
+the VNI and assigned the IP address of that VNI.</p>
+</li>
+<li class="">
+<p>ping 9.9.9.9 (Google IP address on the internet). You should get a
+reply</p>
+</li>
+<li class="">
+<p>lookup the ip address of your fedora05-“your-name” in the OpenShift
+console (you should know how by now 😊)</p>
+</li>
+<li class="">
+<p>ping the IP address you just stored. You should get a reply. This
+means that you can ping the fedora VM that is assigned to another VLAN
+in another subnet in the same VPC. In the below example we ping from
+10.243.4.0/24 to 10.243.2.0/24.</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network57.png style=width:5.98598in;height:6.29768in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+Now lets see if this works both ways</p>
+<ul>
+<li class="">
+<p>Go to the web console of the fedora05-“your-name” and login</p>
+</li>
+<li class="">
+<p>type “ip a”</p>
+</li>
+<li class="">
+<p>lookup the ip address of the Windows06-2k19-“your-name”</p>
+</li>
+<li class="">
+<p>On the fedora VM console ping the IP address of the windows VM, it
+fails why? Don’t spend hours trying to find out 😊</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network58.png style=width:5.86916in;height:3.38195in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>Leave the Windows server running for the next step!</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=use-a-vpe-from-within-openshift>Use a VPE from within OpenShift<a href=#use-a-vpe-from-within-openshift class=hash-link aria-label="Direct link to Use a VPE from within OpenShift" title="Direct link to Use a VPE from within OpenShift" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=what-is-a-vpe>What is a VPE?<a href=#what-is-a-vpe class=hash-link aria-label="Direct link to What is a VPE?" title="Direct link to What is a VPE?" translate=no>​</a></h3>
+<p>A Virtual Private Endpoint (VPE) is a private network endpoint that
+allows resources in an IBM Cloud VPC to securely access IBM Cloud
+services without traversing the public internet. Instead of connecting
+to a service through a public IP address, a VPE assigns private IP
+addresses from your own VPC subnet, ensuring that all traffic remains on
+the IBM Cloud private backbone network.</p>
+<p>A VPE is implemented through a Virtual Private Endpoint Gateway, which
+acts as a highly available and scalable connection point between your
+VPC and a supported IBM Cloud service. This approach improves security,
+simplifies network controls, and helps organizations meet compliance
+requirements by keeping service traffic private.</p>
+<p>In simple terms: a VPE is like creating a private entrance from your VPC
+directly into an IBM Cloud service, allowing your workloads to
+communicate securely without exposing traffic to the public internet.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=why-use-a-vpe>Why use a VPE?:<a href=#why-use-a-vpe class=hash-link aria-label="Direct link to Why use a VPE?:" title="Direct link to Why use a VPE?:" translate=no>​</a></h3>
+<ul>
+<li class="">
+<p>Keeps traffic on the IBM Cloud private network.</p>
+</li>
+<li class="">
+<p>Eliminates the need for public connectivity to supported services.</p>
+</li>
+<li class="">
+<p>Allows you to use your own VPC IP address space for service access.</p>
+</li>
+<li class="">
+<p>Integrates with VPC security controls such as Security Groups and
+Network ACLs.</p>
+</li>
+<li class="">
+<p>Provides a highly available and scalable connection architecture.</p>
+</li>
+</ul>
+<p>Find a list of all the available VPE enabled service
+<a href="https://cloud.ibm.com/docs/vpc?topic=vpc-vpe-supported-services" target=_blank rel="noopener noreferrer" class="">here</a>.</p>
+<p><img decoding=async loading=lazy src=images/network59.png style=width:6.26806in;height:4.06944in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=review-a-vpe-gateway-setup>Review a VPE gateway setup<a href=#review-a-vpe-gateway-setup class=hash-link aria-label="Direct link to Review a VPE gateway setup" title="Direct link to Review a VPE gateway setup" translate=no>​</a></h3>
+<p>In this demo we will run through the setup of a VPE gateway in IBM Cloud
+VPC. In the IBM Cloud portal go to the Virtual Private Endpoint Gateways
+in the catalog.</p>
+<p><img decoding=async loading=lazy src=images/network60.png style=width:4.64019in;height:6.31606in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>Due to lack of privileges you do not see any VPE gateways. Below you can
+see that we actually have many VPE gateways configured in the account of
+which a gateway to the NTP service we are going to use later.</p>
+<p><img decoding=async loading=lazy src=images/network61.png style=width:6.26806in;height:2.90625in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol>
+<li class="">Click “ Create”</li>
+</ol>
+<p><img decoding=async loading=lazy src=images/network62.png style=width:6.26806in;height:0.65417in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<ol start=2>
+<li class="">Choose</li>
+</ol>
+<ul>
+<li class="">
+<p>Region =Frankfurt</p>
+</li>
+<li class="">
+<p>Name = demo-ntp</p>
+</li>
+<li class="">
+<p>Resource Group = Virtualization</p>
+</li>
+<li class="">
+<p>Virtual Private Cloud = virt-vpc</p>
+</li>
+</ul>
+<ol>
+<li class="">Create security Group</li>
+</ol>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network63.png style=width:5.56075in;height:7.02517in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=2>
+<li class="">
+<p>Review what you can configure. Typically you create a new security
+group and configure the inbound rules for the service. For the NTP
+service we select UTP for the protocol (A), select Port range ,
+enter 123 for both the Port min and Port max.</p>
+</li>
+<li class="">
+<p>Cancel the creation of the security group and instead select
+“<a href=https://cloud.ibm.com/infrastructure/network/securityGroups/eu-de~r010-1a74b5a2-c5a0-42f7-a2d3-c93452865993/overview target=_blank rel="noopener noreferrer" class="">sg-vpe-ntp-virt</a>”.</p>
+</li>
+<li class="">
+<p>Select “IBM Cloud service” and under Cloud Services select the
+service of your choice. For this demo we chose “ibm-ntp-server”.</p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>Reserve IP choose “Select for me”</p>
+</li>
+<li class="">
+<p>We only enable the gateway endpoint in “eu-de1”</p>
+<p><img decoding=async loading=lazy src=images/network64.png style=width:6.26806in;height:0.78194in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=images/network65.png style=width:5.66823in;height:9.03989in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Now Cancel the creation of the NTP gateway by selecting “Virtual
+private gateways” at the top of the page to leave this page</p>
+<p><img decoding=async loading=lazy src=images/network66.png style=width:6.13627in;height:1.40645in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=vpe-to-ntp-demo>VPE to NTP demo<a href=#vpe-to-ntp-demo class=hash-link aria-label="Direct link to VPE to NTP demo" title="Direct link to VPE to NTP demo" translate=no>​</a></h3>
+<p>A virtual server in your OpenShift environment can access the IBM Cloud
+NTP through a VPE gateway. The server communicates with a private IP
+address inside the VPC, causing the traffic to remain entirely on the
+IBM Cloud network.</p>
+<p>We have configured the VPE Gateway for the VPC “virt-vpc”.</p>
+<ul>
+<li class="">
+<p>Private IP: 10.134.219.4</p>
+</li>
+<li class="">
+<p>DNS name: time.adn.networklayer.com</p>
+</li>
+</ul>
+<p><img decoding=async loading=lazy src=images/network67.png style=width:6.26806in;height:3.85208in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>We will now configure the NTP server for the Windows 2K19 server we
+created in the previous step.</p>
+<ol>
+<li class="">
+<p>Browse to the console of the Windows06-“your-name”</p>
+</li>
+<li class="">
+<p>Go to the start menu and type “cmd”. Richt click and start as
+administrator</p>
+</li>
+<li class="">
+<p>Query the status and the peers of the Windows time service</p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>W32tm /query / status</p>
+</li>
+<li class="">
+<p>W32tm /query peers</p>
+</li>
+<li class="">
+<p>Notice the ntp peer is time.windows.com</p>
+</li>
+</ul>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network68.png style=width:4.00446in;height:3.93792in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ol start=4>
+<li class="">Configure the IBM Cloud NTP service as NTP source. Normally you
+would use the DNS name “time.adn.networklayer.com” but for demo
+purposes we will now use the IP address “10.134.219.4” to proof that
+we are not accidentally using a public IP address.</li>
+</ol>
+<ul>
+<li class="">
+<p>W32tm /config /manualpeerlist”10.134.219.4” /syncfromflags /update</p>
+</li>
+<li class="">
+<p>Net stop w32time</p>
+</li>
+<li class="">
+<p>Net start w32time</p>
+</li>
+<li class="">
+<p>W32tm /query peers 🡪 notice Peer: 10.134.219.4</p>
+</li>
+<li class="">
+<p>W32tm /query /status 🡪 notice the last successful sync</p>
+</li>
+</ul>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network69.png style=width:5.45794in;height:4.35499in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ul>
+<li class="">Now do the same exercise but use the DNS name
+time.adn.networklayer.com</li>
+</ul>
+<blockquote>
+<p><img decoding=async loading=lazy src=images/network70.png style=width:5.46262in;height:3.61673in class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</blockquote>
+<ul>
+<li class="">
+<p>Notice the last successful sync time</p>
+</li>
+<li class="">
+<p>Notice we are able to resolve the DNS name to a public and a private
+IP. We have received our DNS server configuration from the DHCP
+request through the VNI (remember we configured the VNI MAC address
+when adding the NIC during VM deployment). We are able to resolve IBM
+Cloud addresses like native VSIs in IBM Cloud</p>
+</li>
+</ul>
+<h1>Summary</h1>
+<p>In this tutorial we learned the key networking concepts used by Red Hat
+OpenShift Virtualization Service (ROVS) on IBM Cloud VPC. We explored
+how IBM Cloud VPC networking, SmartNICs, Virtual Network Interfaces
+(VNIs), Virtual Private Endpoints (VPEs), OVN-Kubernetes, Open vSwitch
+(OVS), Multus, Localnet, NetworkAttachmentDefinitions (NADs), and User
+Defined Networks (UDNs) work together to provide secure, scalable, and
+flexible networking for virtual machine workloads.</p>
+<p>We reviewed how VNIs provide connectivity between IBM Cloud VPC subnets
+and OpenShift Virtualization, and how Localnet networks allow virtual
+machines to connect directly to VPC networks without relying on the
+default pod networking model. In addition, we examined how VPEs enable
+private access from workloads to IBM Cloud services without traversing
+the public internet, improving security, compliance, and network control
+for enterprise deployments. We also explored the role of NMState,
+Cluster User Defined Networks (CUDNs), and UDNs in creating secure and
+flexible network segmentation for VM workloads.</p>
+<p>During the lab exercises, we inspected preconfigured networking
+components, reviewed VNI attachments, VPE connectivity, and network
+attachment definitions, and deployed both Linux and Windows virtual
+machines connected to secondary Localnet networks. By assigning VNI MAC
+addresses to VM network interfaces, we demonstrated how virtual machines
+can obtain IP addresses directly from IBM Cloud VPC networking,
+communicate across VPC subnets, and securely consume private IBM Cloud
+services while maintaining support for virtualization capabilities such
+as live migration.</p>
+<p>We also learned how OpenShift Virtualization networking differs from
+traditional virtualization networking by separating the primary pod
+network from secondary VM networks. This approach enables administrators
+to provide direct Layer 2 and Layer 3 connectivity where required, while
+preserving the flexibility, isolation, and automation expected from a
+cloud-native platform. User-defined networking extends these
+capabilities by allowing network segmentation and self-service network
+creation at both namespace and cluster scope.</p>
+<p>Finally, we reinforced the networking design recommendations for
+OpenShift Virtualization: use secondary networks for VM workloads, use
+Localnet when direct VPC connectivity is required, leverage VPEs for
+secure private access to IBM Cloud services, use CUDNs for centrally
+managed production networks, and use UDNs for namespace-level
+self-service environments. Together, these capabilities provide a robust
+networking foundation for running traditional virtual machines alongside
+containerized applications on a modern IBM Cloud and OpenShift platform.</div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/rovs-tutorial/docs/template-instancetype><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>3. Templates & InstanceTypes</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/rovs-tutorial/docs/vm-yaml><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>5. VMs with YAML</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#introduction class="table-of-contents__link toc-highlight">Introduction</a><li><a href=#rovs class="table-of-contents__link toc-highlight">ROVS</a><li><a href=#vpc--subnet-concepts class="table-of-contents__link toc-highlight">VPC + Subnet Concepts</a><li><a href=#ovn class="table-of-contents__link toc-highlight">OVN</a><li><a href=#vni-virtual-network-interface class="table-of-contents__link toc-highlight">VNI (Virtual Network Interface)</a><li><a href=#open-vswitch-node-level-networking class="table-of-contents__link toc-highlight">Open vSwitch (node-level networking)</a><li><a href=#multus class="table-of-contents__link toc-highlight">Multus</a><li><a href=#localnet class="table-of-contents__link toc-highlight">Localnet</a><li><a href=#networkattachmentdefinition-nad class="table-of-contents__link toc-highlight">NetworkAttachmentDefinition (NAD)</a><li><a href=#udn-user-defined-network class="table-of-contents__link toc-highlight">UDN (User Defined Network)</a><li><a href=#summary class="table-of-contents__link toc-highlight">Summary</a><li><a href=#review-environment class="table-of-contents__link toc-highlight">Review environment</a><li><a href=#the-rovs-cluster class="table-of-contents__link toc-highlight">The ROVS Cluster</a><li><a href=#vni-attachment class="table-of-contents__link toc-highlight">VNI attachment</a><li><a href=#nmstate-operator class="table-of-contents__link toc-highlight">NMstate Operator</a><li><a href=#user-defined-networks class="table-of-contents__link toc-highlight">User Defined Networks</a><li><a href=#network-attachment-definition class="table-of-contents__link toc-highlight">Network Attachment Definition</a><li><a href=#create-and-attach-a-virtual-machinevm-to-the-localnet-network class="table-of-contents__link toc-highlight">Create and attach a Virtual Machine(VM) to the localnet network</a><li><a href=#create-and-attach-a-windows-server-vlan-200 class="table-of-contents__link toc-highlight">Create and attach a Windows server VLAN 200</a><li><a href=#use-a-vpe-from-within-openshift class="table-of-contents__link toc-highlight">Use a VPE from within OpenShift</a><ul><li><a href=#what-is-a-vpe class="table-of-contents__link toc-highlight">What is a VPE?</a><li><a href=#why-use-a-vpe class="table-of-contents__link toc-highlight">Why use a VPE?:</a><li><a href=#review-a-vpe-gateway-setup class="table-of-contents__link toc-highlight">Review a VPE gateway setup</a><li><a href=#vpe-to-ntp-demo class="table-of-contents__link toc-highlight">VPE to NTP demo</a></ul></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Tutorials</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/intro>Introduction</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-management>1. VM Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/storage-management>2. Storage Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/template-instancetype>3. Templates & InstanceTypes</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/networking>4. Networking</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-yaml>5. VMs with YAML</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>IBM Resources</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://cloud.ibm.com/infrastructure/openshift-virtualization target=_blank rel="noopener noreferrer" class=footer__link-item>ROVS on IBM Cloud<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li class=footer__item><a href=https://docs.openshift.com/container-platform/latest/virt/about_virt/about-virt.html target=_blank rel="noopener noreferrer" class=footer__link-item>Red Hat OpenShift Docs<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 IBM Corporation. Built with Docusaurus.</div></div></div></footer></div></body>

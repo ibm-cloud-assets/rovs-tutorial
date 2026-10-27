@@ -1,0 +1,98 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-connect-to-cluster" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Access the OpenShift Console | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/connect-to-cluster /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Access the OpenShift Console | ROVS Tutorials"/><meta data-rh=true name=description content="In this section, you will learn how to get access to the ROVS cluster."/><meta data-rh=true property=og:description content="In this section, you will learn how to get access to the ROVS cluster."/><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/connect-to-cluster /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/connect-to-cluster hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/connect-to-cluster hreflang=x-default /><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.0a07ee4f.js defer></script><script src=/rovs-tutorial/assets/js/main.522f6c65.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t;document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/rovs-tutorial/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/rovs-tutorial/><div class=navbar__logo><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--light_NVdE" height=28 width=28 /><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--dark_xIcU" height=28 width=28 /></div><b class="navbar__title text--truncate">ROVS Tutorials</b></a><a class="navbar__item navbar__link" href=/rovs-tutorial/docs/intro>Tutorials</a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>IBM Cloud Docs</a><ul class=dropdown__menu><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class=dropdown__link>ROVS Overview<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-about-openshift-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>OpenShift Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>VNI for Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ibm-cloud-assets/rovs-tutorial target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><main class="docMainContainer_TBSr docMainContainerEnhanced_lQrH"><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Access the OpenShift Console</h1></header>
+<p>In this section, you will learn how to get access to the ROVS cluster.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=navigate-to-the-openshift-virtualization>Navigate to the OpenShift Virtualization<a href=#navigate-to-the-openshift-virtualization class=hash-link aria-label="Direct link to Navigate to the OpenShift Virtualization" title="Direct link to Navigate to the OpenShift Virtualization" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>Go to the <a href=https://cloud.ibm.com/infrastructure/openshift-virtualization target=_blank rel="noopener noreferrer" class="">OpenShift Virtualization</a>.</p>
+</li>
+<li class="">
+<p>You can also access the OpenShift Virtualization from the  menu.</p>
+<p><img decoding=async loading=lazy alt=Menu src=/rovs-tutorial/assets/images/00-rovs-main-menu-b1e5564f261a02892b97a98e36631d70.png width=1268 height=1440 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Menu" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Find your cluster in the list and click on it.</p>
+<p><img decoding=async loading=lazy alt="Landing Page" src=/rovs-tutorial/assets/images/00-rovs-landingpage-c0e5a487be6f06c7119a384aad069f88.png width=2776 height=1080 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Landing Page" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Have a look at the cluster overview!</p>
+<p><img decoding=async loading=lazy alt="Launch the OpenShift" src=/rovs-tutorial/assets/images/00-rovs-overview-4d2e2b3a115a167dc3cb92db96ec9a7d.png width=2760 height=1800 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Launch the OpenShift" aria-haspopup=dialog /></p>
+<blockquote>
+<p>You can see the cluster version, the region where the cluster is deployed.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Notice the network plugin OVN, the default Container Network Interface (CNI) for modern OpenShift clusters. It combines:</p>
+<ul>
+<li class="">OVN (Open Virtual Network) – a virtual networking system built on top of Open vSwitch (OVS).</li>
+<li class="">Kubernetes integration – providing pod networking, network policies, Services, Egress IP, Egress Gateway, Multus integration, and other advanced networking features.</li>
+</ul>
+</li>
+<li class="">
+<p>Click on <strong>Worker Nodes</strong> in the left hand side menu.</p>
+<p><img decoding=async loading=lazy alt="Worker Nodes" src=/rovs-tutorial/assets/images/00-rovs-workers-b9bca99b22a0429be83b982d45aa3d0a.png width=2770 height=1498 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Worker Nodes" aria-haspopup=dialog /></p>
+<blockquote>
+<p>Notice: The cluster is composed of 34 worker nodes, each <code>bx3d.metal.64x256</code>, which 4 NVMes disks.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Click on <strong>OpenShift web console</strong> on the top right to launch the web console.</p>
+<p><img decoding=async loading=lazy alt="OpenShift Console" src=/rovs-tutorial/assets/images/00-openshift-console-c530198241beb51ce661cc0cd29cb157.png width=2734 height=1486 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: OpenShift Console" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=connect-to-openshift-with-the-command-line-cli>Connect to OpenShift with the command line (CLI)<a href=#connect-to-openshift-with-the-command-line-cli class=hash-link aria-label="Direct link to Connect to OpenShift with the command line (CLI)" title="Direct link to Connect to OpenShift with the command line (CLI)" translate=no>​</a></h2>
+<p>To easily connect to the cluster, you need the OpenShift CLI <code>oc</code> that exposes commands for managing your applications, as well as lower level tools to interact with each component of your system.</p>
+<p>This topic guides you through getting started with the CLI, including installation and logging in.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=use-ibm-cloud-shell>Use IBM Cloud Shell<a href=#use-ibm-cloud-shell class=hash-link aria-label="Direct link to Use IBM Cloud Shell" title="Direct link to Use IBM Cloud Shell" translate=no>​</a></h2>
+<p>To avoid installing the command line, the recommended approach is to use the IBM Cloud Shell is a cloud-based shell workspace that you can access through your browser.</p>
+<p>It's preconfigured with the full IBM Cloud CLI and tons of plug-ins and tools that you can use to manage apps, resources, and infrastructure.</p>
+<ol>
+<li class="">
+<p>In the Console menu bar, click the IBM Cloud Shell <a href=https://cloud.ibm.com/shell target=_blank rel="noopener noreferrer" class="">https://cloud.ibm.com/shell</a> icon to start a session</p>
+<p><img decoding=async loading=lazy alt=shell1 src=/rovs-tutorial/assets/images/00-ibmcloud-cloud-shell-1-eb0e000551c56aac86ddd3640d917d73.png width=1882 height=350 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: shell1" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>A session starts and automatically logs you in through the IBM Cloud CLI.</p>
+<p><img decoding=async loading=lazy alt=shell2 src=/rovs-tutorial/assets/images/00-ibmcloud-shell-2-4224722faad7ba6c332911aa2e4ad5f7.png width=2474 height=1260 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: shell2" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<blockquote>
+<p>If you wish to install the OpenShift Command Line on your laptop, you can do so by downloading the correct version from this <a href=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/ target=_blank rel="noopener noreferrer" class="">page</a>.</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=connect-to-the-openshift-cluster>Connect to the OpenShift cluster<a href=#connect-to-the-openshift-cluster class=hash-link aria-label="Direct link to Connect to the OpenShift cluster" title="Direct link to Connect to the OpenShift cluster" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>In the OpenShift web console, click on the email/ID in the upper right. Choose the <em>Copy Login Command</em> option.</p>
+<p><img decoding=async loading=lazy alt="Copy Login Command" src=/rovs-tutorial/assets/images/00-openshift-copy-login-cmd-e490608da718cc9dd8f7423afd77fdc9.png width=930 height=562 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Copy Login Command" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>A new page will open with a link <strong>Display Token</strong>. Click this link.</p>
+</li>
+<li class="">
+<p>Copy the log in with this token line.</p>
+<p><img decoding=async loading=lazy alt="Login Command" src=/rovs-tutorial/assets/images/00-openshift-login-cmd-f9ab95cccff1381f5bec5a1eea0b864e.png width=2376 height=870 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Login Command" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>In the Cloud Shell or your terminal, paste the <code>oc login</code> command you copied in the previous step.</p>
+<p><img decoding=async loading=lazy alt="OCP API Token" src=/rovs-tutorial/assets/images/00-openshift-shell-login-6dbbc14b435f0286a8530d8e4cd68792.png width=2132 height=330 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: OCP API Token" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<p>Your CLI is now connected to your OpenShift cluster running in IBM Cloud.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=validate-cluster-access-using-oc-commands>Validate cluster access using <code>oc</code> commands<a href=#validate-cluster-access-using-oc-commands class=hash-link aria-label="Direct link to validate-cluster-access-using-oc-commands" title="Direct link to validate-cluster-access-using-oc-commands" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>View projects</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get projects</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Make sure you're connected to your project</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc project </span><span class="token operator" style=color:#393A34>&lt;</span><span class="token plain">name-of-your-project</span><span class="token operator" style=color:#393A34>></span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Your project name starts with <code>vm-</code> and includes your last name.</p>
+</blockquote>
+</li>
+</ol>
+<p>You've completed the getting started! Let's recap -- in this section, you:</p>
+<p>You connected your local CLI to a running OpenShift cluster on IBM Cloud.</div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#navigate-to-the-openshift-virtualization class="table-of-contents__link toc-highlight">Navigate to the OpenShift Virtualization</a><li><a href=#connect-to-openshift-with-the-command-line-cli class="table-of-contents__link toc-highlight">Connect to OpenShift with the command line (CLI)</a><li><a href=#use-ibm-cloud-shell class="table-of-contents__link toc-highlight">Use IBM Cloud Shell</a><li><a href=#connect-to-the-openshift-cluster class="table-of-contents__link toc-highlight">Connect to the OpenShift cluster</a><li><a href=#validate-cluster-access-using-oc-commands class="table-of-contents__link toc-highlight">Validate cluster access using <code>oc</code> commands</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Tutorials</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/intro>Introduction</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-management>1. VM Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/storage-management>2. Storage Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/template-instancetype>3. Templates & InstanceTypes</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/networking>4. Networking</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-yaml>5. VMs with YAML</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>IBM Resources</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://cloud.ibm.com/infrastructure/openshift-virtualization target=_blank rel="noopener noreferrer" class=footer__link-item>ROVS on IBM Cloud<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li class=footer__item><a href=https://docs.openshift.com/container-platform/latest/virt/about_virt/about-virt.html target=_blank rel="noopener noreferrer" class=footer__link-item>Red Hat OpenShift Docs<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 IBM Corporation. Built with Docusaurus.</div></div></div></footer></div></body>

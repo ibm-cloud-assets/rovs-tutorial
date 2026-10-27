@@ -1,0 +1,281 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-vm-management" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Virtual Machine Management | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/vm-management /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Virtual Machine Management | ROVS Tutorials"/><meta data-rh=true name=description content=Introduction /><meta data-rh=true property=og:description content=Introduction /><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/vm-management /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/vm-management hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/vm-management hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ibm-cloud-assets.github.io/rovs-tutorial/docs/vm-management","name":"1. VM Management","position":1}]}</script><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.0a07ee4f.js defer></script><script src=/rovs-tutorial/assets/js/main.522f6c65.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t;document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/rovs-tutorial/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/rovs-tutorial/><div class=navbar__logo><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--light_NVdE" height=28 width=28 /><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--dark_xIcU" height=28 width=28 /></div><b class="navbar__title text--truncate">ROVS Tutorials</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/rovs-tutorial/docs/intro>Tutorials</a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>IBM Cloud Docs</a><ul class=dropdown__menu><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class=dropdown__link>ROVS Overview<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-about-openshift-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>OpenShift Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>VNI for Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ibm-cloud-assets/rovs-tutorial target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/rovs-tutorial/docs/intro><span class=linkLabel_WmDU>Introduction</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--active"><span class=categoryLinkLabel_W154>Tutorials</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/rovs-tutorial/docs/vm-management><span class=linkLabel_WmDU>1. VM Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/storage-management><span class=linkLabel_WmDU>2. Storage Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/template-instancetype><span class=linkLabel_WmDU>3. Templates & InstanceTypes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/networking><span class=linkLabel_WmDU>4. Networking</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-yaml><span class=linkLabel_WmDU>5. VMs with YAML</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1"><hr style="margin: 0.75rem 0.75rem; border-color: #dde5ee;"/><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false><span class=categoryLinkLabel_W154>IBM Cloud Docs</span></a></div></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/rovs-tutorial/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Tutorials</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>1. VM Management</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Virtual Machine Management</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=introduction>Introduction<a href=#introduction class=hash-link aria-label="Direct link to Introduction" title="Direct link to Introduction" translate=no>​</a></h2>
+<p>The beginning section of this lab will introduce you to the basics of creating and managing VMs in OpenShift Virtualization. Starting with OpenShift 4.18 there is a new Virtualization persona and a tree view for virtual machines that make it easier to visualize and manage your virtualization-based assets. After exploring the UI changes, you will see how the web console guides you through the whole process of creating a virtual machine from a pre-defined template. We will then review the properties of that VM, do some basic customizations, and perform actions like live migration, that are often expected of virtual machine administrators.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=goals>Goals<a href=#goals class=hash-link aria-label="Direct link to Goals" title="Direct link to Goals" translate=no>​</a></h3>
+<ul>
+<li class="">Create a new virtual machine</li>
+<li class="">Review and modify resources for virtual machines</li>
+<li class="">Understand how VM power states are managed using the OpenShift console</li>
+<li class="">Live migrate a VM between two hosts</li>
+</ul>
+<blockquote>
+<p>You must be invited to the ROVS cluster to be able to open the Console. You may have been invited to the shared ITZ account “2765292 – itz-cp-emea” to be able to demo the “Virtualization on OpenShift Sales Play”. Your login is available through SSO using your IBM id: <a href=mailto:name@xx.ibm.com target=_blank rel="noopener noreferrer" class="">name@xx.ibm.com</a></p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=switch-to-the-virtualization-persona>Switch to the Virtualization Persona<a href=#switch-to-the-virtualization-persona class=hash-link aria-label="Direct link to Switch to the Virtualization Persona" title="Direct link to Switch to the Virtualization Persona" translate=no>​</a></h3>
+<ol>
+<li class="">
+<p>When you first log in, you will be placed in the Core Platform persona.</p>
+<p><img decoding=async loading=lazy src="data:image/png;base64,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" width=261 height=136 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Now, click on Core Platform in the upper left corner and switch to the Virtualization persona.</p>
+</li>
+</ol>
+<blockquote>
+<p>The Virtualization persona is available only when Red Hat OpenShift Virtualization operator is installed and properly configured. ROVS comes with this operator pre-installed for you.</p>
+</blockquote>
+<ol>
+<li class="">In a fresh environment you will be greeted by an introductory prompt welcoming you to OpenShift Virtualization.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=exploring-openshift-virtualization>Exploring OpenShift Virtualization<a href=#exploring-openshift-virtualization class=hash-link aria-label="Direct link to Exploring OpenShift Virtualization" title="Direct link to Exploring OpenShift Virtualization" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>When you arrive in the Virtualization view you will be on the Overview page which provides a high-level view of all virtualization resources currently in use, lets take a moment to explore.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image2-193fbccc24fc8c193efbd9b8f95e5d08.png width=1795 height=853 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Click on the VirtualMachines item in the left side menu and you will be presented with the virtualization tree view of all VM assets.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image3-bed88e458c53e806392d5c6b54124581.png width=2926 height=1562 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Lets explore this page for a few moments: notice that this view is divided into 3 columns, the left-side management menu, the central column for organization of vm-imagebased projects, and then the virtual machine view.</p>
+</li>
+<li class="">
+<p>The left menu is the main control for Virtualization integrated functions in OpenShift. We can see virtualization related items like the Catalog, Templates and InstanceTypes to build VMs from, and the menus to configure Storage and Netoworking for virtual machines.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image4-1e550a745b2cc640c35a32772b5d2d3c.png width=282 height=661 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>The central column as mentioned is a project view. Like other objects in OpenShift, Projects (which are an abstraction for Kubernetes namespaces), are the boundaries for which permissions and other aspects of using and managing the resources are available to a user. By default there is a slider here that only shows projects with existing VMs. This environment has been prepped for demo purposes. When you request access after invitation to the environment, two projects with the prefix “vm-<em>your-last-name</em>” have been created as part of the invite process. Make sure to select one of your assigned OpenShift Project “vm-<em>your-last-name</em>” when creating VM’s.</p>
+</li>
+<li class="">
+<p>Find the created projects in the project view.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image5-3f70994cdb56bf3b9b92f27aea6bd2a5.png width=1805 height=1123 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>In the virtual machine overview column, it will list All projects by default, which shows us the VM’s for every user in our shared cluster environment. You can sort by columns to make locating VM’s easier, or even arrange which columns are visible to make organization easier. This view will change when you highlight a specific project or virtual machine in the center column.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image6-34f6aca49fb05577ee90eb9abc50a28e.png width=1367 height=1027 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>From the center column click on the project “vm-your-last-name” to see the virtual machines that are currently deployed and available to your specific user account.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image7-2bfdb75f03ba1e1da381eda4a5eae55e.png width=1790 height=936 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<blockquote>
+<p>While the lab guide is configured to be dynamic and show your specific user account and project names whenever possible, the images in the lab guide are static and may show a different user, please perform these tasks in reference to your own user account and associated projects.</p>
+</blockquote>
+<ul>
+<li class="">
+<p>The virtual machine overview column will update to only show the virtual machines in the “vm-<em>your-family-name</em>” project. You should see no VMs listed.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image8-d4c8c7fe7de6c278ac032d4024295e0c.png width=1225 height=420 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-a-linux-virtual-machine>Create a Linux Virtual Machine<a href=#create-a-linux-virtual-machine class=hash-link aria-label="Direct link to Create a Linux Virtual Machine" title="Direct link to Create a Linux Virtual Machine" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>From the virtual machine overview column, click on the Create VirtualMachine button and select From template from the drop-down menu.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image33-4b15fdca743ec4926df7d899967c6564.png width=604 height=178 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<p>VMs can also be created from an InstanceType wizard as well as created by entering a custom YAML definition, but for this current lab scenario we are going to stick with creating VMs based on existing templates.</p>
+<ol>
+<li class="">
+<p>You will be taken to the Catalog screen, where a number of tiles will appear showing the available pre-defined VM templates.
+Reviewing the list of available templates you’ll notice that some have a blue badge which indicates Source available. These are templates which are using automatically downloaded and stored template source disks.
+If you were deploying in your own environment where you can customize the options available, you can choose to modify the availability of these boot sources by default, and/or remove these source disks, in favor of creating custom disks for your organization’s needs.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image12-8814c35b82386aff28096590b31cbfc2.png width=1916 height=921 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Select the Fedora VM tile, and a dialog opens.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image13-e550e70c8d1e225edde06920d98212e5.png width=895 height=907 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Change the name to fedora01 and press Quick create VirtualMachine.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image14-510138456044a1399601182b8d5378d6.png width=889 height=272 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>We will return to our tree view and see information about our new VM in the virtual machine overview column. Notice also that we now see our “vm-imageyour-family-name” project listed in the center column as it contains a VM, and that it is highlighted within the project.
+If we watch closely we can see the VM Status switch from Provisioning to Starting and finally Running in the virtual machine overview column when it is ready.
+During this time, the storage provider has cloned the template disk so that it can be used by the newly created virtual machine. The amount of time this takes can vary based on the storage provider being used to create the boot disk, and the current load on the system.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image15-cca7f6d7e7c8427a02072647c77db7fe.png width=1358 height=911 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Once the virtual machine is running we can do some further exploration of the Overview page in the right side column.</p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>Details: This tile shows us information about our VM, including it’s name, status, creation time, OS, virtual resources, and the template from which it was created. It also contains a minature VNC terminal, and the ability to launch a fullscreen web console.</p>
+</li>
+<li class="">
+<p>General: This tile shows us information specific to OpenShift, including the Namespace (Project), instance name, and Kubernetes pod where the guest is running.</p>
+</li>
+<li class="">
+<p>Snapshots: This tile gives us information about any existing snapshots, and also has the button to quickly create a snapshot.</p>
+</li>
+<li class="">
+<p>Network: This tile gives us the IP address of the virtual machine on the software-defined network (SDN) and it’s internal hostname. If no advanced networks are defined, VMs are automatically attached to the pod network. Later in this lab we will explore advanced networking options, and how to customize connectivity for VMs.</p>
+</li>
+<li class="">
+<p>Utilization: This tile gives us an overview of the resources currently in use by this virtual machine, including CPU, Memory, Storage, and Network throughput.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image16-3238074cf08634ad9331c5d228eaae50.png width=1214 height=912 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<ol>
+<li class="">
+<p>After you are done looking at the VM details, click the Events tab to see some details of the provisioning process that just took place. If there are any issues with the creation of the VM, they will show up on this tab as well. The following events took place during creation:</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image17-049059d09791d2cdae2d10c24cdbb51d.png width=1372 height=511 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<ul>
+<li class="">A DataVolume was created. DataVolumes are used to manage the creation of a VM disk, abstracting the clone or import process onto OpenShift native storage during the virtual machine’s creation workflow.</li>
+<li class="">The new VM instance Fedora01 has been started.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=administering-virtual-machines>Administering Virtual Machines<a href=#administering-virtual-machines class=hash-link aria-label="Direct link to Administering Virtual Machines" title="Direct link to Administering Virtual Machines" translate=no>​</a></h2>
+<p>Administering and using virtual machines is more than simply creating and customizing their configuration. As the platform administrator, we also need to be able to control the VM states and trigger live migrations so that we can balance resources, perform maintenance tasks, and reconfigure nodes.</p>
+<ol>
+<li class="">
+<p>Click the Configuration tab, this is the entry point to obtain more information about, and modify the resources of the virtual machine.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image18-0de98517e32df71901f2dd30cfdd7ef8.png width=1054 height=717 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>It includes seven subtabs:</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image19-3a58b07c26fe915000cbd15b8237c2ff.png width=1369 height=855 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>Details: This tab presents all of the physical features of the VM in a single panel. From here you can make edits to various descriptors and basic hardware configurations including modifying the cpu or memory, changing the hostname, attaching passthrough devices, and modifying the boot order.</p>
+</li>
+<li class="">
+<p>Storage: This tab lists the disks attached to the system and allows you to add new disks to the system. If the guest is configured with the agent, it lists the filesystems and the utilization. Here it is possible to attach ConfigMaps, Secrets, and Service Accounts as extra disks. This is useful when passing configuration data to the application(s) running in the virtual machine.</p>
+</li>
+<li class="">
+<p>Network: This Tab shows the current network interfaces configured for the VM and allows for you to add new ones.</p>
+</li>
+<li class="">
+<p>Scheduling: This tab includes advanced configuration options indicating where the VM should run and the strategy to follow for eviction. This tab is used to configure (anti)affinity rules, configure node selectors and tolerations, and other behaviors that affect which cluster nodes the VM can be scheduled to.</p>
+</li>
+<li class="">
+<p>SSH: This tab allows you to configure remote access to the machine by creating an SSH service on a configured load-balancer, or by injecting public SSH keys if the feature is enabled.</p>
+</li>
+<li class="">
+<p>Initial run: This tab allows us to configure cloud-init for Linux or sys-prep for Microsoft Windows, including setting the commands to be executed on the first boot, such as the injection of SSH keys, installation of applications, network configuration, and more.</p>
+</li>
+<li class="">
+<p>Metadata: This tab shows current Labels and Annotations applied to the virtual machine. Modifying these values can help us tag our machines for specific purposes, or help us enable automated workflows by uniquely identifying machines.</p>
+</li>
+<li class="">
+<p>You can click on each of these to explore at your leisure, but for introductory purposes, lets focus on storage and networking specifically.</p>
+</li>
+<li class="">
+<p>List the disks associated with the VM by clicking on the Storage tab:</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image20-d55ff4d35253ce1e37b731e5a366faaa.png width=1369 height=856 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<p>In this environment, the default StorageClass, which defines the source and type of storage used for the disk, is called ocs-storagecluster-ceph-rbd-virtualization. This storage is the default type provided by OpenShift Data Foundation (ODF) for running virtual machines. Each storage provider has different storage classes that define the characteristics of the storage backing the VM disk.</p>
+<p>To learn more about Openshift Virtualization Storage Management run through the Storage tutorial in this github</p>
+<ol>
+<li class="">
+<p>Examine the network interfaces attached to the VM by clicking on the Network subtab:</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image21-134f4c02d34081dbaf98b82d2307c592.png width=1377 height=512 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<p>When a VM is created, an interface on the Pod Networking network of type masquerade is created by default. This connects the VM to the SDN and provides access from the VM to outside the OpenShift cluster. Other VMs, and Pods, in the cluster can access the virtual machine using this interface.
+Furthermore, a VM connected to the SDN can be accessed externally using a Route, or Service with type load balancer, or even have a Network Attachment Definition configured to allow direct access to external networks, a concept we will explore in more depth later.</p>
+<p>To learn more about Openshift Virtualization Networking run through the Networking tutorial in this github</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=controlling-virtual-machine-state>Controlling Virtual Machine State<a href=#controlling-virtual-machine-state class=hash-link aria-label="Direct link to Controlling Virtual Machine State" title="Direct link to Controlling Virtual Machine State" translate=no>​</a></h2>
+<p>As a user with granted permissions to manage a Virtualization environment: you can stop, start, restart, pause, and unpause virtual machines from the web console.</p>
+<ol>
+<li class="">
+<p>Click the Overview tab to return to the summary screen.</p>
+</li>
+<li class="">
+<p>In the top right corner you will notice shortcut buttons for running state: stop, restart, pause, and start. As well as a dropdown menu title Actions.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image22-94269001b1866aeddb495777440a7d14.png width=1054 height=515 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>Stop: Starts a graceful shutdown of the Virtual Machine.</p>
+</li>
+<li class="">
+<p>Restart: This will send a signal to the operating system to reboot the Virtual Machine. Guest integrations are needed for this to work properly.</p>
+</li>
+<li class="">
+<p>Pause: The process is frozen without further access to CPU resources and I/O, but the memory used by the VM at the hypervisor level will stay allocated.</p>
+</li>
+<li class="">
+<p>Start: Starts up a stopped virtual machine. It will be greyed out if the machine is running.</p>
+</li>
+<li class="">
+<p>While the shortcut buttons are handy, you can also access these options and more by clicking on the Actions menu and seeing the options available in the drop down list.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image23-d7c945620bdcbc3810813a5dadc5621e.png width=197 height=366 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<ol>
+<li class="">
+<p>Press the Stop button and wait until the Virtual Machine is in state Stopped.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image24-f27e26c2321402972981a25f3cb6b482.png width=901 height=500 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Clicking on Actions, the option Start appears, and the options Restart and Pause are greyed out.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image25-4de1bd3226d65ea911373ec8746307ca.png width=183 height=337 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Click Start, and wait for the Running status.</p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>Using the Actions menu, or the shortcut button, press the Pause option. The Virtual Machine state will change to Paused.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image26-ccab08b7edb44fa30f24050b6cc368c3.png width=1046 height=765 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<ol>
+<li class="">Unpause the Virtual Machine using the Actions menu and the option Unpause, or by using the shortcut button.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=live-migrate-a-virtual-machine>Live Migrate a Virtual Machine<a href=#live-migrate-a-virtual-machine class=hash-link aria-label="Direct link to Live Migrate a Virtual Machine" title="Direct link to Live Migrate a Virtual Machine" translate=no>​</a></h2>
+<p>In this section, we will migrate the VM from one OpenShift node to another without shutting down the VM. Live migration requires ReadWriteMany (RWX) storage so that the VM disks can be mounted on both the source and destination nodes at the same time. OpenShift Virtualization, unlike other virtualization solutions that you may be familiar with, does not use monolithic datastores mounted to each cluster member that hold many VM disks for many different VMs. Instead, each VM disk is stored in its own volume that is only mounted when and where it’s needed.</p>
+<ol>
+<li class="">
+<p>To see the physical node that the virtual machine is running on, click on the Pod name virt-launcher-fedora01-uuid found under the General tile on the Overview page.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image27-b8985be08abc669d06d7b07ab8ed886c.png width=1049 height=670 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>This will bring up the Pod details page. Search for the section header called Node and see the name of the worker that the pod is running on. In this screenshot it is running on kube-d6bj7gcf09h8s24o1cng-virtroks-pool2cx-000012b5.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image28-c6057b9719fa7514b538d91e0fdde597.png width=911 height=549 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<ol>
+<li class="">Click the back button in your browser to return to the Overview page.</li>
+</ol>
+<ul>
+<li class="">
+<p>Using the Actions menu, select the option for Migration → Compute.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image29-c9ad2f3f6b305a74585a25bf94461f2a.png width=1790 height=842 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<ol>
+<li class="">
+<p>Select “Automatically select the node” and select “Migrate Virtualmachine”</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image30-3e5cc7c8aa2bbd9444281a9398f0f603.png width=1135 height=661 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<ul>
+<li class="">
+<p>After a few seconds, the VM will change the status to Migrating, and you can follow it’s progress.</p>
+</li>
+<li class="">
+<p>When the migration is complete the VM will return to the Running status, but it will be living on a new node. Let’s click on our virt-launcher-fedora01-9jn2r pod name to verify.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image31-724cdcae56395e74549b8984ff483762.png width=1056 height=534 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>We can now see that the virtual machine is living on a new node, in the image kube-d6bj7gcf09h8s24o1cng-virtroks-pool2cx-000013e7, and that the pod itself now resides in a new pod with a new unique ID as the live migration process transfers the VM instance to a new pod on a new worker node nondisruptively.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/vm-image32-a8aa7566ad2a9f18a4581aef912302b7.png width=1090 height=824 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=summary>Summary<a href=#summary class=hash-link aria-label="Direct link to Summary" title="Direct link to Summary" translate=no>​</a></h2>
+<p>In this lab, we did an overview of the Virtualization management environment in OpenShift Virtualization, and performed some basic virtual machine management tasks, including state management and live migration between physical hosts. Both of these are common and often necessary tasks as platform administrators and a great way to familiarize yourself with some basic features available when working with VMs in OpenShift Virtualization.</div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/rovs-tutorial/docs/intro><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>Introduction</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/rovs-tutorial/docs/storage-management><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>2. Storage Management</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#introduction class="table-of-contents__link toc-highlight">Introduction</a><ul><li><a href=#goals class="table-of-contents__link toc-highlight">Goals</a><li><a href=#switch-to-the-virtualization-persona class="table-of-contents__link toc-highlight">Switch to the Virtualization Persona</a></ul><li><a href=#exploring-openshift-virtualization class="table-of-contents__link toc-highlight">Exploring OpenShift Virtualization</a><li><a href=#create-a-linux-virtual-machine class="table-of-contents__link toc-highlight">Create a Linux Virtual Machine</a><li><a href=#administering-virtual-machines class="table-of-contents__link toc-highlight">Administering Virtual Machines</a><li><a href=#controlling-virtual-machine-state class="table-of-contents__link toc-highlight">Controlling Virtual Machine State</a><li><a href=#live-migrate-a-virtual-machine class="table-of-contents__link toc-highlight">Live Migrate a Virtual Machine</a><li><a href=#summary class="table-of-contents__link toc-highlight">Summary</a></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Tutorials</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/intro>Introduction</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-management>1. VM Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/storage-management>2. Storage Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/template-instancetype>3. Templates & InstanceTypes</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/networking>4. Networking</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-yaml>5. VMs with YAML</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>IBM Resources</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://cloud.ibm.com/infrastructure/openshift-virtualization target=_blank rel="noopener noreferrer" class=footer__link-item>ROVS on IBM Cloud<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li class=footer__item><a href=https://docs.openshift.com/container-platform/latest/virt/about_virt/about-virt.html target=_blank rel="noopener noreferrer" class=footer__link-item>Red Hat OpenShift Docs<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 IBM Corporation. Built with Docusaurus.</div></div></div></footer></div></body>
