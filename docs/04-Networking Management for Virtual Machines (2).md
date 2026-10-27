@@ -1,3 +1,7 @@
+---
+id: networking
+---
+
 # Network Management for Virtual Machines
 
 While the aim is to write this demo script in the general context of Red

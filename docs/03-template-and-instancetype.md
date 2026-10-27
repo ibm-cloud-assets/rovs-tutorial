@@ -1,3 +1,7 @@
+---
+id: template-instancetype
+---
+
 # Template and InstanceType Management
 
 ## Introduction
