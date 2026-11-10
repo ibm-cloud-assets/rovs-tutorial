@@ -58,14 +58,12 @@ The following options can be chosen by the client:
   zones is higher and less predictable than within a single zone. The
   architecture is optimized for compute availability. Currently
   (July 26) only single zone deployments have been validated**\
-  <img src="images/network1.png"
-  style="width:5.58878in;height:3.68974in" />
+  ![](./images/network1.png)
 
 - Worker pool – create
 
 - Bare Metal profile -\
-  <img src="images/network2.png"
-  style="width:5.88785in;height:1.65755in" />
+  ![](./images/network2.png)
 
 <!-- -->
 
@@ -91,8 +89,7 @@ requires a [VNI and a VNI VLAN](#_VNI_(Virtual_Network) attachment to
 the cluster. Inside OpenShift and OVN, this option creates a VLAN in an
 **Open vSwitch** (OVS).
 
-<img src="images/network3.png"
-style="width:4.9486in;height:7.14976in" />
+![](./images/network3.png)
 
 ## VPC + Subnet Concepts
 
@@ -105,8 +102,7 @@ instead of VLANs. VPC routing and network security is used. As part of
 the cluster creation, you can select or create a VPC and a VPC subnet in
 each zone intended for worker node deployment.
 
-<img src="images/network4.png"
-style="width:6.17757in;height:4.20713in" />
+![](./images/network4.png)
 
 All worker nodes can communicate with each other through VPC subnets.
 IBM Cloud VPC is designed as a **software-defined infrastructure** with:
@@ -124,8 +120,7 @@ OpenShift through built-in VPC layer 3 routing
 
 <span id="_VNI_(Virtual_Network" class="anchor"></span>
 
-<img src="images/network5.png"
-style="width:6.26806in;height:4.49861in" />
+![](./images/network5.png)
 
 ## OVN
 
@@ -151,8 +146,7 @@ explain the steps in that process, creating a network attachment
 definition to allow VMs to connect to that bridge and, therefore,
 directly to the physical network.
 
-<img src="images/network6.png"
-style="width:6.26806in;height:0.52708in" />
+![](./images/network6.png)
 
 ## VNI (Virtual Network Interface)
 
@@ -209,8 +203,7 @@ OpenShift uses OVN-Kubernetes which is based on OVN + Open vSwitch (OVS,
 below in the red square) and it supports multi-tenancy, NetworkPolicies,
 and hybrid VM/pod networking.
 
-<img src="images/network7.png"
-style="width:6.26806in;height:2.15139in" />
+![](./images/network7.png)
 
 The VNI is attached to an OVS on the worker node
 
@@ -243,17 +236,10 @@ With **Multus**:
 
 ## Localnet
 
-<img src="images/network8.png"
-style="width:5.94872in;height:4.19231in" />
+![](./images/network8.png)
 
-OVN provides the base IBM Cloud compatible topologies for VMs, which
-consist of (1) Localnet and (2) Layer 2 options. In this demo script we
-will focus on the localnet setup and configuration
-
-Localnet’s provide direct access to VPC subnets. Localnet is a
-Multus/secondary network type that connects pods directly to a local
-Layer‑2 network (bridge or physical network), bypassing the default
-Kubernetes overlay.
+OVN provides the base IBM Cloud compatible topologies for VMs, which consist of (1) Localnet and (2) Layer 2 options. In this demo script we will focus on the localnet setup and configuration Localnet’s provide direct access to VPC subnets. Localnet is a
+Multus/secondary network type that connects pods directly to a local Layer‑2 network (bridge or physical network), bypassing the default Kubernetes overlay.
 
 With IBM Cloud VPC bare metal:
 
@@ -270,8 +256,7 @@ When you use localnet via Multus, Pods get an interface that is:
 
 - closer to the SmartNIC / hardware path
 
-<img src="images/network9.png"
-style="width:3.76635in;height:7.16114in" />
+![](./images/network9.png)
 
 ## NetworkAttachmentDefinition (NAD)
 
@@ -356,8 +341,7 @@ UserDefinedNetwork (UDN) CR.
 
 > **CUDN vs UDN**
 
-<img src="images/network10.png"
-style="width:6.26806in;height:2.78403in" />
+![](./images/network10.png)
 
 **User-defined networks provide the following benefits:**
 
@@ -380,8 +364,7 @@ style="width:6.26806in;height:2.78403in" />
   can also specify and reuse IP subnets across different namespaces and
   clusters, providing a consistent networking environment.
 
-<img src="images/network11.png"
-style="width:6.26806in;height:2.57639in" />
+![](./images/network11.png)
 
 ## Summary
 
@@ -421,8 +404,7 @@ UDN only supports Layer2 and Layer3.
 It is possible to mix and match the discussed topologies in the same
 ROVS cluster? Using these topologies do not exclude each other.
 
-<img src="images/network12.png"
-style="width:6.35047in;height:4.55917in" />
+![](./images/network12.png)
 
 # Demo script
 
@@ -447,14 +429,13 @@ browse to the Virtualization page
 
 1.  Select the “shared-rovs” cluster
 
-<img src="images/network13.png"
-style="width:6.12617in;height:2.58662in" />
+![](./images/network13.png)
 
 2.  Browse through the “Overview” , “Worker nodes”, “Worker pools”,
     “Networking”, “ VNI attachments” and “Ingress” in the left of you
     window. Come back to this
 
-> <img src="images/network14.png"
+> ![](./images/network14.png"
 > style="width:5.76168in;height:2.63891in" />\
 > **On the overview**: Check status of nodes, add-ons, master and
 > Ingress, find the cluster details\
@@ -468,7 +449,7 @@ style="width:6.12617in;height:2.58662in" />
 > attach the VNI to a VM, the VM will be able to migrate between nodes.
 > VNI is assigned to virt-subnet-01-vni-vlan100 with VLAN100 and it has
 > an IP address assigned.\
-> <img src="images/network15.png"
+> ![](./images/network15.png"
 > style="width:6.26806in;height:2.08472in" />**On the Worker pool**: We
 > have only 1 worker pool deployed\
 > **On the VNI attachments**: See all the VNIs created for all the users
@@ -478,8 +459,7 @@ style="width:6.12617in;height:2.58662in" />
     this will open console in a new browser tab. We will come back to
     the OpenShift portal later in this demo
 
-<img src="images/network16.png"
-style="width:6.26806in;height:0.79097in" />
+![](./images/network16.png)
 
 ## VNI attachment
 
@@ -498,17 +478,17 @@ however fail.
 
 1.  In your browser go to the IBM Cloud Portal go to the ROVS cluster.
 
-> <img src="images/network17.png"
+> ![](./images/network17.png"
 > style="width:5.40654in;height:7.89375in" />
 
 2.  Select the “shared-rovs” cluster
 
-> <img src="images/network18.png"
+> ![](./images/network18.png"
 > style="width:6.26806in;height:1.5in" />
 
 3.  Select VNI attachments and “attach VNIs”
 
-> <img src="images/network19.png"
+> ![](./images/network19.png"
 > style="width:6.26806in;height:0.77361in" />
 
 4.  Configure the attachment to the cluster.
@@ -523,7 +503,7 @@ however fail.
       privileges to actually attach the VNI.\
       \
       \
-      <img src="images/network20.png"
+      ![](./images/network20.png"
       style="width:6.26806in;height:6.60972in" />
 
 ## NMstate Operator 
@@ -538,14 +518,13 @@ routing on cluster nodes. Additionally, the daemons on the cluster nodes
 periodically report on the state of each node’s network interfaces to
 the API server.
 
-<img src="images/network21.png"
-style="width:6.26806in;height:2.37986in" />
+![](./images/network21.png)
 
 1.  In the left-side menu, select Core Platform – Administration –
     CustomResourceDefinitions click. In the “Filter by Name” type
     “nmstate” and click NodeNetworkState.
 
-> <img src="images/network22.png"
+> ![](./images/network22.png"
 > style="width:4.54993in;height:5.71186in" />
 
 2.  Select “Instances” and expand one of the nodes. As stated, you will
@@ -554,8 +533,7 @@ style="width:6.26806in;height:2.37986in" />
     Click on the bridge br-eth1 to gather more information about it.
     Find the Yaml code with the configuration details
 
-<img src="images/network23.png"
-style="width:6.26806in;height:3.79722in" />
+![](./images/network23.png)
 
 3.  Close the bridge details by clicking on the X in the corner. This
     bridge named br-eth1 was created during ROVS provisioning. Move to
@@ -563,23 +541,19 @@ style="width:6.26806in;height:3.79722in" />
     NodeNetworkConfigurationPolicy in the left-side menu to explore
     more.
 
-<img src="images/network24.png"
-style="width:6.26806in;height:3.76806in" />
+![](./images/network24.png)
 
 4.  Select br-eth1 to get information. The right screenshot is the admin
     user view
 
-<img src="images/network25.png"
-style="width:6.26806in;height:0.60625in" />
-<img src="images/network26.png"
-style="width:6.26806in;height:5.19444in" />
+![](./images/network25.png)
+![](./images/network26.png)
 
 1.  To see how this bridge was created, you can switch to YAML to see
     the definition. As an administrator, you could create you a similar
     bridge with the yaml snippet below.:
 
-<img src="images/network27.png"
-style="width:6.26806in;height:2.85139in" />
+![](./images/network27.png)
 
 ## User Defined Networks
 
@@ -596,16 +570,13 @@ were created for you when you started the invitation script.
     Notice all the CUDNs, and specific the 2 CUDNs created for you.
     Notice that you miss the “Create” button at the top right.
 
-<img src="images/network28.png"
-style="width:6.26806in;height:2.16458in" />
+![](./images/network28.png)
 
-<img src="images/network29.png"
-style="width:6.26806in;height:2.57083in" />
+![](./images/network29.png)
 
 ## Network Attachment Definition
 
-<img src="images/network30.png"
-style="width:6.26806in;height:0.96667in" />
+![](./images/network30.png)
 
 1.  From the left-side menu, select “Networking” followed
     by “NetworkAttachmentDefinitions” and click
@@ -613,8 +584,8 @@ style="width:6.26806in;height:0.96667in" />
     Notice again that you do not have the create option at the right top
     level.
 
-> <img src="images/network31.png"
-> style="width:6.26806in;height:0.43889in" /><img src="images/network32.png"
+> ![](./images/network31.png"
+> style="width:6.26806in;height:0.43889in" />![](./images/network32.png"
 > style="width:6.26806in;height:2.20069in" />
 
 2.  Examine the details of the network attachment definition
@@ -631,11 +602,9 @@ style="width:6.26806in;height:0.96667in" />
 
 - Add the right you see this is a secondary localnet network
 
-<img src="images/network33.png"
-style="width:5.95794in;height:2.98359in" />
+![](./images/network33.png)
 
-<img src="images/network34.png"
-style="width:6.26806in;height:0.90347in" />
+![](./images/network34.png)
 
 ## Create and attach a Virtual Machine(VM) to the localnet network
 
@@ -665,11 +634,9 @@ attachments and select vni-“your-name”-1
 
 1.  Copy the Mac address and store for later use
 
-<img src="images/network35.png"
-style="width:6.26806in;height:1.04861in" />\
+![](./images/network35.png)\
 \
-<img src="images/network36.png"
-style="width:6.26806in;height:1.99028in" />
+![](./images/network36.png)
 
 2.  Go back to previous tab with the Virtualization context on the
     Openshift Console, select “Catalog”:
@@ -683,20 +650,20 @@ style="width:6.26806in;height:1.99028in" />
   VM to the right network.\
   **Do not forget to select the right (vm-“your name”) name space**
 
-> <img src="images/network37.png"
+> ![](./images/network37.png"
 > style="width:5.08939in;height:2.59375in" />\
-> <img src="images/network38.png"
+> ![](./images/network38.png"
 > style="width:3.65802in;height:4.64324in" />
 
 3.  Select “network Interfaces (1)”
 
-> <img src="images/network39.png"
+> ![](./images/network39.png"
 > style="width:5.77617in;height:3.53572in" />
 
 4.  Notice there is already a default interface, this is the deafult POD
     network. Select “Add network interface”
 
-> <img src="images/network40.png"
+> ![](./images/network40.png"
 > style="width:6.26806in;height:1.18125in" />
 
 5.  Fill in the Name =fedora05-your-name
@@ -705,7 +672,7 @@ style="width:6.26806in;height:1.99028in" />
 
 - Now paste the MAC address of the VNI that you stored before and save
 
-> <img src="images/network41.png"
+> ![](./images/network41.png"
 > style="width:2.84324in;height:3.46486in" />
 
 6.  Delete the primary network interface.\
@@ -715,31 +682,27 @@ style="width:6.26806in;height:1.99028in" />
     routing. Since you don’t need the primary / POD network delete it.\
     Create the VM and accept the boot disk warning.
 
-<img src="images/network42.png"
-style="width:6.26806in;height:0.99375in" />\
-<img src="images/network43.png"
-style="width:6.26806in;height:1.12222in" />
+![](./images/network42.png)\
+![](./images/network43.png)
 
-<img src="images/network44.png"
-style="width:6.26806in;height:0.67431in" />
+![](./images/network44.png)
 
 7.  Create the VM. It should take less than a minute to provision and
     start the VM.
 
-> <img src="images/network45.png"
+> ![](./images/network45.png"
 > style="width:6.26806in;height:3.79028in" />
 
 8.  Open the console of the VM
 
-> <img src="images/network46.png"
+> ![](./images/network46.png"
 > style="width:3.73832in;height:3.32837in" />
 
 9.  Login with the user name “fedora” given at the top of your screen
     and paste the password using the “paste to Console” and press enter
     to login
 
-<img src="images/network47.png"
-style="width:6.26806in;height:0.72986in" />
+![](./images/network47.png)
 
 10. Check if an interface is using DHCP\
     List connections and devices:
@@ -758,14 +721,13 @@ style="width:6.26806in;height:0.72986in" />
   You should see that interface “enp1s0”has received the IP address that
   is assigned to the VNI attached to the cluster.
 
-<img src="images/network48.png" style="width:6.2899in;height:3in" />
+![](./images/network48.png" style="width:6.2899in;height:3in" />
 
 ## Create and attach a Windows server VLAN 200
 
 1.  Lookup the Mac address of vni-“ÿour-name”-2 and store for later use
 
-<img src="images/network36.png"
-style="width:6.26806in;height:1.99028in" />
+![](./images/network36.png)
 
 2.  Return to the OpenShift console. Create another a Windows 2K17 VM
     from the template you created in the “Template and InstanceType
@@ -791,13 +753,11 @@ style="width:6.26806in;height:1.99028in" />
 
 - Select “Customize VirtualMachine”
 
-<img src="images/network49.png"
-style="width:6.26806in;height:3.46042in" />
+![](./images/network49.png)
 
 3.  Configure BIOS and press Create VirtualMachine
 
-<img src="images/network50.png"
-style="width:6.26806in;height:3.33542in" />
+![](./images/network50.png)
 
 4.  Configure the Network interface\
     Add network interface:
@@ -809,13 +769,11 @@ style="width:6.26806in;height:3.33542in" />
 - advanced settings 🡺 paste the MAC address you stored before\
   Save
 
-<img src="images/network51.png"
-style="width:4.74766in;height:5.93857in" />
+![](./images/network51.png)
 
 - Remove the default network interface
 
-<img src="images/network52.png"
-style="width:6.23832in;height:1.58619in" />
+![](./images/network52.png)
 
 - Create VirtualMachine and the VM will start
 
@@ -823,8 +781,7 @@ style="width:6.23832in;height:1.58619in" />
 
 - At the righ bottom you see there is no network
 
-<img src="images/network53.png"
-style="width:6.26806in;height:4.58472in" />
+![](./images/network53.png)
 
 - Go to the VM configuration on the OpenShift portal and check the model
   on the network interface. You will find this is “virtio” model.
@@ -832,15 +789,13 @@ style="width:6.26806in;height:4.58472in" />
 
 - Change the “virtio” to “e1000e” and save.
 
-<img src="images/network54.png"
-style="width:5.1729in;height:4.84898in" />\
+![](./images/network54.png)\
 This will require a restart. The model will change after a restart.
 After restart windows will install the NIC.\
 **Note:** when doing a Vmware to ROVS migration situations with drives
 like here may happen!\
 \
-<img src="images/network55.png"
-style="width:6.26806in;height:2in" />
+![](./images/network55.png)
 
 - Restart the VM
 
@@ -850,8 +805,7 @@ style="width:6.26806in;height:2in" />
 
 - Click the windows startup menu and typ “cmd” and press enter
 
-<img src="images/network56.png"
-style="width:4.87895in;height:3.74219in" />\
+![](./images/network56.png)\
 A command prompt will open
 
 - type ipconfig. Notice the IP address of the VNI you used to configure
@@ -869,8 +823,7 @@ A command prompt will open
   in another subnet in the same VPC. In the below example we ping from
   10.243.4.0/24 to 10.243.2.0/24.
 
-<img src="images/network57.png"
-style="width:5.98598in;height:6.29768in" />\
+![](./images/network57.png)\
 Now lets see if this works both ways
 
 - Go to the web console of the fedora05-“your-name” and login
@@ -882,8 +835,7 @@ Now lets see if this works both ways
 - On the fedora VM console ping the IP address of the windows VM, it
   fails why? Don’t spend hours trying to find out 😊
 
-<img src="images/network58.png"
-style="width:5.86916in;height:3.38195in" />
+![](./images/network58.png)
 
 Leave the Windows server running for the next step!
 
@@ -924,8 +876,7 @@ communicate securely without exposing traffic to the public internet.
 Find a list of all the available VPE enabled service
 [here](https://cloud.ibm.com/docs/vpc?topic=vpc-vpe-supported-services).
 
-<img src="images/network59.png"
-style="width:6.26806in;height:4.06944in" />
+![](./images/network59.png)
 
 ### Review a VPE gateway setup
 
@@ -933,20 +884,17 @@ In this demo we will run through the setup of a VPE gateway in IBM Cloud
 VPC. In the IBM Cloud portal go to the Virtual Private Endpoint Gateways
 in the catalog.
 
-<img src="images/network60.png"
-style="width:4.64019in;height:6.31606in" />
+![](./images/network60.png)
 
 Due to lack of privileges you do not see any VPE gateways. Below you can
 see that we actually have many VPE gateways configured in the account of
 which a gateway to the NTP service we are going to use later.
 
-<img src="images/network61.png"
-style="width:6.26806in;height:2.90625in" />
+![](./images/network61.png)
 
 1.  Click “ Create”
 
-<img src="images/network62.png"
-style="width:6.26806in;height:0.65417in" />
+![](./images/network62.png)
 
 2.  Choose
 
@@ -960,7 +908,7 @@ style="width:6.26806in;height:0.65417in" />
 
 1.  Create security Group
 
-> <img src="images/network63.png"
+> ![](./images/network63.png"
 > style="width:5.56075in;height:7.02517in" />
 
 2.  Review what you can configure. Typically you create a new security
@@ -978,16 +926,16 @@ style="width:6.26806in;height:0.65417in" />
 
 - We only enable the gateway endpoint in “eu-de1”
 
-  <img src="images/network64.png"
+  ![](./images/network64.png"
   style="width:6.26806in;height:0.78194in" />
 
-  <img src="images/network65.png"
+  ![](./images/network65.png"
   style="width:5.66823in;height:9.03989in" />
 
 - Now Cancel the creation of the NTP gateway by selecting “Virtual
   private gateways” at the top of the page to leave this page
 
-  <img src="images/network66.png"
+  ![](./images/network66.png"
   style="width:6.13627in;height:1.40645in" />
 
 ### VPE to NTP demo
@@ -1003,8 +951,7 @@ We have configured the VPE Gateway for the VPC “virt-vpc”.
 
 - DNS name: time.adn.networklayer.com
 
-<img src="images/network67.png"
-style="width:6.26806in;height:3.85208in" />
+![](./images/network67.png)
 
 We will now configure the NTP server for the Windows 2K19 server we
 created in the previous step.
@@ -1022,7 +969,7 @@ created in the previous step.
 
 - Notice the ntp peer is time.windows.com
 
-> <img src="images/network68.png"
+> ![](./images/network68.png"
 > style="width:4.00446in;height:3.93792in" />
 
 4.  Configure the IBM Cloud NTP service as NTP source. Normally you
@@ -1040,13 +987,13 @@ created in the previous step.
 
 - W32tm /query /status 🡪 notice the last successful sync
 
-> <img src="images/network69.png"
+> ![](./images/network69.png"
 > style="width:5.45794in;height:4.35499in" />
 
 - Now do the same exercise but use the DNS name
   time.adn.networklayer.com
 
-> <img src="images/network70.png"
+> ![](./images/network70.png"
 > style="width:5.46262in;height:3.61673in" />
 
 - Notice the last successful sync time
