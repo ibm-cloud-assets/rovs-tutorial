@@ -13,7 +13,7 @@ const sidebars = {
         { type: 'doc', id: 'template-instancetype', label: '3. Templates & InstanceTypes' },
         { type: 'doc', id: 'networking', label: '4. Networking' },
         { type: 'doc', id: 'vm-yaml', label: '5. VMs with YAML' },
-        { type: 'doc', id: 'oadp-backup', label: '6. Backup your VM with ODAP' },
+        { type: 'doc', id: 'oadp-backup', label: '6. Back Up Your VM with OADP' },
       ],
     },
     {

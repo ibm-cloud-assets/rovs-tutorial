@@ -84,6 +84,7 @@ const config = {
               { label: '3. Templates & InstanceTypes', to: '/docs/template-instancetype' },
               { label: '4. Networking', to: '/docs/networking' },
               { label: '5. VMs with YAML', to: '/docs/vm-yaml' },
+              { label: '6. Back Up Your VM with OADP', to: '/docs/oadp-backup' },
             ],
           },
           {

@@ -27,6 +27,7 @@ Red Hat OpenShift Virtualization Service (ROVS) on IBM Cloud enables organizatio
 | **[3](./template-instancetype)** | **Templates & InstanceTypes** | Customize VM templates, automate OS deployments, and use InstanceTypes for reusable compute configurations. |
 | **[4](./networking)** | **Networking** | Configure VNIs, Localnet, NADs, and UDNs to connect VMs directly to IBM Cloud VPC subnets. |
 | **[5](./vm-yaml)** | **VMs with YAML** | Deploy and manage virtual machines using YAML manifests, `oc`, and `virtctl`. |
+| **[6](./06-oadp-backup.md)** | **Back Up Your VM with OADP** | Back up and restore a VM and its persistent volumes using OADP and IBM Cloud Object Storage. |
 
 ---
 
