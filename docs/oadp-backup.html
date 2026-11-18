@@ -1,0 +1,742 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-oadp-backup" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>OpenShift API for Data Protection (OADP) Backup Lab | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/oadp-backup /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="OpenShift API for Data Protection (OADP) Backup Lab | ROVS Tutorials"/><meta data-rh=true name=description content="Estimated duration: 60 minutes"/><meta data-rh=true property=og:description content="Estimated duration: 60 minutes"/><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/oadp-backup /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/oadp-backup hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/oadp-backup hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ibm-cloud-assets.github.io/rovs-tutorial/docs/oadp-backup","name":"6. Backup your VM with ODAP","position":1}]}</script><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.cdfa435a.js defer></script><script src=/rovs-tutorial/assets/js/main.056ab52d.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t;document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/rovs-tutorial/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/rovs-tutorial/><div class=navbar__logo><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--light_NVdE" height=28 width=28 /><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--dark_xIcU" height=28 width=28 /></div><b class="navbar__title text--truncate">ROVS Tutorials</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/rovs-tutorial/docs/intro>Tutorials</a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>IBM Cloud Docs</a><ul class=dropdown__menu><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class=dropdown__link>ROVS Overview<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-about-openshift-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>OpenShift Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>VNI for Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ibm-cloud-assets/rovs-tutorial target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/rovs-tutorial/docs/intro><span class=linkLabel_WmDU>Introduction</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--active"><span class=categoryLinkLabel_W154>Tutorials</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-management><span class=linkLabel_WmDU>1. VM Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/storage-management><span class=linkLabel_WmDU>2. Storage Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/template-instancetype><span class=linkLabel_WmDU>3. Templates & InstanceTypes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/networking><span class=linkLabel_WmDU>4. Networking</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-yaml><span class=linkLabel_WmDU>5. VMs with YAML</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/rovs-tutorial/docs/oadp-backup><span class=linkLabel_WmDU>6. Backup your VM with ODAP</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1"><hr style="margin: 0.75rem 0.75rem; border-color: #dde5ee;"/><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false><span class=categoryLinkLabel_W154>IBM Cloud Docs</span></a></div></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/rovs-tutorial/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Tutorials</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>6. Backup your VM with ODAP</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>OpenShift API for Data Protection (OADP) Backup Lab</h1></header>
+<blockquote>
+<p>Estimated duration: 60 minutes</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=introduction>Introduction<a href=#introduction class=hash-link aria-label="Direct link to Introduction" title="Direct link to Introduction" translate=no>​</a></h2>
+<p>In this lab, you will learn how to back up and restore an OpenShift Virtualization virtual machine (VM) using OpenShift API for Data Protection (OADP) and IBM Cloud Object Storage (COS).</p>
+<p>An OpenShift Virtualization VM consists of Kubernetes resources that define the VM and persistent volumes that store its operating system and data. A complete backup must protect both to ensure successful recovery.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=how-it-works>How it works<a href=#how-it-works class=hash-link aria-label="Direct link to How it works" title="Direct link to How it works" translate=no>​</a></h2>
+<p>OADP, built on Velero, coordinates the backup and restore process using the following components:</p>
+<ul>
+<li class=""><strong>OADP / Velero</strong>: Orchestrates backup and restore operations for Kubernetes resources and VM configuration. <a href=https://velero.io/blog/velero-is-an-open-source-tool-to-back-up-and-migrate-kubernetes-clusters/ target=_blank rel="noopener noreferrer" class="">Learn more about Velero</a>.</li>
+<li class=""><strong>CSI Snapshots</strong>: Capture point-in-time snapshots of the VM's persistent volumes. <a href=https://kubernetes-csi.github.io/docs/ target=_blank rel="noopener noreferrer" class="">Learn more about CSI</a>.</li>
+<li class=""><strong>OADP Data Mover / Kopia</strong>: Transfers persistent volume data to external object storage.</li>
+<li class=""><strong>IBM Cloud Object Storage</strong>: Provides durable backup storage independent of the OpenShift cluster.</li>
+<li class=""><strong>NonAdminBackup / NonAdminRestore</strong>: Enable authorized users to manage backups and restores without cluster-admin privileges.</li>
+</ul>
+<p><img decoding=async loading=lazy alt=architecture src=/rovs-tutorial/assets/images/odap-architecture-af85c0f30b9a30f197ca41dbbf1226f1.png width=1874 height=1260 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: architecture" aria-haspopup=dialog /></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=lab-objectives>Lab Objectives<a href=#lab-objectives class=hash-link aria-label="Direct link to Lab Objectives" title="Direct link to Lab Objectives" translate=no>​</a></h2>
+<p>During this hands-on lab, you will:</p>
+<ol>
+<li class="">Prepare an OpenShift Virtualization VM for backup.</li>
+<li class="">Create and monitor an OADP backup of the VM and its persistent volumes.</li>
+<li class="">Delete the original VM to simulate data loss.</li>
+<li class="">Restore the VM and its persistent volumes.</li>
+<li class="">Verify that the VM and its data have been successfully recovered.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=environment-preparation-by-the-cluster-administrator>Environment Preparation by the Cluster Administrator<a href=#environment-preparation-by-the-cluster-administrator class=hash-link aria-label="Direct link to Environment Preparation by the Cluster Administrator" title="Direct link to Environment Preparation by the Cluster Administrator" translate=no>​</a></h2>
+<p>The cluster administrator has already configured the backup infrastructure:</p>
+<ul>
+<li class=""><strong>OADP Operator and Velero</strong> for backup and restore orchestration.</li>
+<li class=""><strong>Data Protection Application (DPA)</strong> and a validated Backup Storage Location (BSL).</li>
+<li class=""><strong>IBM Cloud Object Storage bucket</strong> for external backup storage.</li>
+<li class=""><strong>HMAC credentials</strong>, managed through IBM Cloud Secrets Manager and exposed to OADP through a Kubernetes Secret.</li>
+<li class=""><strong>CSI snapshot and data mover capabilities</strong> to protect and transfer persistent volume data.</li>
+<li class=""><strong>Role-based access control (RBAC)</strong> to allow lab users to perform backup and restore operations without cluster-admin privileges.</li>
+</ul>
+<p><strong>The environment is ready to use</strong>. No infrastructure configuration or cluster-administrator access is required to complete the exercises.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=oadp-vs-enterprise-backup-solutions>OADP vs. Enterprise Backup Solutions<a href=#oadp-vs-enterprise-backup-solutions class=hash-link aria-label="Direct link to OADP vs. Enterprise Backup Solutions" title="Direct link to OADP vs. Enterprise Backup Solutions" translate=no>​</a></h2>
+<p>OADP provides Kubernetes-native backup and restore capabilities. For production environments requiring centralized policies, monitoring, retention, compliance, and enterprise-wide recovery management, consider solutions such as Veeam Kasten, Veeam Backup & Replication, or IBM Cloud Backup and Recovery Service (BRS).</p>
+<p><a href="https://cloud.ibm.com/docs/virtualization-solutions?topic=virtualization-solutions-virt-sol-openshift-resiliency-design" target=_blank rel="noopener noreferrer" class="">Learn more about OpenShift Virtualization resiliency and backup solutions</a></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=prerequisites>Prerequisites<a href=#prerequisites class=hash-link aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites" translate=no>​</a></h2>
+<p>Before starting, ensure you have access to:</p>
+<ul>
+<li class=""><img decoding=async loading=lazy alt=check src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAVCAYAAACkCdXRAAACH0lEQVQ4Ec2Vy2sTURSHvzuTqZ2MUGlquxBRFNIqhC4aUJCufUBacOEqLgX9H/wfpC5FEUTdVAW3ggtFEFR8oCCi9QFCSIrNpM3DNDNz5d44j2TRcZGFM1zuzLm/891zzpyZEVJKyYgOY0Qcjfl/YZkwzZ9b6zyrvMYz/NCUOvtGwKE9+1mcnNfaCHb58VWcgxNkc3YqJBRYlskaVdxak9L0CSLY5maTsa5Nt/PvZfR7JlYg+dL4DkmY6pDAVyMIN06dPaXo9jADS2uHwpCg2i5lCAnFbIHdwom1wBAsNRgEgnJuifLkSebt2QGHqGbKGgY0oEjcaNDUEgvZPB87P3jeeouwRKQYikyyb2yGOfuwQg8M5VLOlTTow+9vXFtfxZe6akC/zjFMCu1/ZmKRS3vPUnQKEU9IlVqJojPLu84aN6r3CWQQrYehxTBlkbD66xEb3hbl3CmO2nmQgvNTyxSdOd53vnKz+mAQpJ9XP9UELEAiqXsuK9W7uF6LC9PLXJw5x4KT51XrE9er9wjo65RWnf3w+rElYHGJ6tsuVyq3cb0mR+wDvGl95lbtIfprFfqHc5gjxG+ASkftEn7e6j2XlcodCtk8Txsv/0aR8NRlCXuyb49aQ3W+9NR28bHRc3nSeBEbUq4imN/1aNfbGLtMDDPunZ38fdNA+gJDZ5VIczwzTrvWptfexrTMnRjRmhCCjJXh2PHT2iZG+Q/4A/lL745jSmX2AAAAAElFTkSuQmCC width=19 height=21 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: check" aria-haspopup=dialog /> An OpenShift cluster with OpenShift Virtualization.</li>
+<li class=""><img decoding=async loading=lazy alt=check src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAVCAYAAACkCdXRAAACH0lEQVQ4Ec2Vy2sTURSHvzuTqZ2MUGlquxBRFNIqhC4aUJCufUBacOEqLgX9H/wfpC5FEUTdVAW3ggtFEFR8oCCi9QFCSIrNpM3DNDNz5d44j2TRcZGFM1zuzLm/891zzpyZEVJKyYgOY0Qcjfl/YZkwzZ9b6zyrvMYz/NCUOvtGwKE9+1mcnNfaCHb58VWcgxNkc3YqJBRYlskaVdxak9L0CSLY5maTsa5Nt/PvZfR7JlYg+dL4DkmY6pDAVyMIN06dPaXo9jADS2uHwpCg2i5lCAnFbIHdwom1wBAsNRgEgnJuifLkSebt2QGHqGbKGgY0oEjcaNDUEgvZPB87P3jeeouwRKQYikyyb2yGOfuwQg8M5VLOlTTow+9vXFtfxZe6akC/zjFMCu1/ZmKRS3vPUnQKEU9IlVqJojPLu84aN6r3CWQQrYehxTBlkbD66xEb3hbl3CmO2nmQgvNTyxSdOd53vnKz+mAQpJ9XP9UELEAiqXsuK9W7uF6LC9PLXJw5x4KT51XrE9er9wjo65RWnf3w+rElYHGJ6tsuVyq3cb0mR+wDvGl95lbtIfprFfqHc5gjxG+ASkftEn7e6j2XlcodCtk8Txsv/0aR8NRlCXuyb49aQ3W+9NR28bHRc3nSeBEbUq4imN/1aNfbGLtMDDPunZ38fdNA+gJDZ5VIczwzTrvWptfexrTMnRjRmhCCjJXh2PHT2iZG+Q/4A/lL745jSmX2AAAAAElFTkSuQmCC width=19 height=21 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: check" aria-haspopup=dialog /> OADP installed and Data Protection Application (DPA) already configured</li>
+<li class="">A VM to back up. <a class="" href=/rovs-tutorial/docs/vm-management>(Use the Fedora VM created in lab 1)</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=lab-environment>Lab Environment<a href=#lab-environment class=hash-link aria-label="Direct link to Lab Environment" title="Direct link to Lab Environment" translate=no>​</a></h2>
+<p>The following resources will be used thoughout this exercises:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Parameter<th>Value<tbody><tr><td>OpenShift project<td><code>vm-lastname-1</code><tr><td>VM name<td><code>fedora01</code><tr><td>OADP project<td><code>openshift-adp</code></table>
+<p>Let's set those variables for later use</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token builtin class-name">export</span><span class="token plain"> </span><span class="token assign-left variable" style=color:#36acaa>VM_NAME</span><span class="token operator" style=color:#393A34>=</span><span class="token string" style=color:#e3116c>"fedora01"</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token builtin class-name">export</span><span class="token plain"> </span><span class="token assign-left variable" style=color:#36acaa>OC_PROJECT</span><span class="token operator" style=color:#393A34>=</span><span class="token string" style=color:#e3116c>"&lt;replace-by-your-project>"</span><br/></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=lab-exercise>Lab Exercise<a href=#lab-exercise class=hash-link aria-label="Direct link to Lab Exercise" title="Direct link to Lab Exercise" translate=no>​</a></h2>
+<p>You will now perform an end-to-end backup and restore of your Fedora VM using OADP, CSI snapshots, and IBM Cloud Object Storage.</p>
+<p>The exercise covers preparing the VM, creating a backup, deleting the original VM to simulate data loss, and restoring it. You will then verify that both the VM configuration and its persistent data have been recovered to the state captured by the backup.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=prepare-an-additional-vm-disk-for-backup>Prepare an additional VM Disk for Backup<a href=#prepare-an-additional-vm-disk-for-backup class=hash-link aria-label="Direct link to Prepare an additional VM Disk for Backup" title="Direct link to Prepare an additional VM Disk for Backup" translate=no>​</a></h2>
+<p>In this exercise, you will attach and configure an additional 10 GiB disk on your Fedora VM. This disk will be used to store test data and verify that persistent storage is successfully recovered during the OADP backup and restore lab.</p>
+<blockquote>
+<p>Important: If your VM already has an additional disk, skip the disk creation steps and proceed to Step 2: Identify the Additional Disk. If the disk already contains a filesystem or data, do not repartition or format it.</p>
+</blockquote>
+<ol>
+<li class="">
+<p>In the <strong>OpenShift Console</strong>, navigate to <strong>Virtualization -> Virtual Machines</strong> and select your VM.</p>
+</li>
+<li class="">
+<p>Open the <strong>Configuration</strong> tab, select <strong>Storage</strong>, and click <strong>Add</strong></p>
+<p><img decoding=async loading=lazy alt=Add src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-15-10-33-2e1e315e73cefbab16f8973da8df274c.png width=1838 height=942 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Add" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Select <strong>Empty disk</strong> to create a new persistent disk.</p>
+<p><img decoding=async loading=lazy alt="Empty Disk" src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-15-11-54-8feca3df3c491cde4cf95d2d36559bab.png width=1190 height=969 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Empty Disk" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Configure the disk with the following settings:</p>
+<ul>
+<li class="">
+<p><strong>Name</strong>: fedora01-disk2</p>
+</li>
+<li class="">
+<p><strong>Size</strong>: 10 GiB</p>
+</li>
+<li class="">
+<p><strong>Interface</strong>: virtio</p>
+</li>
+<li class="">
+<p><strong>StorageClass</strong>: Select the Ceph RBD virtualization storage class <code>ocs-storagecluster-ceph-rbd-virtualizationshown</code>.</p>
+</li>
+<li class="">
+<p><img decoding=async loading=lazy alt=Name src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-15-16-56-4f2c5b72fbad21b0c8699460a7505390.png width=624 height=1007 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Name" aria-haspopup=dialog /></p>
+</li>
+</ul>
+</li>
+<li class="">
+<p>Click <strong>Save</strong> and wait for the disk to be provisioned and attached to the VM.</p>
+<blockquote>
+<p>The additional disk should now appear under Configuration → Storage.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Open the VM Console in the OpenShift Console</p>
+<blockquote>
+<p>An alternative is to connect to your console in your own terminal using the command: <code>virtctl console fedora01</code></p>
+</blockquote>
+</li>
+<li class="">
+<p>Run this command which lists the available block devices, their partitions, filesystem types, and mount points.</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">lsblk </span><span class="token parameter variable" style=color:#36acaa>-o</span><span class="token plain"> NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS</span><br/></div></code></pre></div></div>
+<p><img decoding=async loading=lazy alt=lsblk src=/rovs-tutorial/assets/images/oadp-lsblk-o-61f9dd3bcb1ab0455ae25885db350071.png width=1076 height=414 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: lsblk" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Identify the additional 10 GiB disk by comparing the output with the VM's storage configuration. In this example, the additional disk appears as /dev/vdc.</p>
+</li>
+<li class="">
+<p>Partition the New Disk. A newly created empty disk must be partitioned before creating a filesystem.</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>fdisk</span><span class="token plain"> /dev/vdc</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>At the fdisk prompt, enter the following commands:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Command<th>Description<tbody><tr><td><code>g</code><td>Create a new GPT partition table<tr><td><code>n</code><td>Create a new partition<tr><td><code>Enter</code><td>Accept the default partition number<tr><td><code>Enter</code><td>Accept the default first sector<tr><td><code>Enter</code><td>Accept the default last sector, using all available space<tr><td><code>w</code><td>Write the changes to disk and exit</table>
+</li>
+<li class="">
+<p>Verify the partition</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">lsblk </span><span class="token parameter variable" style=color:#36acaa>-f</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>You should now see a disk and its partition, similar to:</p>
+</blockquote>
+<p><img decoding=async loading=lazy alt=mounted src=/rovs-tutorial/assets/images/oadp-disk-mounted-e5d1faac6a7703cde9b48bc63c203ea5.png width=1648 height=454 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: mounted" aria-haspopup=dialog /></p>
+<p>The new partition <code>/dev/vdc1</code> is now ready to be formatted.</p>
+</li>
+<li class="">
+<p>Format it as XFS, which is a Linux filesystem suitable for storing the test data used in this lab.</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> mkfs.xfs </span><span class="token parameter variable" style=color:#36acaa>-L</span><span class="token plain"> data /dev/vdc1</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>The filesystem must be mounted before applications can read or write data to it. Create a directory that will serve as the mount point:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>mkdir</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-p</span><span class="token plain"> /data</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Mount the partition:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>mount</span><span class="token plain"> /dev/vdc1 /data</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Verify that the disk is mounted:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>df</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-h</span><span class="token plain"> /data</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>The output should show the additional disk mounted at /data, with approximately 10 GiB of capacity.
+The additional disk is now accessible through the /data directory.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Make the mount persistent. By default, a disk mounted manually with the mount command may not be mounted automatically after a VM restart.</p>
+<blockquote>
+<p>To ensure that /data remains available after reboot, configure the filesystem in /etc/fstab using its UUID (Universally Unique Identifier).</p>
+</blockquote>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> blkid /dev/vdc1</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Example output:
+/dev/vdc1: LABEL="data" UUID="1234abcd-..." TYPE="xfs"</p>
+</blockquote>
+</li>
+<li class="">
+<p>Alternatively, retrieve the UUID into a shell variable:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token assign-left variable" style=color:#36acaa>UUID</span><span class="token operator" style=color:#393A34>=</span><span class="token variable" style=color:#36acaa>$(</span><span class="token variable function" style=color:#d73a49>sudo</span><span class="token variable" style=color:#36acaa> blkid </span><span class="token variable parameter variable" style=color:#36acaa>-s</span><span class="token variable" style=color:#36acaa> UUID </span><span class="token variable parameter variable" style=color:#36acaa>-o</span><span class="token variable" style=color:#36acaa> value /dev/vdc1</span><span class="token variable" style=color:#36acaa>)</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token builtin class-name">echo</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"</span><span class="token string variable" style=color:#36acaa>$UUID</span><span class="token string" style=color:#e3116c>"</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Save this UUID for the next step.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Update /etc/fstab</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>nano</span><span class="token plain"> /etc/fstab</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Add the following line, replacing the example UUID with the actual value returned by blkid above:</p>
+<p>UUID=5f24d492-fc7b-406f-b103-9e2df8a6b0e0 /data xfs defaults 0 0</p>
+<p>It should look like this:</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-15-45-05-b5d3a8959b1ced9e3125f69fa5e46617.png width=1764 height=194 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>exit nano while saving changes
+Ctrl+O enter
+Ctrl+X</p>
+</li>
+<li class="">
+<p>Test the configuration before rebooting</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>umount</span><span class="token plain"> /data</span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>mount</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-a</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token function" style=color:#d73a49>df</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-h</span><span class="token plain"> /data</span><br/></div></code></pre></div></div>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-15-50-05-de58306e9cfcdebf17b2f7f5f9979db8.png width=1101 height=268 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<blockquote>
+<p>If that works without errors, the disk will automatically mount at /data after a reboot.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Identify the disks. Inside the VM, run:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">lsblk </span><span class="token parameter variable" style=color:#36acaa>-f</span><br/></div></code></pre></div></div>
+<p>In this example, the secondary disk is <code>/dev/vdc</code>, with an XFS partition /dev/vdc1 already mounted at /data.
+Adjust the device name to match your environment.</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>mkdir</span><span class="token plain"> </span><span class="token parameter variable" style=color:#36acaa>-p</span><span class="token plain"> /mnt/vdc</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Retrieve the disk UUID</p>
+<p>You should have stored the UUI before when editting the FSTAB</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> blkid /dev/vdc1  </span><br/></div></code></pre></div></div>
+<p>Alternatively, retrieve the UUID directly into a variable:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token assign-left variable" style=color:#36acaa>UUID</span><span class="token operator" style=color:#393A34>=</span><span class="token variable" style=color:#36acaa>$(</span><span class="token variable function" style=color:#d73a49>sudo</span><span class="token variable" style=color:#36acaa> blkid </span><span class="token variable parameter variable" style=color:#36acaa>-s</span><span class="token variable" style=color:#36acaa> UUID </span><span class="token variable parameter variable" style=color:#36acaa>-o</span><span class="token variable" style=color:#36acaa> value /dev/vdc1</span><span class="token variable" style=color:#36acaa>)</span><br/></div></code></pre></div></div>
+<p>Verify the value:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token builtin class-name">echo</span><span class="token plain"> </span><span class="token variable" style=color:#36acaa>$UUID</span><br/></div></code></pre></div></div>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-16-02-45-649e419a81a1e64a41f39c5ceea0129e.png width=839 height=120 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=verify-selinux-on-fedora--rhel>Verify SELinux on Fedora / RHEL<a href=#verify-selinux-on-fedora--rhel class=hash-link aria-label="Direct link to Verify SELinux on Fedora / RHEL" title="Direct link to Verify SELinux on Fedora / RHEL" translate=no>​</a></h2>
+<p>The QEMU Guest Agent (qemu-ga) enables communication between OpenShift Virtualization and the guest operating system. On Fedora and RHEL, SELinux may restrict the agent's access to files inside the VM.</p>
+<p>For this OADP backup and restore lab, verify that the QEMU Guest Agent has the necessary permissions to interact with the guest filesystem.</p>
+<p><strong>Why is this relevant to your OADP backup/restore lab?</strong></p>
+<p>The important concept is that there are two different layers involved:</p>
+<p>OpenShift / VM outside → KubeVirt / OpenShift Virtualization
+→ QEMU
+→ QEMU Guest Agent
+→ Fedora VM filesystem</p>
+<p>The QEMU Guest Agent runs inside the Fedora VM and provides a communication channel between the virtualization platform and the guest operating system.
+SELinux normally confines the guest-agent process (virt_qemu_ga_t). The policy deliberately has this Boolean disabled by default, following the least-privilege principle.
+For a backup/restore lab, broader guest-agent access can be needed so virtualization/backup operations that interact with the guest filesystem are not blocked by SELinux.</p>
+<p><strong>One important distinction</strong></p>
+<p>This command does not:</p>
+<ul>
+<li class="">give OpenShift unrestricted access to your VM</li>
+<li class="">disable SELinux</li>
+<li class="">make SELinux permissive</li>
+<li class="">expose /data over the network</li>
+<li class="">directly back up /data</li>
+</ul>
+<ol>
+<li class="">
+<p>Check the SELinux boolean. Run the following command inside the Fedora/RHEL VM:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">getsebool virt_qemu_ga_read_nonsecurity_files</span><br/></div></code></pre></div></div>
+<p>By default, the Boolean may be disabled:
+virt_qemu_ga_read_nonsecurity_files --> off</p>
+</li>
+<li class="">
+<p>Enable File Access for the QEMU Guest Agent</p>
+<p>If the Boolean is disabled, enable it:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> setsebool </span><span class="token parameter variable" style=color:#36acaa>-P</span><span class="token plain"> virt_qemu_ga_read_nonsecurity_files on</span><br/></div></code></pre></div></div>
+<p>Verify the setting:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">getsebool virt_qemu_ga_read_nonsecurity_files</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Expected output:<br/>
+virt_qemu_ga_read_nonsecurity_files --> on</p>
+</blockquote>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-06-16-06-04-cc2153a2cbc884b81ea68185e61d82c3.png width=1171 height=709 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-test-data-inside-the-vm>Create Test Data Inside the VM<a href=#create-test-data-inside-the-vm class=hash-link aria-label="Direct link to Create Test Data Inside the VM" title="Direct link to Create Test Data Inside the VM" translate=no>​</a></h2>
+<p>We will now create some test data inside the VM to demonstrate after the restore that the contents of the different volumes have been correctly recovered.</p>
+<ol>
+<li class="">
+<p>Create test data on the system disk. On the console of the Fedora VM:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token builtin class-name">echo</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"root-before-backup"</span><span class="token plain"> </span><span class="token operator" style=color:#393A34>|</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>tee</span><span class="token plain"> /root/test-root.txt</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Create test data on the secondary disk</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token builtin class-name">echo</span><span class="token plain"> </span><span class="token string" style=color:#e3116c>"vdc-before-backup"</span><span class="token plain"> </span><span class="token operator" style=color:#393A34>|</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>tee</span><span class="token plain"> /data/test.txt</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Verify both files:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>cat</span><span class="token plain"> /root/test-root.txt  </span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>cat</span><span class="token plain"> /data/test.txt</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Expected output:<br/>
+root-before-backup
+vdc-before-backup</p>
+</blockquote>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=label-the-vm>Label the VM<a href=#label-the-vm class=hash-link aria-label="Direct link to Label the VM" title="Direct link to Label the VM" translate=no>​</a></h2>
+<p>Use a label to select only the VM that needs to be backed up.</p>
+<ol>
+<li class="">
+<p>On the <strong>OpenShift Console - Virtualization - VirtualMachines</strong>, select the <code>fedora01</code> VM and on the <code>Configuration</code> tab in Metadata click <code>Edit</code> for the labels. Add the label <code>backup=vm-to-backup</code> to the labels</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-11-11-31-b99cade2bcbea9b8bd47ae632ddeeade.png width=1856 height=769 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Label the PVC</p>
+<p>Because the backup uses a label selector, it is recommended to put the same dedicated backup label on both the VM and the PVC.
+On the <strong>OpenShift Console - Storage - PersistentVolumeClaims</strong></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-11-23-40-0a524342071cd3dc78727807b8a103b9.png width=1874 height=397 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+Select the <code>fedora01</code> PVC.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-11-28-13-9f1b26e80d7ceb2f530dab89557c3cc7.png width=1856 height=986 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>In the Labels click <code>Edit</code> for the labels to add "backup=vm-to-backup" to the labels and <code>Save</code></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-11-26-19-0528fb0e3b628e69bd8bbe172f08704d.png width=832 height=715 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<blockquote>
+<p>The OpenShift web console is used as the primary method in this lab. Equivalent oc commands are provided as an alternative.
+oc label vm fedora01 -n $OC_PROJECT backup=vm-to-backup --overwrite
+oc label pvc fedora01 -n $OC_PROJECT backup=vm-to-backup --overwrite</p>
+</blockquote>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-the-oadp-backup>Create the OADP Backup<a href=#create-the-oadp-backup class=hash-link aria-label="Direct link to Create the OADP Backup" title="Direct link to Create the OADP Backup" translate=no>​</a></h2>
+<p>The backup is created using a <strong>NonAdminBackup</strong> resource. A NonAdminBackup allows a namespace-scoped user to create an OADP backup without directly creating or managing the underlying Velero backup resources.</p>
+<p>The VM that was labeled in the previous step will be selected using:
+app="vm-to-backup" (app=fedora01)</p>
+<ol>
+<li class="">
+<p>On to the <strong>OpenShift Console</strong>, Select the <strong>Project</strong> containing the VM.</p>
+</li>
+<li class="">
+<p>Navigate to: Home → Search, search for: <strong>NonAdminBackup</strong> and click <code>Create NonAdminBackup</code>.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-09-15-05-38-eb50cb865c9f5ccd05efea3b57dcbd18.png width=1644 height=948 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Enter the following YAML configuration. Make sure to enter your OpenShift project.</p>
+<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token key atrule" style=color:#00a4db>apiVersion</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> oadp.openshift.io/v1alpha1</span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token key atrule" style=color:#00a4db>kind</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> NonAdminBackup</span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token key atrule" style=color:#00a4db>metadata</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token key atrule" style=color:#00a4db>name</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> backup</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">vm</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">to</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">backup</span><span class="token punctuation" style=color:#393A34>-</span><span class="token number" style=color:#36acaa>01</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token key atrule" style=color:#00a4db>namespace</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> vm</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">bert</span><span class="token punctuation" style=color:#393A34>-</span><span class="token number" style=color:#36acaa>1</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token key atrule" style=color:#00a4db>spec</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token key atrule" style=color:#00a4db>backupSpec</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    </span><span class="token key atrule" style=color:#00a4db>includedNamespaces</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">      </span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain"> vm</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">bert</span><span class="token punctuation" style=color:#393A34>-</span><span class="token number" style=color:#36acaa>1</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    </span><span class="token key atrule" style=color:#00a4db>labelSelector</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">      </span><span class="token key atrule" style=color:#00a4db>matchLabels</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">        </span><span class="token key atrule" style=color:#00a4db>backup</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> vm</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">to</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">backup</span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    </span><span class="token key atrule" style=color:#00a4db>snapshotMoveData</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> </span><span class="token boolean important" style=color:#36acaa>true</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>In the above replace:</p>
+</blockquote>
+<ul>
+<li class="">name: backup-vm-to-backupname --> "backup-fedora01-your name-01"</li>
+<li class="">your-namespace with your namespace/project containing the VM --> "vm-yourlastname-1"</li>
+</ul>
+<blockquote>
+<p>Important: includedNamespaces contains the namespace to be backed up, not the VM name. The VM itself is selected using the backup=vm-to-backup label.</p>
+</blockquote>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-09-15-30-11-8cabaad8f8fb8953d0f7eb0422750ab9.png width=1384 height=1073 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Click Create. The backup will be <code>Queued</code> and eventually <code>Accepted</code>.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-09-15-32-12-6eb28f592ea8f5f3a5eac102516881aa.png width=1677 height=921 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<blockquote>
+<p>Backup Naming Convention: Use a unique name for each new backup. For example:
+backup-fedora01-bert-01
+backup-fedora01-bert-02
+backup-fedora01-bert-03
+This makes it easy to identify individual backup operations.</p>
+</blockquote>
+</li>
+<li class="">
+<p>CLI Alternative
+Instead of creating the NonAdminBackup resource through the OpenShift web console, the same resource can be created using the oc CLI by storing the yaml file and running the command <code>oc apply -f backup-vm.yaml</code></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=monitor-the-backup>Monitor the Backup<a href=#monitor-the-backup class=hash-link aria-label="Direct link to Monitor the Backup" title="Direct link to Monitor the Backup" translate=no>​</a></h2>
+<p>After creating the NonAdminBackup, monitor the backup until it successfully completes.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=monitor-the-nonadminbackup-using-the-openshift-web-console>Monitor the NonAdminBackup Using the OpenShift Web Console<a href=#monitor-the-nonadminbackup-using-the-openshift-web-console class=hash-link aria-label="Direct link to Monitor the NonAdminBackup Using the OpenShift Web Console" title="Direct link to Monitor the NonAdminBackup Using the OpenShift Web Console" translate=no>​</a></h3>
+<ol>
+<li class="">
+<p>Navigate to Home → Search, search for: <code>Backup</code>
+Select the appropriate <strong>NonAdminBackup</strong>, for example:
+backup-vmname-yourlastname-01
+Review the Details and YAML tabs to monitor the backup status.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-10-44-57-f4486df42b768f191e927a2e95e0c5f0.png width=1861 height=495 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-10-43-25-92e2c598087075adee73164f7522f996.png width=1876 height=1006 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>The NonAdminBackup represents the backup request. OADP uses the underlying Velero and storage components to perform the actual backup.</p>
+<ul>
+<li class="">During execution, the backup can progress through states such as: <code>InProgress</code> or <code>WaitingForPluginOperations</code></li>
+<li class="">The expected final state is:     Completed</li>
+<li class="">The backup should not finish in:    PartiallyFailed</li>
+</ul>
+</li>
+<li class="">
+<p>List the Velero backups using the CLI</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get backup.velero.io </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>After identifying the appropriate backup, check its status:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get backup.velero.io </span><span class="token operator" style=color:#393A34>&lt;</span><span class="token plain">backup-name</span><span class="token operator" style=color:#393A34>></span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>\</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp </span><span class="token punctuation" style=color:#393A34>\</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token parameter variable" style=color:#36acaa>-o</span><span class="token plain"> custom-columns</span><span class="token operator" style=color:#393A34>=</span><span class="token plain">NAME:.metadata.name,PHASE:.status.phase,ERRORS:.status.errors</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Replace: <backup-name> with the actual NonAdminBackup backup resource name.</backup-name></p>
+</blockquote>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=monitor-the-datauploads-using-the-openshift-web-console>Monitor the DataUploads using the OpenShift Web Console<a href=#monitor-the-datauploads-using-the-openshift-web-console class=hash-link aria-label="Direct link to Monitor the DataUploads using the OpenShift Web Console" title="Direct link to Monitor the DataUploads using the OpenShift Web Console" translate=no>​</a></h2>
+<p>The backup configuration includes snapshotMoveData: true, which instructs OADP/Velero to transfer persistent volume snapshot data to the configured backup storage.</p>
+<p>During this process, DataUpload resources are created to track the transfer of volume data.</p>
+<p>To verify that the data transfer completed successfully, use the OpenShift Web Console to inspect the YAML of the executed NonAdminBackup and check the status of the associated DataUpload resources.</p>
+<ol>
+<li class="">
+<p>Navigate to Home → Search and search for: NonAdminBackup</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-11-51-27-83213990b163e9538ab0bab64ca99af2.png width=1876 height=648 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Select your last executed backup. Go to the <code>YAML</code> tab and search for <code>dataMoverDataUploads</code></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-11-54-22-812c2be1d261821da5e2ba1951ace773.png width=705 height=1058 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<blockquote>
+<p>You should find :<br/>
+completed: 2
+total: 2</p>
+</blockquote>
+</li>
+<li class="">
+<p>List the DataUpload resources using the CLI</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get datauploads </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>For additional information:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get datauploads </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp </span><span class="token parameter variable" style=color:#36acaa>-o</span><span class="token plain"> wide</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>The DataUpload resources should eventually reach: <strong>Completed</strong></p>
+</blockquote>
+</li>
+<li class="">
+<p>Let's verify that the Backup has completed Successfully</p>
+<blockquote>
+<p>The NonAdminBackup has completed successfully.
+The underlying Velero backup has reached Completed.
+The required DataUpload resources have reached Completed.
+No significant backup errors are reported.
+The expected result is:
+Backup:      Completed
+DataUploads: Completed
+The backup should not report: PartiallyFailed</p>
+</blockquote>
+</li>
+<li class="">
+<p>To troubleshooting the backup, inspect the underlying NonAdminBackup resource. In the <strong>OpenShift Web Console</strong>, navigate to: Home → Search → NonAdminBackup</p>
+</li>
+<li class="">
+<p>Open the appropriate backup and inspect its Details and YAML.</p>
+<blockquote>
+<p>Pay particular attention to:
+Phase
+Errors
+Warnings
+Backup Item Operations
+Hook Status
+DataUpload Status
+These fields can help identify whether the problem occurred while selecting resources, taking volume snapshots, running VM hooks, or moving persistent volume data.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Display detailed information about the backup:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc describe backup.velero.io </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp </span><span class="token operator" style=color:#393A34>&lt;</span><span class="token plain">backup-name</span><span class="token operator" style=color:#393A34>></span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>\</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Review the output for:
+Phase
+Errors
+Warnings
+Backup Item Operations
+Hook Status</p>
+</blockquote>
+</li>
+<li class="">
+<p>If necessary, also inspect the DataUpload resources:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc describe dataupload </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp </span><span class="token operator" style=color:#393A34>&lt;</span><span class="token plain">dataupload-name</span><span class="token operator" style=color:#393A34>></span><span class="token plain"> </span><span class="token punctuation" style=color:#393A34>\</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Do not continue with the restore procedure until the backup has completed successfully.
+The purpose of your exercise is to demonstrate recovery after loss of the VM. So the clean sequence should be: Successful backup</p>
+</blockquote>
+</li>
+<li class="">
+<p>Make the post-backup change for point-in-time testing. Stop the VM
+Delete the VM and its associated storage that you intend to recover
+Create the NonAdminRestore
+Wait for the restore to complete
+Start the restored VM if necessary
+Verify the restored data and point in time</p>
+</li>
+</ol>
+<p>This avoids conflicts between resources already existing in vm-bert-1 and resources that OADP/Velero is trying to recreate. Red Hat documents OADP/Velero as the mechanism for restoring OpenShift Virtualization VM resources and persistent data.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=stop-and-delete-the-vm>Stop and Delete the VM<a href=#stop-and-delete-the-vm class=hash-link aria-label="Direct link to Stop and Delete the VM" title="Direct link to Stop and Delete the VM" translate=no>​</a></h2>
+<p>The purpose of your exercise is to demonstrate recovery after loss of the VM. So a clean sequence should be:</p>
+<ul>
+<li class="">Successful backup</li>
+<li class="">Make the post-backup change for point-in-time testing</li>
+<li class="">Stop the VM</li>
+<li class="">Delete the VM and its associated storage that you intend to recover</li>
+<li class="">Create the NonAdminRestore</li>
+<li class="">Wait for the restore to complete</li>
+<li class="">Start the restored VM if necessary</li>
+<li class="">Verify the restored data and point in time</li>
+</ul>
+<p>This avoids conflicts between resources already existing in you namespace and resources that OADP/Velero is trying to recreate.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=stop-vm-before-delete>Stop VM before delete<a href=#stop-vm-before-delete class=hash-link aria-label="Direct link to Stop VM before delete" title="Direct link to Stop VM before delete" translate=no>​</a></h3>
+<ol>
+<li class="">
+<p>In the <strong>OpenShift console</strong> navigate to: Virtualization → VirtualMachines → "your-vm-name"</p>
+</li>
+<li class="">
+<p>Click: Actions → <strong>Stop</strong>. Wait until the VM shows: <strong>Stopped</strong></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-14-58-09-9d2b605787a15ecd765f944956296c22.png width=1883 height=552 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-14-59-21-c4d162ce8b199c9cee230949a8cbe617.png width=1754 height=947 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Then, <strong>Delete</strong> the VM as required by the lab's disaster/recovery scenario.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-00-24-3f23515a210ab345bfca3e25eca6c228.png width=1862 height=929 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<blockquote>
+<p>Why stopping first is useful?
+Stopping the VM prevents further disk writes before the recovery test. OpenShift Virtualization supports snapshots of running VMs, but the QEMU Guest Agent is recommended to quiesce the filesystem and improve data consistency.</p>
+</blockquote>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=restore-the-vm>Restore the VM<a href=#restore-the-vm class=hash-link aria-label="Direct link to Restore the VM" title="Direct link to Restore the VM" translate=no>​</a></h2>
+<p>The VM will now be restored from the previously created NonAdminBackup.</p>
+<p>A NonAdminRestore allows a namespace-scoped user to restore an OADP backup without requiring direct access to the underlying Velero resources in the openshift-adp namespace. The OADP non-admin controller validates the restore request and creates the corresponding Velero Restore on behalf of the user.</p>
+<p>The restore should recreate the Kubernetes resources that define the VM and restore its persistent volume data from the backup.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-the-restore-using-the-openshift-web-console>Create the Restore Using the OpenShift Web Console<a href=#create-the-restore-using-the-openshift-web-console class=hash-link aria-label="Direct link to Create the Restore Using the OpenShift Web Console" title="Direct link to Create the Restore Using the OpenShift Web Console" translate=no>​</a></h3>
+<ol>
+<li class="">
+<p>Select the project containing the original VM. For example: "vm-bert-1"</p>
+</li>
+<li class="">
+<p>Navigate to Home, Search for <code>NonAdminRestore</code>.</p>
+</li>
+<li class="">
+<p>Select the NonAdminRestore resource.</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-02-55-719f797525c1a1261239a3460676d60d.png width=1868 height=509 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+</li>
+<li class="">
+<p>Click <strong>Create NonAdminRestore</strong>. In the YAML view, enter the following configuration:</p>
+<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token key atrule" style=color:#00a4db>apiVersion</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> oadp.openshift.io/v1alpha1</span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token key atrule" style=color:#00a4db>kind</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> NonAdminRestore</span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token key atrule" style=color:#00a4db>metadata</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token key atrule" style=color:#00a4db>name</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> restore</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">vm</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">to</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">backup</span><span class="token punctuation" style=color:#393A34>-</span><span class="token number" style=color:#36acaa>01</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token key atrule" style=color:#00a4db>namespace</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> your</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">namespace</span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token key atrule" style=color:#00a4db>spec</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">  </span><span class="token key atrule" style=color:#00a4db>restoreSpec</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    </span><span class="token key atrule" style=color:#00a4db>backupName</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> backup</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">vm</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">to</span><span class="token punctuation" style=color:#393A34>-</span><span class="token plain">backup</span><span class="token punctuation" style=color:#393A34>-</span><span class="token number" style=color:#36acaa>01</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain">    </span><span class="token key atrule" style=color:#00a4db>restorePVs</span><span class="token punctuation" style=color:#393A34>:</span><span class="token plain"> </span><span class="token boolean important" style=color:#36acaa>true</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>Replace your-namespace --> with the namespace/project containing the vm-"your namespace"
+Also replace backup-vm-to-backup-01 --> with the name of the NonAdminBackup that you want to restore.</p>
+</blockquote>
+<p>For example:</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-05-17-d8360e75e72f640554eee7e8a45e16b3.png width=1076 height=580 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p>Important: Select the backup that was successfully completed and for which the Data Mover operations completed.</p>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=monitor-the-restore>Monitor the Restore<a href=#monitor-the-restore class=hash-link aria-label="Direct link to Monitor the Restore" title="Direct link to Monitor the Restore" translate=no>​</a></h3>
+<p>Do not start or modify the restored VM until the restore has completed. Monitor the NonAdminRestore Using the OpenShift Web Console</p>
+<ol>
+<li class="">
+<p>Navigate to Home, search for: NonAdminRestore</p>
+</li>
+<li class="">
+<p>Select your restore, for example: <code>restore-fedora01-bert-01</code></p>
+</li>
+<li class="">
+<p>Open the Details tab. Monitor the restore status until the underlying Velero restore reaches: <code>Completed</code>.</p>
+</li>
+<li class="">
+<p>Also open the YAML tab and inspect the status section.</p>
+<p>Check for:</p>
+<ul>
+<li class="">status</li>
+<li class="">restore phase</li>
+<li class="">errors</li>
+<li class="">warnings</li>
+<li class="">restored resources</li>
+<li class="">Data Mover/DataDownload information, where available</li>
+</ul>
+<p><img decoding=async loading=lazy alt=yaml src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-12-53-0f645f874327b7a98823dcef89768bec.png width=735 height=1055 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: yaml" aria-haspopup=dialog /></p>
+<p>The non-admin controller synchronizes Velero operation status back into the namespace-scoped self-service resource, allowing users to monitor operations without requiring access to the openshift-adp namespace.</p>
+</li>
+</ol>
+<p>10.3 CLI Alternative</p>
+<ol>
+<li class="">
+<p>Monitor the NonAdminRestore:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get nonadminrestores </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp </span><span class="token parameter variable" style=color:#36acaa>-w</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>For additional details:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc describe nonadminrestore restore-vm-to-backup-01 </span><span class="token punctuation" style=color:#393A34>\</span><span class="token plain"></span><br/></div><div class=token-line style=color:#393A34><span class="token plain"></span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> openshift-adp</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>If the individual DataDownload resources are available:</p>
+<div class="language-sh codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-sh codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get datadownloads </span><span class="token parameter variable" style=color:#36acaa>-A</span><br/></div></code></pre></div></div>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=verify-the-restored-vm>Verify the Restored VM<a href=#verify-the-restored-vm class=hash-link aria-label="Direct link to Verify the Restored VM" title="Direct link to Verify the Restored VM" translate=no>​</a></h2>
+<p>After the restore completes, verify that the VM and its associated persistent storage have been successfully recovered.</p>
+<ol>
+<li class="">
+<p>In the <strong>OpenShift Web Console</strong>, select your project (for example, <code>vm-bert-1</code>).</p>
+</li>
+<li class="">
+<p>Navigate to <strong>Virtualization → VirtualMachines</strong>.</p>
+</li>
+<li class="">
+<p>Verify that the restored VM (for example, <code>fedora01</code>) is present.</p>
+</li>
+<li class="">
+<p>Open the VM and verify that it is in the expected state.</p>
+</li>
+<li class="">
+<p>Navigate to <strong>Storage → PersistentVolumeClaims</strong>.</p>
+</li>
+<li class="">
+<p>Verify that:</p>
+<ul>
+<li class="">The restored PVCs are present.</li>
+<li class="">Each PVC has a status of <code>Bound</code>.</li>
+<li class="">The expected labels have been restored.</li>
+</ul>
+<p><img decoding=async loading=lazy alt="Restored PVCs" src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-26-10-e233997de4d8a528e3913070de06a443.png width=1862 height=1041 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Restored PVCs" aria-haspopup=dialog /></p>
+<p>OADP restores the Kubernetes resources that define the VM and the persistent storage associated with the protected workload.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Kubernetes-generated identifiers may differ from those used before deletion. The important validation is that the VM, its PVCs, and persistent data have been successfully restored.</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=verify-the-restored-vm-using-the-cli>Verify the restored VM using the CLI<a href=#verify-the-restored-vm-using-the-cli class=hash-link aria-label="Direct link to Verify the restored VM using the CLI" title="Direct link to Verify the restored VM using the CLI" translate=no>​</a></h2>
+<ol>
+<li class="">
+<p>List the restored VM resources:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get vm,vmi,dv,pvc </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> </span><span class="token variable" style=color:#36acaa>$OC_PROJECT</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>To filter resources associated with the VM:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">oc get vm,vmi,dv,pvc </span><span class="token parameter variable" style=color:#36acaa>-n</span><span class="token plain"> </span><span class="token variable" style=color:#36acaa>$OC_PROJECT</span><span class="token plain"> </span><span class="token operator" style=color:#393A34>|</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>grep</span><span class="token plain"> fedora01</span><br/></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Verify the presence of the following resources:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Resource<th>Expected state<tbody><tr><td>VirtualMachine (VM)<td>Present, <code>Running</code> if started<tr><td>VirtualMachineInstance (VMI)<td><code>Running</code> when the VM is started<tr><td>DataVolume (DV)<td><code>Succeeded</code><tr><td>PersistentVolumeClaim (PVC)<td><code>Bound</code></table>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=verify-the-restored-data>Verify the Restored Data<a href=#verify-the-restored-data class=hash-link aria-label="Direct link to Verify the Restored Data" title="Direct link to Verify the Restored Data" translate=no>​</a></h2>
+<p>After the VM has been restored and started, connect to its console.</p>
+<p>This step verifies that both the VM configuration and the data stored on its disks have been recovered from the backup.</p>
+<ol>
+<li class="">
+<p>Verify the System Disk. Inside the Fedora VM, run:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>sudo</span><span class="token plain"> </span><span class="token function" style=color:#d73a49>cat</span><span class="token plain"> /root/test-root.txt</span><br/></div></code></pre></div></div>
+<p><strong>Expected output:</strong></p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-text codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">root-before-backup</span><br/></div></code></pre></div></div>
+<blockquote>
+<p>This confirms that the test file on the system disk has been successfully restored.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Check that the secondary disk is mounted:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">findmnt /data</span><br/></div></code></pre></div></div>
+<p>The output should show <code>/dev/vdc1</code> (or its equivalent device) mounted at <code>/data</code>.</p>
+<p><img decoding=async loading=lazy alt="Secondary disk mounted" src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-37-17-820ecc61c13c60610d9d9bea5173e291.png width=888 height=324 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Secondary disk mounted" aria-haspopup=dialog /></p>
+<blockquote>
+<p>Because an <code>/etc/fstab</code> entry was configured before the backup, the secondary disk should mount automatically when the restored VM starts.</p>
+</blockquote>
+</li>
+<li class="">
+<p>Verify the restored data:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token function" style=color:#d73a49>cat</span><span class="token plain"> /data/test.txt</span><br/></div></code></pre></div></div>
+<p><strong>Expected output:</strong></p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style=--prism-color:#393A34;--prism-background-color:#f6f8fa><div class=codeBlockContent_QJqH><pre tabindex=0 class="prism-code language-text codeBlock_bY9V thin-scrollbar" style=color:#393A34;background-color:#f6f8fa><code class=codeBlockLines_e6Vv><div class=token-line style=color:#393A34><span class="token plain">vdc-before-backup</span><br/></div></code></pre></div></div>
+<p><img decoding=async loading=lazy alt="Restored secondary disk data" src=/rovs-tutorial/assets/images/Clipboard_2026-11-11-15-39-55-06720566035716f7291c0c9e8205266c.png width=575 height=90 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image: Restored secondary disk data" aria-haspopup=dialog /></p>
+<blockquote>
+<p>This confirms that the secondary disk is mounted and its persistent data has been successfully restored.</p>
+</blockquote>
+</li>
+</ol>
+<p>By completing this lab, you have demonstrated the following:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=backup>Backup<a href=#backup class=hash-link aria-label="Direct link to Backup" title="Direct link to Backup" translate=no>​</a></h3>
+<ul>
+<li class="">The VM and its PVCs are selected using the <code>backup=vm-to-backup</code> label.</li>
+<li class="">Existing CDI-managed labels, such as <code>app=containerized-data-importer</code>, remain unchanged.</li>
+<li class="">CSI snapshots protect the VM's persistent storage.</li>
+<li class=""><code>snapshotMoveData: true</code> enables the transfer of snapshot data to the configured backup storage.</li>
+<li class="">OADP Data Mover transfers the protected volume data to IBM Cloud Object Storage.</li>
+<li class="">The <code>NonAdminBackup</code> and associated DataUpload operations complete successfully.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=restore>Restore<a href=#restore class=hash-link aria-label="Direct link to Restore" title="Direct link to Restore" translate=no>​</a></h3>
+<ul>
+<li class="">The original VM can be deleted to simulate data loss.</li>
+<li class="">A non-admin user can initiate recovery using <code>NonAdminRestore</code>.</li>
+<li class="">OADP/Velero recreates the VM's Kubernetes resources and restores its persistent volumes.</li>
+<li class="">The associated DataDownload operations complete successfully.</li>
+<li class="">The restored PVCs return to the <code>Bound</code> state.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=data-validation>Data Validation<a href=#data-validation class=hash-link aria-label="Direct link to Data Validation" title="Direct link to Data Validation" translate=no>​</a></h3>
+<ul>
+<li class="">The VM starts successfully after restoration.</li>
+<li class="">The secondary disk is automatically mounted using <code>/etc/fstab</code>.</li>
+<li class="">Data created before the backup is successfully recovered.</li>
+<li class="">Data created after the backup is absent, if such changes were made during the exercise.</li>
+</ul>
+<p><strong>The lab demonstrates successful point-in-time recovery of an OpenShift Virtualization VM and its persistent volumes using OADP and IBM Cloud Object Storage.</strong></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/rovs-tutorial/docs/vm-yaml><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>5. VMs with YAML</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#introduction class="table-of-contents__link toc-highlight">Introduction</a><li><a href=#how-it-works class="table-of-contents__link toc-highlight">How it works</a><li><a href=#lab-objectives class="table-of-contents__link toc-highlight">Lab Objectives</a><li><a href=#environment-preparation-by-the-cluster-administrator class="table-of-contents__link toc-highlight">Environment Preparation by the Cluster Administrator</a><li><a href=#oadp-vs-enterprise-backup-solutions class="table-of-contents__link toc-highlight">OADP vs. Enterprise Backup Solutions</a><li><a href=#prerequisites class="table-of-contents__link toc-highlight">Prerequisites</a><li><a href=#lab-environment class="table-of-contents__link toc-highlight">Lab Environment</a><li><a href=#lab-exercise class="table-of-contents__link toc-highlight">Lab Exercise</a><li><a href=#prepare-an-additional-vm-disk-for-backup class="table-of-contents__link toc-highlight">Prepare an additional VM Disk for Backup</a><li><a href=#verify-selinux-on-fedora--rhel class="table-of-contents__link toc-highlight">Verify SELinux on Fedora / RHEL</a><li><a href=#create-test-data-inside-the-vm class="table-of-contents__link toc-highlight">Create Test Data Inside the VM</a><li><a href=#label-the-vm class="table-of-contents__link toc-highlight">Label the VM</a><li><a href=#create-the-oadp-backup class="table-of-contents__link toc-highlight">Create the OADP Backup</a><li><a href=#monitor-the-backup class="table-of-contents__link toc-highlight">Monitor the Backup</a><ul><li><a href=#monitor-the-nonadminbackup-using-the-openshift-web-console class="table-of-contents__link toc-highlight">Monitor the NonAdminBackup Using the OpenShift Web Console</a></ul><li><a href=#monitor-the-datauploads-using-the-openshift-web-console class="table-of-contents__link toc-highlight">Monitor the DataUploads using the OpenShift Web Console</a><li><a href=#stop-and-delete-the-vm class="table-of-contents__link toc-highlight">Stop and Delete the VM</a><ul><li><a href=#stop-vm-before-delete class="table-of-contents__link toc-highlight">Stop VM before delete</a></ul><li><a href=#restore-the-vm class="table-of-contents__link toc-highlight">Restore the VM</a><ul><li><a href=#create-the-restore-using-the-openshift-web-console class="table-of-contents__link toc-highlight">Create the Restore Using the OpenShift Web Console</a><li><a href=#monitor-the-restore class="table-of-contents__link toc-highlight">Monitor the Restore</a></ul><li><a href=#verify-the-restored-vm class="table-of-contents__link toc-highlight">Verify the Restored VM</a><li><a href=#verify-the-restored-vm-using-the-cli class="table-of-contents__link toc-highlight">Verify the restored VM using the CLI</a><li><a href=#verify-the-restored-data class="table-of-contents__link toc-highlight">Verify the Restored Data</a><ul><li><a href=#backup class="table-of-contents__link toc-highlight">Backup</a><li><a href=#restore class="table-of-contents__link toc-highlight">Restore</a><li><a href=#data-validation class="table-of-contents__link toc-highlight">Data Validation</a></ul></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Tutorials</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/intro>Introduction</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-management>1. VM Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/storage-management>2. Storage Management</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/template-instancetype>3. Templates & InstanceTypes</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/networking>4. Networking</a><li class=footer__item><a class=footer__link-item href=/rovs-tutorial/docs/vm-yaml>5. VMs with YAML</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>IBM Resources</div><ul class="footer__items clean-list"><li class=footer__item><a href=https://cloud.ibm.com/infrastructure/openshift-virtualization target=_blank rel="noopener noreferrer" class=footer__link-item>ROVS on IBM Cloud<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li class=footer__item><a href=https://docs.openshift.com/container-platform/latest/virt/about_virt/about-virt.html target=_blank rel="noopener noreferrer" class=footer__link-item>Red Hat OpenShift Docs<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 IBM Corporation. Built with Docusaurus.</div></div></div></footer></div></body>
