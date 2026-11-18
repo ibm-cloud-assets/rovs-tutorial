@@ -53,8 +53,8 @@ OADP provides Kubernetes-native backup and restore capabilities. For production 
 
 Before starting, ensure you have access to:
 
-- ![check](./images/Clipboard_2026-11-06-14-47-02.png) An OpenShift cluster with OpenShift Virtualization.
-- ![check](./images/Clipboard_2026-11-06-14-47-06.png) OADP installed and Data Protection Application (DPA) already configured
+- An OpenShift cluster with OpenShift Virtualization.
+- OADP installed and Data Protection Application (DPA) already configured
 - A VM to back up. [(Use the Fedora VM created in lab 1)](./vm-management)
 
 ## Lab Environment
