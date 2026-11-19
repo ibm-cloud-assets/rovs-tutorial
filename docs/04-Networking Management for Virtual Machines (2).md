@@ -478,18 +478,15 @@ however fail.
 
 1.  In your browser go to the IBM Cloud Portal go to the ROVS cluster.
 
-> ![](./images/network17.png"
-> style="width:5.40654in;height:7.89375in" />
+![](./images/network17.png"
 
 2.  Select the “shared-rovs” cluster
 
-> ![](./images/network18.png"
-> style="width:6.26806in;height:1.5in" />
+![](./images/network18.png"
 
 3.  Select VNI attachments and “attach VNIs”
 
-> ![](./images/network19.png"
-> style="width:6.26806in;height:0.77361in" />
+![](./images/network19.png"
 
 4.  Configure the attachment to the cluster.
 
@@ -504,8 +501,7 @@ however fail.
       \
       \
       ![](./images/network20.png"
-      style="width:6.26806in;height:6.60972in" />
-
+      
 ## NMstate Operator 
 
 To be able to perform some network activities the account administrator
@@ -524,8 +520,7 @@ the API server.
     CustomResourceDefinitions click. In the “Filter by Name” type
     “nmstate” and click NodeNetworkState.
 
-> ![](./images/network22.png"
-> style="width:4.54993in;height:5.71186in" />
+![](./images/network22.png"
 
 2.  Select “Instances” and expand one of the nodes. As stated, you will
     notice that the worker nodes have a bridge already configured to be
@@ -584,9 +579,8 @@ were created for you when you started the invitation script.
     Notice again that you do not have the create option at the right top
     level.
 
-> ![](./images/network31.png"
-> style="width:6.26806in;height:0.43889in" />![](./images/network32.png"
-> style="width:6.26806in;height:2.20069in" />
+![](./images/network31.png"
+![](./images/network32.png"
 
 2.  Examine the details of the network attachment definition
     “your-name-localnet-vlan100”. This was created in
@@ -650,21 +644,17 @@ attachments and select vni-“your-name”-1
   VM to the right network.\
   **Do not forget to select the right (vm-“your name”) name space**
 
-> ![](./images/network37.png"
-> style="width:5.08939in;height:2.59375in" />\
-> ![](./images/network38.png"
-> style="width:3.65802in;height:4.64324in" />
+![](./images/network37.png"
+![](./images/network38.png"
 
 3.  Select “network Interfaces (1)”
 
-> ![](./images/network39.png"
-> style="width:5.77617in;height:3.53572in" />
+![](./images/network39.png"
 
 4.  Notice there is already a default interface, this is the deafult POD
     network. Select “Add network interface”
 
-> ![](./images/network40.png"
-> style="width:6.26806in;height:1.18125in" />
+![](./images/network40.png"
 
 5.  Fill in the Name =fedora05-your-name
 
@@ -672,8 +662,7 @@ attachments and select vni-“your-name”-1
 
 - Now paste the MAC address of the VNI that you stored before and save
 
-> ![](./images/network41.png"
-> style="width:2.84324in;height:3.46486in" />
+![](./images/network41.png"
 
 6.  Delete the primary network interface.\
     **Warning:** If you forget to do this the primary interface will
@@ -690,13 +679,11 @@ attachments and select vni-“your-name”-1
 7.  Create the VM. It should take less than a minute to provision and
     start the VM.
 
-> ![](./images/network45.png"
-> style="width:6.26806in;height:3.79028in" />
+![](./images/network45.png"
 
 8.  Open the console of the VM
 
-> ![](./images/network46.png"
-> style="width:3.73832in;height:3.32837in" />
+![](./images/network46.png"
 
 9.  Login with the user name “fedora” given at the top of your screen
     and paste the password using the “paste to Console” and press enter
@@ -721,7 +708,7 @@ attachments and select vni-“your-name”-1
   You should see that interface “enp1s0”has received the IP address that
   is assigned to the VNI attached to the cluster.
 
-![](./images/network48.png" style="width:6.2899in;height:3in" />
+![](./images/network48.png"
 
 ## Create and attach a Windows server VLAN 200
 
@@ -908,8 +895,7 @@ which a gateway to the NTP service we are going to use later.
 
 1.  Create security Group
 
-> ![](./images/network63.png"
-> style="width:5.56075in;height:7.02517in" />
+![](./images/network63.png"
 
 2.  Review what you can configure. Typically you create a new security
     group and configure the inbound rules for the service. For the NTP
@@ -927,17 +913,14 @@ which a gateway to the NTP service we are going to use later.
 - We only enable the gateway endpoint in “eu-de1”
 
   ![](./images/network64.png"
-  style="width:6.26806in;height:0.78194in" />
-
+  
   ![](./images/network65.png"
-  style="width:5.66823in;height:9.03989in" />
-
+  
 - Now Cancel the creation of the NTP gateway by selecting “Virtual
   private gateways” at the top of the page to leave this page
 
   ![](./images/network66.png"
-  style="width:6.13627in;height:1.40645in" />
-
+ 
 ### VPE to NTP demo
 
 A virtual server in your OpenShift environment can access the IBM Cloud
@@ -969,8 +952,7 @@ created in the previous step.
 
 - Notice the ntp peer is time.windows.com
 
-> ![](./images/network68.png"
-> style="width:4.00446in;height:3.93792in" />
+![](./images/network68.png"
 
 4.  Configure the IBM Cloud NTP service as NTP source. Normally you
     would use the DNS name “time.adn.networklayer.com” but for demo
@@ -987,14 +969,12 @@ created in the previous step.
 
 - W32tm /query /status 🡪 notice the last successful sync
 
-> ![](./images/network69.png"
-> style="width:5.45794in;height:4.35499in" />
+![](./images/network69.png"
 
 - Now do the same exercise but use the DNS name
   time.adn.networklayer.com
 
-> ![](./images/network70.png"
-> style="width:5.46262in;height:3.61673in" />
+![](./images/network70.png"
 
 - Notice the last successful sync time
 
