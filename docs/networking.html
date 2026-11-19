@@ -1,4 +1,4 @@
-<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-networking" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Network Management for Virtual Machines | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Network Management for Virtual Machines | ROVS Tutorials"/><meta data-rh=true name=description content="While the aim is to write this demo script in the general context of Red"/><meta data-rh=true property=og:description content="While the aim is to write this demo script in the general context of Red"/><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking","name":"4. Networking","position":1}]}</script><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.ee962c39.js defer></script><script src=/rovs-tutorial/assets/js/main.ac416117.js defer></script></head><body><svg style="display: none;"><defs>
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-networking" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>Network Management for Virtual Machines | ROVS Tutorials</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:url content=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking /><meta data-rh=true property=og:locale content=en /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="Network Management for Virtual Machines | ROVS Tutorials"/><meta data-rh=true name=description content="While the aim is to write this demo script in the general context of Red"/><meta data-rh=true property=og:description content="While the aim is to write this demo script in the general context of Red"/><link data-rh=true rel=icon href=/rovs-tutorial/img/logo.svg /><link data-rh=true rel=canonical href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking hreflang=en /><link data-rh=true rel=alternate href=https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ibm-cloud-assets.github.io/rovs-tutorial/docs/networking","name":"4. Networking","position":1}]}</script><link rel=stylesheet href=/rovs-tutorial/assets/css/styles.bc38cefd.css /><script src=/rovs-tutorial/assets/js/runtime~main.d5320e70.js defer></script><script src=/rovs-tutorial/assets/js/main.ac416117.js defer></script></head><body><svg style="display: none;"><defs>
 <symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
 </defs></svg>
 <script>!function(){var t;document.documentElement.setAttribute("data-theme",t||"light"),document.documentElement.setAttribute("data-theme-choice",t||"light")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/rovs-tutorial/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/rovs-tutorial/><div class=navbar__logo><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--light_NVdE" height=28 width=28 /><img src=/rovs-tutorial/img/logo.svg alt="OpenShift Virtualization" class="themedComponent_mlkZ themedComponent--dark_xIcU" height=28 width=28 /></div><b class="navbar__title text--truncate">ROVS Tutorials</b></a><a aria-current=page class="navbar__item navbar__link navbar__link--active" href=/rovs-tutorial/docs/intro>Tutorials</a><div class="navbar__item dropdown dropdown--hoverable"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link>IBM Cloud Docs</a><ul class=dropdown__menu><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class=dropdown__link>ROVS Overview<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-about-openshift-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>OpenShift Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><li><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-vni-virtualization" target=_blank rel="noopener noreferrer" class=dropdown__link>VNI for Virtualization<svg width=12 height=12 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ibm-cloud-assets/rovs-tutorial target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class=navbarSearchContainer_Bca1></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class=menu__link href=/rovs-tutorial/docs/intro><span class=linkLabel_WmDU>Introduction</span></a><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--active"><span class=categoryLinkLabel_W154>Tutorials</span></a></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-management><span class=linkLabel_WmDU>1. VM Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/storage-management><span class=linkLabel_WmDU>2. Storage Management</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/template-instancetype><span class=linkLabel_WmDU>3. Templates & InstanceTypes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/rovs-tutorial/docs/networking><span class=linkLabel_WmDU>4. Networking</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/vm-yaml><span class=linkLabel_WmDU>5. VMs with YAML</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class=menu__link tabindex=0 href=/rovs-tutorial/docs/oadp-backup><span class=linkLabel_WmDU>6. Back Up Your VM with OADP</span></a></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1"><hr style="margin: 0.75rem 0.75rem; border-color: #dde5ee;"/><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a href="https://cloud.ibm.com/docs/openshift?topic=openshift-rovs-overview" target=_blank rel="noopener noreferrer" class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role=button aria-expanded=false><span class=categoryLinkLabel_W154>IBM Cloud Docs</span></a></div></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/rovs-tutorial/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><span class=breadcrumbs__link>Tutorials</span><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>4. Networking</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Network Management for Virtual Machines</h1></header>
@@ -438,10 +438,9 @@ browse to the Virtualization page</p>
 “Networking”, “ VNI attachments” and “Ingress” in the left of you
 window. Come back to this</li>
 </ol>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network14-f627d0753676563121537022b1ffed35.png width=1356 height=621 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <blockquote>
-<p>![](./images/network14.png"
-style="width:5.76168in;height:2.63891in" /><br/>
-<strong>On the overview</strong>: Check status of nodes, add-ons, master and
+<p><strong>On the overview</strong>: Check status of nodes, add-ons, master and
 Ingress, find the cluster details<br/>
 At the right find and click the link to the VPC the cluster is
 deployed in. A new tab will open with the VPC details. Scroll down and
@@ -453,8 +452,7 @@ VNIs are configured to be able to float between nodes. When you later
 attach the VNI to a VM, the VM will be able to migrate between nodes.
 VNI is assigned to virt-subnet-01-vni-vlan100 with VLAN100 and it has
 an IP address assigned.<br/>
-![](./images/network15.png"
-style="width:6.26806in;height:2.08472in" /><strong>On the Worker pool</strong>: We
+<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network15-cd371549f62ffbc0bfe9138570c3e35e.png width=1317 height=438 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
 have only 1 worker pool deployed<br/>
 <strong>On the VNI attachments</strong>: See all the VNIs created for all the users
 in the shared account</p>
@@ -480,15 +478,15 @@ however fail.</p>
 <ol>
 <li class="">In your browser go to the IBM Cloud Portal go to the ROVS cluster.</li>
 </ol>
-<p>![](./images/network17.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network17-93ef807810f54a63c1de7e1c6231e347.png width=563 height=822 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=2>
 <li class="">Select the “shared-rovs” cluster</li>
 </ol>
-<p>![](./images/network18.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network18-102b6d42bc20ea0d601e2d165146e070.png width=1333 height=319 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=3>
 <li class="">Select VNI attachments and “attach VNIs”</li>
 </ol>
-<p>![](./images/network19.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network19-bdfc3edc84bbc5d12516ccb862afc463.png width=1345 height=166 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=4>
 <li class="">
 <p>Configure the attachment to the cluster.</p>
@@ -506,7 +504,7 @@ this.</p>
 privileges to actually attach the VNI.<br/>
 <br/>
 <br/>
-![](./images/network20.png"</p>
+<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network20-3938e481c0b0b45f11f7cb5704098125.png width=972 height=1025 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 </li>
 </ul>
 </li>
@@ -527,7 +525,7 @@ the API server.</p>
 CustomResourceDefinitions click. In the “Filter by Name” type
 “nmstate” and click NodeNetworkState.</li>
 </ol>
-<p>![](./images/network22.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network22-b73c95ad4a8a8995fedd8690195f51cd.png width=748 height=939 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=2>
 <li class="">Select “Instances” and expand one of the nodes. As stated, you will
 notice that the worker nodes have a bridge already configured to be
@@ -581,8 +579,8 @@ the “NetworkAttachmentDefinition” in your project “vm—your-name-1”.
 Notice again that you do not have the create option at the right top
 level.</li>
 </ol>
-<p>![](./images/network31.png"
-![](./images/network32.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network31-477f449d811374688650d6285019d59a.png width=1357 height=95 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network32-0c0281315c836396064f6b31fb0f0f52.png width=1441 height=506 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=2>
 <li class="">Examine the details of the network attachment definition
 “your-name-localnet-vlan100”. This was created in
@@ -594,7 +592,7 @@ projects.</li>
 <p>Name: “your-name”-localnet-vlan100”</p>
 </li>
 <li class="">
-<p>Namespace: “vm-your-name”</p>
+<p>Namespace: “vm-your-name”)</p>
 </li>
 <li class="">
 <p>Cluster User Defined Network: “your-name-localnet-vlan100”<br/>
@@ -634,9 +632,8 @@ attachments and select vni-“your-name”-1</p>
 <ol>
 <li class="">Copy the Mac address and store for later use</li>
 </ol>
-<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network35-6deb7002eb498b1743405ebf2eabc540.png width=1476 height=247 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
-<br/>
-<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network36-508321a0c873eb67eb2f3ea721ef971d.png width=1455 height=462 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network35-6deb7002eb498b1743405ebf2eabc540.png width=1476 height=247 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network36-508321a0c873eb67eb2f3ea721ef971d.png width=1455 height=462 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=2>
 <li class="">Go back to previous tab with the Virtualization context on the
 Openshift Console, select “Catalog”:</li>
@@ -655,29 +652,29 @@ VM to the right network.<br/>
 <strong>Do not forget to select the right (vm-“your name”) name space</strong></p>
 </li>
 </ul>
-<p>![](./images/network37.png"
-![](./images/network38.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network37-19a9df523ac4a65c5b3fe75f96700a17.png width=1040 height=530 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
+<img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network38-c9760671bb404d0221fa3620c7b4173d.png width=672 height=853 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=3>
 <li class="">Select “network Interfaces (1)”</li>
 </ol>
-<p>![](./images/network39.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network39-1a20e46c11aa3680758eb0f2a611e77f.png width=1240 height=759 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=4>
 <li class="">Notice there is already a default interface, this is the deafult POD
 network. Select “Add network interface”</li>
 </ol>
-<p>![](./images/network40.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network40-d454e30e24b81e6862b95202f80b03c9.png width=1353 height=255 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=5>
 <li class="">Fill in the Name =fedora05-your-name</li>
 </ol>
 <ul>
 <li class="">
-<p>Select “your-name-vlan100”</p>
+<p>Select “your-name-vlan100”)</p>
 </li>
 <li class="">
 <p>Now paste the MAC address of the VNI that you stored before and save</p>
 </li>
 </ul>
-<p>![](./images/network41.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network41-626c4ffebdd7d4f72ccc33c4e7bc44be.png width=526 height=641 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=6>
 <li class="">Delete the primary network interface.<br/>
 <strong>Warning:</strong> If you forget to do this the primary interface will
@@ -686,18 +683,18 @@ will not be able to reach the localnet with out you adding manual
 routing. Since you don’t need the primary / POD network delete it.<br/>
 Create the VM and accept the boot disk warning.</li>
 </ol>
-<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network42-37d9c9bcc52fabc75d824b8b382949fb.png width=1324 height=210 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /><br/>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network42-37d9c9bcc52fabc75d824b8b382949fb.png width=1324 height=210 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog />
 <img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network43-cec64d8878808c40e1d2f5f2341b2f6d.png width=2240 height=401 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network44-d5ccc099626d3c0d43fbf3980763c0a6.png width=1329 height=143 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=7>
 <li class="">Create the VM. It should take less than a minute to provision and
 start the VM.</li>
 </ol>
-<p>![](./images/network45.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network45-f85e7dd270dfc1cdb2f13cf252b9a39e.png width=1781 height=1077 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=8>
 <li class="">Open the console of the VM</li>
 </ol>
-<p>![](./images/network46.png"</p>
+<p><img decoding=async loading=lazy src="data:image/png;base64,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" width=383 height=341 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=9>
 <li class="">Login with the user name “fedora” given at the top of your screen
 and paste the password using the “paste to Console” and press enter
@@ -728,7 +725,7 @@ You should see that interface “enp1s0”has received the IP address that
 is assigned to the VNI attached to the cluster.</p>
 </li>
 </ul>
-<p>![](./images/network48.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network48-29df5d121816cb32916993eaf5755905.png width=1042 height=497 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=create-and-attach-a-windows-server-vlan-200>Create and attach a Windows server VLAN 200<a href=#create-and-attach-a-windows-server-vlan-200 class=hash-link aria-label="Direct link to Create and attach a Windows server VLAN 200" title="Direct link to Create and attach a Windows server VLAN 200" translate=no>​</a></h2>
 <ol>
 <li class="">Lookup the Mac address of vni-“ÿour-name”-2 and store for later use</li>
@@ -949,7 +946,7 @@ which a gateway to the NTP service we are going to use later.</p>
 <ol>
 <li class="">Create security Group</li>
 </ol>
-<p>![](./images/network63.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network63-7e347a568c7d1ba251323d1b2b3d208d.png width=748 height=945 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=2>
 <li class="">
 <p>Review what you can configure. Typically you create a new security
@@ -972,13 +969,13 @@ service of your choice. For this demo we chose “ibm-ntp-server”.</p>
 </li>
 <li class="">
 <p>We only enable the gateway endpoint in “eu-de1”</p>
-<p>![](./images/network64.png"</p>
-<p>![](./images/network65.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network64-23d8ddb3d22286ed6758ba3b5a7685c5.png width=1338 height=167 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network65-90f09303feac9f1440c2283f32860524.png width=654 height=1043 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 </li>
 <li class="">
 <p>Now Cancel the creation of the NTP gateway by selecting “Virtual
 private gateways” at the top of the page to leave this page</p>
-<p>![](./images/network66.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network66-d53025a3ad450ae92010dfc1dd9bcd7e.png width=589 height=135 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 </li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=vpe-to-ntp-demo>VPE to NTP demo<a href=#vpe-to-ntp-demo class=hash-link aria-label="Direct link to VPE to NTP demo" title="Direct link to VPE to NTP demo" translate=no>​</a></h3>
@@ -1021,7 +1018,7 @@ administrator</p>
 <p>Notice the ntp peer is time.windows.com</p>
 </li>
 </ul>
-<p>![](./images/network68.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network68-064ec6ba69411a4d4cfe98cc791a78a3.png width=663 height=652 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ol start=4>
 <li class="">Configure the IBM Cloud NTP service as NTP source. Normally you
 would use the DNS name “time.adn.networklayer.com” but for demo
@@ -1045,12 +1042,12 @@ we are not accidentally using a public IP address.</li>
 <p>W32tm /query /status 🡪 notice the last successful sync</p>
 </li>
 </ul>
-<p>![](./images/network69.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network69-4931815c746369fad9f931ddb521c6d3.png width=1099 height=877 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ul>
 <li class="">Now do the same exercise but use the DNS name
 time.adn.networklayer.com</li>
 </ul>
-<p>![](./images/network70.png"</p>
+<p><img decoding=async loading=lazy src=/rovs-tutorial/assets/images/network70-4fec4fdc216b907524f4218b768f886c.png width=1394 height=923 class=" expandable-image img_ev3q" role=button tabindex=0 aria-label="Expand image" aria-haspopup=dialog /></p>
 <ul>
 <li class="">
 <p>Notice the last successful sync time</p>
