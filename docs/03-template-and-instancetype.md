@@ -188,7 +188,7 @@ machine to use with other templates.
 
     ![21 Sysprep](images/template-image21.png)
 
-1. Copy and paste the XML code block to automate the installation and configuration of the Windows server. Download [autounattend.xml](https://github.com/ibm-cloud-assets/rovs-tutorial/blob/main/static/img/autounattend.xml) file.
+1. Copy and paste the following code block, which helps to automate the installation and configuration of the Windows server into the autounattend.xml section: 
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
