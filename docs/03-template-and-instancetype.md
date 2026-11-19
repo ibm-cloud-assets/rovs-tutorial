@@ -190,7 +190,7 @@ machine to use with other templates.
 
 1. Copy and paste the XML code block to automate the installation and configuration of the Windows server. Download [autounattend.xml](https://github.com/ibm-cloud-assets/rovs-tutorial/blob/main/static/img/autounattend.xml) file.
 
-'''
+```
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:schemas-microsoft-com:unattend">
   <settings pass="windowsPE">
@@ -326,7 +326,7 @@ machine to use with other templates.
     </component>
   </settings>
 </unattend>
-'''
+```
 1. Once the code is pasted, click the Save button on the dialog.
 
     ![22 Windows 2k19 Sysprep](images/template-image43.png)
