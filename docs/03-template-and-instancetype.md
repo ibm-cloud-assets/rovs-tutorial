@@ -188,65 +188,8 @@ machine to use with other templates.
 
     ![21 Sysprep](images/template-image21.png)
 
-1. Copy and paste the following code block, which helps to automate the installation and configuration of the Windows server into the autounattend. The XML code block is available <a href="autounattend.xml" target="_blank" rel="noopener">here</a>.
+1. Copy and paste the XML code block to automate the installation and configuration of the Windows server. Download [autounattend.xml](/rovs-tutorial/autounattend.xml) file.
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<unattend xmlns="urn:schemas-microsoft-com:unattend"
-          xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="urn:schemas-microsoft-com:unattend">
-  <settings pass="windowsPE">
-    <component name="Microsoft-Windows-Setup"
-               processorArchitecture="amd64"
-               publicKeyToken="31bf3856ad364e35"
-               language="neutral"
-               versionScope="nonSxS">
-      <DiskConfiguration>
-        <Disk wcm:action="add">
-          <CreatePartitions>
-            <CreatePartition wcm:action="add">
-              <Order>1</Order>
-              <Extend>true</Extend>
-              <Type>Primary</Type>
-            </CreatePartition>
-          </CreatePartitions>
-          <ModifyPartitions>
-            <ModifyPartition wcm:action="add">
-              <Active>true</Active>
-              <Format>NTFS</Format>
-              <Label>System</Label>
-              <Order>1</Order>
-              <PartitionID>1</PartitionID>
-            </ModifyPartition>
-          </ModifyPartitions>
-          <DiskID>0</DiskID>
-          <WillWipeDisk>true</WillWipeDisk>
-        </Disk>
-      </DiskConfiguration>
-      <ImageInstall>
-        <OSImage>
-          <InstallFrom>
-            <MetaData wcm:action="add">
-              <Key>/IMAGE/NAME</Key>
-              <Value>Windows Server 2019 SERVERSTANDARD</Value>
-            </MetaData>
-          </InstallFrom>
-          <InstallTo>
-            <DiskID>0</DiskID>
-            <PartitionID>1</PartitionID>
-          </InstallTo>
-        </OSImage>
-      </ImageInstall>
-      <UserData>
-        <AcceptEula>true</AcceptEula>
-        <FullName>Administrator</FullName>
-        <Organization>My Organization</Organization>
-      </UserData>
-      <EnableFirewall>false</EnableFirewall>
-    </component>
-  </settings>
-```
 1. Once the code is pasted, click the Save button on the dialog.
 
     ![22 Windows 2k19 Sysprep](images/template-image43.png)
