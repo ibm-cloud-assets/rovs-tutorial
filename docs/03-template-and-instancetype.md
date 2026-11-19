@@ -192,7 +192,7 @@ machine to use with other templates.
 
 1. Once the code is pasted, click the Save button on the dialog.
 
-    ![22 Windows 2k19 Sysprep](images/template-image22.png)
+    ![22 Windows 2k19 Sysprep](images/template-image43.png)
 
 1. With the Sysprep in place, click the Create VirtualMachine button at the bottom of the screen.
 
@@ -202,15 +202,15 @@ machine to use with other templates.
 
 1. This process may take a few minutes due to needing to download the boot ISO image. You can check on the progress of the download by clicking  the Diagnostics tab.
 
-    ![](images/template-image24.png)
+    ![](images/template-image55.png)
 
 1. After a few moments, the virtual machine will start, and the status will change to Running. Click to the Console tab to view the autoattend installation process:
 
-    ![26 Windows 2k19 Console](images/template-image25.png)
+    ![26 Windows 2k19 Console](images/template-image117.png)
 
 1. Once the VM installation process is complete (provisioning will take 3-5 minutes, starting and configuring will take about 10 minutes), go ahead and power it off with the stop button.
 
-    ![27 Stop Button](images/template-image26.png)
+    ![27 Stop Button](images/template-image31.png)
 
 1. With the machine powered down we want to make a clone of the root volume that we can use for future Windows template-based installs, without having to run through the customization process each time.
 
@@ -218,7 +218,7 @@ machine to use with other templates.
 
 1. Find the win-sysprep PVC created with our installation, and using the three-dot menu on the right select Clone PVC.
 
-    ![](images/template-image27.png)
+    ![](images/template-image46.png)
 
 1. On the menu that pops up, fill in the following options, then click the Clone button:
 
@@ -226,25 +226,25 @@ machine to use with other templates.
     - Access mode: Shared access (RWX)
     - StorageClass: ocs-external-storagecluster-ceph-rbd
 
-    ![](images/template-image28.png)
+    ![](images/template-image53.png)
 
 1. Once this is saved, you can use it to quickly create Windows VMs in the future.
 
 1. Return to the Catalog menu item, and use this cloned PVC as a boot source for quick-creating new virtual machines by selecting the option for PVC (clone PVC) as the Disk source, and selecting the Windows-2k19-Sysprep-Template PVC as the PVC name to clone, and click the Customize VirtualMachine button to configure boot mode BIOS instead UEFI.
 
-    ![30 Windows Template](images/template-image29.png)
+    ![30 Windows Template](images/template-image119.png)
 
     ![](images/template-image30.png)
 
 1. Configure BIOS and press Create VirtualMachine
 
-    ![31 Windows Template BIOS](images/template-image31.png)
+    ![31 Windows Template BIOS](images/template-image41.png)
 
-    ![](images/template-image32.png)
+    ![](images/template-image51.png)
 
 1. In a few moments the new Windows Server 2019 virtual machine will boot up from our cloned PVC.
 
-    ![32 Windows Template Running](images/template-image33.png)
+    ![32 Windows Template Running](images/template-image116.png)
 
 ## Introduction to Instance Types
 
@@ -255,22 +255,22 @@ This section explores provisioning a VM using an instance type.
 
 1. To get started click on Catalog on the left-side menu. You will see the default catalog item is InstanceType.
 
-    ![](images/template-image34.png)
+    ![](images/template-image32.png)
 
 1. The first step in using an instance type is to select a volume to boot from. Similar to the templates that provide boot sources, these
     boot sources are available to use for guests provisioned with an InstanceType. You can see the included volumes by selecting the openshift-virtualization-os-images project, or you can upload your own with the Add volume button.Don't forget to select your
     project "vm-your-name".
 
-    ![](images/template-image35.png)
+    ![](images/template-image45.png)
 
 1. Click on the rhel9 boot volume to select it as the volume type to boot from. Selecting it will be denoted by a small vertical blue line to the left of the image name and the name itself being changed to a bold font.
 
-    ![](images/template-image36.png)
+    ![](images/template-image58.png)
 
 1. Next you can select the instance type you would like to use. There are Red Hat provided instance types by default, or you can create
     your own for your specific use case. If you hover over a provided instance type you can see a description of its intended use.
 
-    ![](images/template-image37.png)
+    ![](images/template-image106.png)
 
     The Red Hat provided instance types are intended for the following uses:
 
@@ -284,13 +284,13 @@ This section explores provisioning a VM using an instance type.
 
 1. Click on the U series tile to see a dropdown list of defined resources for general instance types. The default option here is medium: 1 CPUs, 4 GiB Memory. Select it. Again selection will be indicated by a blue line, and a bolding of the font for the instance type.
 
-    ![](images/template-image38.png)
+    ![](images/template-image120.png)
 
 1. The last section that needs to be completed when provisioning using an instance type is similar to the template section. You need to
     provide a name for the virtual machine, and select the storage class to be used for a backing disk. By default, a name will be generated for the VM, select the storage class ocs-storagecluster-ceph-rbd-virtualization. When you are satisfied,
     click the Create VirtualMachine button.
 
-    ![](images/template-image39.png)
+    ![](images/template-image29.png)
 
 1. You will be directed to the virtual machine overview page, and see that the VM provisioned using an instance type is now up and
     running.
@@ -310,9 +310,9 @@ To save resources for the next lab, please stop any VMs that you created in this
 
     Now all VMs should be in Stopped state.
 
-    ![40 All Stopped](images/template-image41.png)
+    ![40 All Stopped](images/template-image28.png)
 
-    ![](images/template-image42.png)
+    ![](images/template-image115.png)
 
 ## Summary
 
