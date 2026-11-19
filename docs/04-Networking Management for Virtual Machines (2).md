@@ -435,8 +435,7 @@ browse to the Virtualization page
     “Networking”, “ VNI attachments” and “Ingress” in the left of you
     window. Come back to this
 
-> ![](./images/network14.png"
-> style="width:5.76168in;height:2.63891in" />\
+![](./images/network14.png)
 > **On the overview**: Check status of nodes, add-ons, master and
 > Ingress, find the cluster details\
 > At the right find and click the link to the VPC the cluster is
@@ -449,8 +448,7 @@ browse to the Virtualization page
 > attach the VNI to a VM, the VM will be able to migrate between nodes.
 > VNI is assigned to virt-subnet-01-vni-vlan100 with VLAN100 and it has
 > an IP address assigned.\
-> ![](./images/network15.png"
-> style="width:6.26806in;height:2.08472in" />**On the Worker pool**: We
+![](./images/network15.png)
 > have only 1 worker pool deployed\
 > **On the VNI attachments**: See all the VNIs created for all the users
 > in the shared account
@@ -478,15 +476,15 @@ however fail.
 
 1.  In your browser go to the IBM Cloud Portal go to the ROVS cluster.
 
-![](./images/network17.png"
+![](./images/network17.png)
 
 2.  Select the “shared-rovs” cluster
 
-![](./images/network18.png"
+![](./images/network18.png)
 
 3.  Select VNI attachments and “attach VNIs”
 
-![](./images/network19.png"
+![](./images/network19.png)
 
 4.  Configure the attachment to the cluster.
 
@@ -500,7 +498,7 @@ however fail.
       privileges to actually attach the VNI.\
       \
       \
-      ![](./images/network20.png"
+      ![](./images/network20.png)
       
 ## NMstate Operator 
 
@@ -520,7 +518,7 @@ the API server.
     CustomResourceDefinitions click. In the “Filter by Name” type
     “nmstate” and click NodeNetworkState.
 
-![](./images/network22.png"
+![](./images/network22.png)
 
 2.  Select “Instances” and expand one of the nodes. As stated, you will
     notice that the worker nodes have a bridge already configured to be
@@ -579,8 +577,8 @@ were created for you when you started the invitation script.
     Notice again that you do not have the create option at the right top
     level.
 
-![](./images/network31.png"
-![](./images/network32.png"
+![](./images/network31.png)
+![](./images/network32.png)
 
 2.  Examine the details of the network attachment definition
     “your-name-localnet-vlan100”. This was created in
@@ -589,7 +587,7 @@ were created for you when you started the invitation script.
 
 - Name: “your-name”-localnet-vlan100”
 
-- Namespace: “vm-your-name”
+- Namespace: “vm-your-name”)
 
 - Cluster User Defined Network: “your-name-localnet-vlan100”\
   This is where the network attachment is made
@@ -628,8 +626,8 @@ attachments and select vni-“your-name”-1
 
 1.  Copy the Mac address and store for later use
 
-![](./images/network35.png)\
-\
+![](./images/network35.png)
+
 ![](./images/network36.png)
 
 2.  Go back to previous tab with the Virtualization context on the
@@ -644,25 +642,25 @@ attachments and select vni-“your-name”-1
   VM to the right network.\
   **Do not forget to select the right (vm-“your name”) name space**
 
-![](./images/network37.png"
-![](./images/network38.png"
+![](./images/network37.png)
+![](./images/network38.png)
 
 3.  Select “network Interfaces (1)”
 
-![](./images/network39.png"
+![](./images/network39.png)
 
 4.  Notice there is already a default interface, this is the deafult POD
     network. Select “Add network interface”
 
-![](./images/network40.png"
+![](./images/network40.png)
 
 5.  Fill in the Name =fedora05-your-name
 
-- Select “your-name-vlan100”
+- Select “your-name-vlan100”)
 
 - Now paste the MAC address of the VNI that you stored before and save
 
-![](./images/network41.png"
+![](./images/network41.png)
 
 6.  Delete the primary network interface.\
     **Warning:** If you forget to do this the primary interface will
@@ -671,7 +669,7 @@ attachments and select vni-“your-name”-1
     routing. Since you don’t need the primary / POD network delete it.\
     Create the VM and accept the boot disk warning.
 
-![](./images/network42.png)\
+![](./images/network42.png)
 ![](./images/network43.png)
 
 ![](./images/network44.png)
@@ -679,11 +677,11 @@ attachments and select vni-“your-name”-1
 7.  Create the VM. It should take less than a minute to provision and
     start the VM.
 
-![](./images/network45.png"
+![](./images/network45.png)
 
 8.  Open the console of the VM
 
-![](./images/network46.png"
+![](./images/network46.png)
 
 9.  Login with the user name “fedora” given at the top of your screen
     and paste the password using the “paste to Console” and press enter
@@ -708,7 +706,7 @@ attachments and select vni-“your-name”-1
   You should see that interface “enp1s0”has received the IP address that
   is assigned to the VNI attached to the cluster.
 
-![](./images/network48.png"
+![](./images/network48.png)
 
 ## Create and attach a Windows server VLAN 200
 
@@ -895,7 +893,7 @@ which a gateway to the NTP service we are going to use later.
 
 1.  Create security Group
 
-![](./images/network63.png"
+![](./images/network63.png)
 
 2.  Review what you can configure. Typically you create a new security
     group and configure the inbound rules for the service. For the NTP
@@ -912,14 +910,14 @@ which a gateway to the NTP service we are going to use later.
 
 - We only enable the gateway endpoint in “eu-de1”
 
-  ![](./images/network64.png"
+  ![](./images/network64.png)
   
-  ![](./images/network65.png"
+  ![](./images/network65.png)
   
 - Now Cancel the creation of the NTP gateway by selecting “Virtual
   private gateways” at the top of the page to leave this page
 
-  ![](./images/network66.png"
+  ![](./images/network66.png)
  
 ### VPE to NTP demo
 
@@ -952,7 +950,7 @@ created in the previous step.
 
 - Notice the ntp peer is time.windows.com
 
-![](./images/network68.png"
+![](./images/network68.png)
 
 4.  Configure the IBM Cloud NTP service as NTP source. Normally you
     would use the DNS name “time.adn.networklayer.com” but for demo
@@ -969,12 +967,12 @@ created in the previous step.
 
 - W32tm /query /status 🡪 notice the last successful sync
 
-![](./images/network69.png"
+![](./images/network69.png)
 
 - Now do the same exercise but use the DNS name
   time.adn.networklayer.com
 
-![](./images/network70.png"
+![](./images/network70.png)
 
 - Notice the last successful sync time
 
