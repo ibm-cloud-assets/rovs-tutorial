@@ -1,3 +1,7 @@
+---
+id: storage-management
+---
+
 # Storage Management
 
 OpenShift Virtualization on IBM Cloud at this time does not support all types of storage. The script is written in the general context of Red Hat OpenShift Virtualization and will not discuss the specifics of what is supported in IBM Cloud.

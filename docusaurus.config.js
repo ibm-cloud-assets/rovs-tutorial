@@ -81,7 +81,7 @@ const config = {
               { label: 'Introduction', to: '/docs/intro' },
               { label: '1. VM Management', to: '/docs/vm-management' },
               { label: '2. Storage Management', to: '/docs/storage-management' },
-              { label: '3. Templates & InstanceTypes', to: '/docs/template-instancetype' },
+              { label: '3. Templates & InstanceTypes', to: '/docs/templates-instancetypes' },
               { label: '4. Networking', to: '/docs/networking' },
               { label: '5. VMs with YAML', to: '/docs/vm-yaml' },
               { label: '6. Back Up Your VM with OADP', to: '/docs/oadp-backup' },

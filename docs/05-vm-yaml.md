@@ -1,3 +1,7 @@
+---
+id: vm-yaml
+---
+
 # Create and Manage VMs with YAML
 
 > Estimated duration: 90 minutes

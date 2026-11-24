@@ -1,4 +1,8 @@
-## Templates and InstanceTypes
+---
+id: templates-instancetypes
+---
+
+# Templates and InstanceTypes
 
 OpenShift Virtualization provides **Templates** and **InstanceTypes** to simplify and standardize the deployment of virtual machines.
 

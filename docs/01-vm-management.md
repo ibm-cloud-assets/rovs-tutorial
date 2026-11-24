@@ -1,3 +1,7 @@
+---
+id: vm-management
+---
+
 # Virtual Machine Management
 
 ## Introduction

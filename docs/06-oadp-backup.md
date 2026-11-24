@@ -1,3 +1,7 @@
+---
+id: oadp-backup
+---
+
 # OpenShift API for Data Protection (OADP) Backup Lab
 
 > Estimated duration: 60 minutes

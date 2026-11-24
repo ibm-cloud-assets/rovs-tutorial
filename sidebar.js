@@ -10,7 +10,7 @@ const sidebars = {
       items: [
         { type: 'doc', id: 'vm-management', label: '1. VM Management' },
         { type: 'doc', id: 'storage-management', label: '2. Storage Management' },
-        { type: 'doc', id: 'template-instancetype', label: '3. Templates & InstanceTypes' },
+        { type: 'doc', id: 'templates-instancetypes', label: '3. Templates & InstanceTypes' },
         { type: 'doc', id: 'networking', label: '4. Networking' },
         { type: 'doc', id: 'vm-yaml', label: '5. VMs with YAML' },
         { type: 'doc', id: 'oadp-backup', label: '6. Back Up Your VM with OADP' },
