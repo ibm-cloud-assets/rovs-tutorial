@@ -34,7 +34,7 @@ In this tutorial, you will:
 
 1. Navigate to Virtualization persona in the left-side menu and then click on **VirtualMachines**.
 
-1. The project assigned to vm-"your-name"-1, that is hosting VM workloads, will be listed in the center column tree view.
+1. The project assigned to VM-"your-name"-1, that is hosting VM workloads, will be listed in the center column tree view.
 
 1. If any VMs are showing a status of Running, highlight the VM in the center tree column, and select the Stop button or option from the Actions dropdown menu.
 
@@ -61,7 +61,7 @@ Templates provided by Red Hat are managed by the OpenShift Virtualization Operat
 4. Open the **⋮** menu on its row and choose **Clone**.
 5. Fill in the dialog:
    - **Template project:** `openshift`
-   - **Display name:** something users will recognize, for example `Fedora VM - SAMI`
+   - **Display name:** something users will recognize, for example `Centos VM <your name>`
    - **Provider:** your team or company name
    - **Clone boot source:** leave unchecked, so the template keeps using the shared, auto-updated boot source
 6. Click **Clone**.
@@ -70,19 +70,19 @@ Templates provided by Red Hat are managed by the OpenShift Virtualization Operat
 
   **Template name**
 
-  `centos-stream9-server-small-"your name"`
+  `centos-stream9-server-small-<your name>`
 
   **Template project**
 
   Select your own project, for example:
 
-  `vm-"your name"-1`
+  `VM-<your name>-1`
 
   Do not select the `openshift` project.
 
   **Template display name**
 
-  `CentOS Stream 9 Database Server "your name"`
+  `CentOS Stream 9 Database Server <your name>`
 
   **Template provider**
 
@@ -113,19 +113,19 @@ An information message at the top of the page explains that templates provided b
 
   **Template name**
 
-  `centos-stream9-server-small-"your name"`
+  `centos-stream9-server-small-<your name>`
 
   **Template project**
 
   Select your own project, for example:
 
-  `vm-"your name"`
+  `VM-<your name>-1`
 
   Do not select the `openshift` project.
 
   **Template display name**
 
-  `CentOS Stream 9 Database Server "your  name"`
+  `CentOS Stream 9 Database Server "your name"`
 
   **Template provider**
 
@@ -139,8 +139,8 @@ An information message at the top of the page explains that templates provided b
 
 ### Open the custom template
 
-1. Go to **Virtualization → Templates** and set the project dropdown to: `vm-"your name"-1`
-2. Find the template you just created `CentOS Stream 9 Database Server "your  name"`
+1. Go to **Virtualization → Templates** and set the project dropdown to: `VM-<your name>-1`
+2. Find the template you just created `CentOS Stream 9 Database Server "your name"`
 3. Click the template name to open it.
 4. Verify that the custom template is in your project and that the provider is shown as **ROVS Tutorial**.
 
@@ -172,7 +172,7 @@ The custom template can now be modified without changing the original Red Hat-pr
 
 ![CPU and RAM](images/image-9.png)
 
-4 .Next click on the Scripts tab at the top, and in the section called Cloud-init click the Edit button.
+4. Next, click on the Scripts tab at the top, and in the section called Cloud-init click the Edit button.
 
 ![script edit](images/image-17.png)
   
@@ -183,19 +183,19 @@ userData: |-
  #cloud-config
  user: centos
  password: ${CLOUD_USER_PASSWORD}
- chpasswd: { expire: False }
+ chpasswd: 
+   { expire: False }
  packages:
   - mariadb-server
   runcmd:
   - systemctl enable mariadb
   - systemctl start mariadb
-
 ```
 
 ### Remove the operator labels (Optional)
 
-A clone can keep labels saying the virtualization operator manages it. Remove them so the operator treats your template as yours and not as Openshift provided.
-You can change the `metadata.labels` from the details tab or from the **YAML** tab. We will make the change in the **YAML** tab
+**A cloned template can retain labels indicating that it is managed by the OpenShift Virtualization Operator. Remove the relevant operator-management labels so that the custom template is treated as user-managed rather than operator-managed.**
+You can change the `metadata.labels` from the **details** tab or from the **YAML** tab. We will make the change in the **YAML** tab
 
 6. Open the template's **YAML** tab.
 7. Under `metadata.labels`, delete any of these that are present:
@@ -204,7 +204,7 @@ You can change the `metadata.labels` from the details tab or from the **YAML** t
    - `app.kubernetes.io/version`
    - `app.kubernetes.io/component`
 8. Under `metadata.annotations` , delete `operator-sdk/primary-resource` and `operator-sdk/primary-resource-type`. **(not present in the example)**
-9. Keep `template.kubevirt.io/type: vm`. The console needs it to list the template.
+9. Keep `template.kubevirt.io/type: VM`. The console needs it to list the template.
 101. Click the **Save** button, you will see a green Saved prompt, then follow that by clicking the Apply button.
 
 ![Save](images/image-18.png)
@@ -216,7 +216,7 @@ You can change the `metadata.labels` from the details tab or from the **YAML** t
 > **Note:** Since OpenShift Virtualization 4.22, VM creation cannot start from the template details page anymore. Start from **Virtualization → VirtualMachines → Create**, and then select **Create from Template** in the creation wizard.
 
 1. In the OpenShift web console, select **Virtualization → VirtualMachines**.
-2. Select your project "vm-"your name"-1.
+2. Select your project "VM-<your name>-1.
 3. Click **Create**.
 
 The VM creation wizard provides different creation methods, including creating a VM with a custom configuration, creating a VM from a template, and cloning an existing VM.
@@ -229,7 +229,7 @@ The VM creation wizard provides different creation methods, including creating a
 
 ![Templates](images/image-22.png)
 
-7. Select your template:  `centos-stream9-server-small-"your name"`
+7. Select your template:  `centos-stream9-server-small-<your name>`
 
 ![Select](images/image-25.png)
 
@@ -237,8 +237,8 @@ The VM creation wizard provides different creation methods, including creating a
 
 6. **Customization:** change CPU, memory, disk, or SSH key for this VM only, if needed. Click **Next**.
 Verify that the VM has:
-- **CPU:** 4 vCPUs
-- **Memory:** 8 GiB
+- **CPU:** 2 vCPUs
+- **Memory:** 4 GiB
 
 ![Review](images/image-23.png)
 
@@ -248,7 +248,7 @@ Verify that the VM has:
 
 ![Review](images/image-24.png)
 
-click **Create VirtualMAchine**
+click **Create VirtualMachine**
 
 
 ### Verify the configuration
@@ -290,8 +290,8 @@ OpenShift Virtualization provides predefined InstanceTypes that define reusable 
 
 An InstanceType can be either:
 
-- **Cluster-wide:** `VirtualMachineClusterInstancetype`
-- **Project-specific:** `VirtualMachineInstancetype`
+- **Cluster-wide:** `VirtualMachineClusterInstanceType`
+- **Project-specific:** `VirtualMachineInstanceType`
 
 The difference is mainly scope. Both define reusable VM compute characteristics such as CPU and memory, but one is available cluster-wide while the other belongs to a specific OpenShift project.
 The predefined `u1.medium` InstanceType is a cluster-wide InstanceType.
@@ -348,14 +348,14 @@ The **Details** tab provides a metadata summary, while the **YAML** tab contains
 
 Now create a second VM, this time using an InstanceType.
 
-1.- Select **Virtualization → VirtualMachines**.
-- Select your project: `vm-"your name"-1`
+1. Select **Virtualization → VirtualMachines**.
+- Select your project: `VM-<your name>-1`
 - Click **Create**.
 2. Select the option for creating a VM using a **Custom configuration**.
-3. fill in:
+3. Fill in:
 - Name: `fedora-"yourname"-it1`
-- Description: `vm created using instancetype`
-- Location: your project `vm-"your name"-1`
+- Description: `VM created using instancetype`
+- Location: your project `VM-<your name>-1`
 
 ![VirtualMachines Create menu](images/image-33.png)
 
@@ -365,12 +365,12 @@ An InstanceType defines the compute configuration, but the VM still requires a b
 
 1. Select an operating system image available in the ROVS environment, for example:
 
-- Guest Operating System; `other linux`
-- Guest Opewrating System type: `fedora`
+- Guest Operating System; `Other linux`
+- Guest Operating System type: `fedora`
 
 ![Operating system selection](images/image-34.png)
 
-2. Click next
+2. Click Next
 
 > **Note:** The operating system images available to you depend on the boot sources configured in the cluster.
 
@@ -381,9 +381,9 @@ An InstanceType defines the compute configuration, but the VM still requires a b
 
 ![boot source](images/image-39.png)
 
-4. Click next
+4. Click Next
 
-### Select the Instancetype
+### Select the InstanceType
 
 1. Select: `u1 - medium`
 
@@ -395,7 +395,7 @@ An InstanceType defines the compute configuration, but the VM still requires a b
 
 ### Review and create
 
-1 Review the VM configuration, including:
+1. Review the VM configuration, including:
 
 - VM name
 - Storage
@@ -405,7 +405,7 @@ The **InstanceType controls the compute sizing**, while the remaining VM configu
 
 ![Final VM configuration](images/image-40.png)
 
-1. Click Create VirtualMachine
+2. Click Create VirtualMachine
 
 
 ### Templates and InstanceTypes Compared
@@ -426,6 +426,19 @@ The key distinction is:
 > **Templates standardize a VM configuration. InstanceTypes standardize the amount and characteristics of compute assigned to a VM.**
 
 Templates and InstanceTypes are not necessarily competing approaches. InstanceTypes can also be used as building blocks in standardized VM deployment workflows.
+
+---
+
+### Cleanup
+
+To save resources for the next lab, please stop any VMs that you created in this module.
+- Navigate to **Virtualization → VirtualMachines**.
+- Select the project containing the VMs that you created during this tutorial.
+- If any VMs have a status of **Running**, select the VM and click **Stop**, or select **Stop** from the **Actions** menu.
+
+All VMs created during this tutorial should now be in the **Stopped** state.
+
+![All VMs stopped](images/template-image28.png)
 
 ---
 
