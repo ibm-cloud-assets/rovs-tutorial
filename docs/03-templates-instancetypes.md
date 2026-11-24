@@ -30,11 +30,11 @@ In this tutorial, you will:
 
 ## Prepare for the lab
 
-1. The tasks that we are about to perform will require us to provision a few additional VMs. In preparation we are going to ask that you shut down the existing fedora01 and fedora02 virtual machines to ensure that your shared environment has enough resources to complete the lab.
+1. The tasks in this lab require several additional VMs. Before starting, shut down the existing VMs to ensure that sufficient resources are available in the shared environment.
 
-1. Navigate to Virtualization persona in the left-side menu and then click on Virtualmachines.
+1. Navigate to Virtualization persona in the left-side menu and then click on **VirtualMachines**.
 
-1. The project assigned to vm-"your-name"-1, that is hosting VM workloads, will be listed in the center column treeview.
+1. The project assigned to vm-"your-name"-1, that is hosting VM workloads, will be listed in the center column tree view.
 
 1. If any VMs are showing a status of Running, highlight the VM in the center tree column, and select the Stop button or option from the Actions dropdown menu.
 
@@ -76,13 +76,13 @@ Templates provided by Red Hat are managed by the OpenShift Virtualization Operat
 
   Select your own project, for example:
 
-  `vm-"your name"`
+  `vm-"your name"-1`
 
   Do not select the `openshift` project.
 
   **Template display name**
 
-  `CentOS Stream 9 Database Server "your  name"`
+  `CentOS Stream 9 Database Server "your name"`
 
   **Template provider**
 
