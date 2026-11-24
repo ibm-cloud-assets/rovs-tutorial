@@ -726,7 +726,7 @@ attachments and select vni-“your-name”-1
 
 - PVC Project = vm-“your-name”-2
 
-- PVC name = windows-sysprep-2k19-bert-template
+- PVC name = windows-sysprep-2k19-"your name"-template
 
 - Name = windows 2k19-“your-name”
 
@@ -749,7 +749,7 @@ attachments and select vni-“your-name”-1
 
 - Name = windows06-2k19-“your-name”-nic
 
-- bert-localnet-vlan200
+- "your name"-localnet-vlan200
 
 - advanced settings 🡺 paste the MAC address you stored before\
   Save

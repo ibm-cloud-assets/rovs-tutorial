@@ -394,11 +394,11 @@ app="vm-to-backup" (app=fedora01)
     kind: NonAdminBackup
     metadata:
       name: backup-vm-to-backup-01
-      namespace: vm-bert-1
+      namespace: vm-"your name"-1
     spec:
       backupSpec:
         includedNamespaces:
-          - vm-bert-1
+          - vm-"your name"-1
         labelSelector:
           matchLabels:
             backup: vm-to-backup
@@ -418,9 +418,9 @@ app="vm-to-backup" (app=fedora01)
     ![](./images/Clipboard_2026-11-09-15-32-12.png)
 
     > Backup Naming Convention: Use a unique name for each new backup. For example:
-    backup-fedora01-bert-01
-    backup-fedora01-bert-02
-    backup-fedora01-bert-03
+    backup-fedora01-"your name"-01
+    backup-fedora01-"your name"-02
+    backup-fedora01-"your name"-03
     This makes it easy to identify individual backup operations.
 
 1. CLI Alternative
@@ -549,7 +549,7 @@ Wait for the restore to complete
 Start the restored VM if necessary
 Verify the restored data and point in time
 
-This avoids conflicts between resources already existing in vm-bert-1 and resources that OADP/Velero is trying to recreate. Red Hat documents OADP/Velero as the mechanism for restoring OpenShift Virtualization VM resources and persistent data.
+This avoids conflicts between resources already existing in vm-"your name"-1 and resources that OADP/Velero is trying to recreate. Red Hat documents OADP/Velero as the mechanism for restoring OpenShift Virtualization VM resources and persistent data.
 
 ## Stop and Delete the VM
 
@@ -592,7 +592,7 @@ The restore should recreate the Kubernetes resources that define the VM and rest
 
 ### Create the Restore Using the OpenShift Web Console
 
-1. Select the project containing the original VM. For example: "vm-bert-1"
+1. Select the project containing the original VM. For example: "vm-"your name"-1"
 
 1. Navigate to Home, Search for `NonAdminRestore`.
 
@@ -629,7 +629,7 @@ Do not start or modify the restored VM until the restore has completed. Monitor 
 
 1. Navigate to Home, search for: NonAdminRestore
 
-1. Select your restore, for example: `restore-fedora01-bert-01`
+1. Select your restore, for example: `restore-fedora01-"your name"-01`
 
 1. Open the Details tab. Monitor the restore status until the underlying Velero restore reaches: `Completed`.
 
@@ -673,7 +673,7 @@ Do not start or modify the restored VM until the restore has completed. Monitor 
 
 After the restore completes, verify that the VM and its associated persistent storage have been successfully recovered.
 
-1. In the **OpenShift Web Console**, select your project (for example, `vm-bert-1`).
+1. In the **OpenShift Web Console**, select your project (for example, `vm-"your name"-1`).
 
 1. Navigate to **Virtualization → VirtualMachines**.
 
